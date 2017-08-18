@@ -19,16 +19,13 @@ package org.fs.uibinding.util
 import android.view.MotionEvent
 import android.view.View
 import io.reactivex.Observable
+import org.fs.uibinding.model.LayoutState
 import org.fs.uibinding.model.ViewAttachState
-import org.fs.uibinding.observable.ViewAttachStateObservable
-import org.fs.uibinding.observable.ViewClickObservable
-import org.fs.uibinding.observable.ViewTouchObservable
+import org.fs.uibinding.observable.*
 
-// click observer
 fun View.clicks(): Observable<View> = ViewClickObservable(this)
-// touch observer
-fun View.touches(callback: (MotionEvent?) -> Boolean): Observable<MotionEvent> = ViewTouchObservable(this, callback)
-// attach observer
+fun View.longClicks(predicate: () -> Boolean = { true }): Observable<View> = ViewLongClickObservable(this, predicate)
+fun View.touches(callback: (MotionEvent?) -> Boolean = { _ -> false }): Observable<MotionEvent> = ViewTouchObservable(this, callback)
 fun View.attaches(): Observable<ViewAttachState> = ViewAttachStateObservable(this).filter { it == ViewAttachState.ATTACHED }
-// detach observer
 fun View.detaches(): Observable<ViewAttachState> = ViewAttachStateObservable(this).filter { it == ViewAttachState.DETACHED }
+fun View.layouts(): Observable<LayoutState> = ViewLayoutStateObservable(this)
