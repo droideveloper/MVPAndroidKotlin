@@ -15,34 +15,33 @@
  */
 package org.fs.uibinding.observable
 
-import android.view.View
+import android.widget.CompoundButton
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import org.fs.uibinding.model.LayoutState
 import org.fs.uibinding.util.checkMainThread
 
-class ViewLayoutStateObservable(private val view: View): Observable<LayoutState>() {
+class CompoundButtonCheckedChangedObservable(private val view: CompoundButton): Observable<Boolean>() {
 
-  override fun subscribeActual(observer: Observer<in LayoutState>?) {
+  override fun subscribeActual(observer: Observer<in Boolean>?) {
     if (observer != null) {
       if (!observer.checkMainThread()) { return }
 
       val listener = Listener(view, observer)
       observer.onSubscribe(listener)
-      view.addOnLayoutChangeListener(listener)
+      view.setOnCheckedChangeListener(listener)
     }
   }
 
-  class Listener(private val view: View, private val observer: Observer<in LayoutState>): MainThreadDisposable(), View.OnLayoutChangeListener {
+  class Listener(private val view: CompoundButton, private val observer: Observer<in Boolean>): MainThreadDisposable(), CompoundButton.OnCheckedChangeListener {
 
     override fun onDispose() {
-      view.removeOnLayoutChangeListener(this)
+      view.setOnCheckedChangeListener(null)
     }
 
-    override fun onLayoutChange(view: View?, l: Int, t: Int, r: Int, b: Int, pl: Int, pt: Int, pr: Int, pb: Int) {
+    override fun onCheckedChanged(view: CompoundButton?, checkState: Boolean) {
       if (!isDisposed) {
-        observer.onNext(LayoutState(this.view, l, t, r, b))
+        observer.onNext(checkState)
       }
     }
   }

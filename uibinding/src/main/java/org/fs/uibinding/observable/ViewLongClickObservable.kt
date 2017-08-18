@@ -40,8 +40,11 @@ class ViewLongClickObservable(private val view: View, private val predicate: () 
     }
 
     override fun onLongClick(view: View?): Boolean {
-      observer.onNext(this.view)
-      return predicate()
+      if (!isDisposed) {
+        observer.onNext(this.view)
+        return predicate()
+      }
+      return false
     }
   }
 }

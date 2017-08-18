@@ -15,35 +15,38 @@
  */
 package org.fs.uibinding.observable
 
-import android.view.View
+import android.widget.SeekBar
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import org.fs.uibinding.model.LayoutState
+import org.fs.uibinding.model.SeekState
 import org.fs.uibinding.util.checkMainThread
 
-class ViewLayoutStateObservable(private val view: View): Observable<LayoutState>() {
+class SeekBarProgressChangedObservable(private val view: SeekBar): Observable<SeekState>() {
 
-  override fun subscribeActual(observer: Observer<in LayoutState>?) {
-    if (observer != null) {
-      if (!observer.checkMainThread()) { return }
+  override fun subscribeActual(observer: Observer<in SeekState>?) {
+     if (observer != null) {
+       if (!observer.checkMainThread()) { return }
 
-      val listener = Listener(view, observer)
-      observer.onSubscribe(listener)
-      view.addOnLayoutChangeListener(listener)
-    }
+       val listener = Listener(view, observer)
+       observer.onSubscribe(listener)
+       view.setOnSeekBarChangeListener(listener)
+     }
   }
 
-  class Listener(private val view: View, private val observer: Observer<in LayoutState>): MainThreadDisposable(), View.OnLayoutChangeListener {
+  class Listener(private val view: SeekBar, private val observer: Observer<in SeekState>): MainThreadDisposable(), SeekBar.OnSeekBarChangeListener {
 
     override fun onDispose() {
-      view.removeOnLayoutChangeListener(this)
+      view.setOnSeekBarChangeListener(null)
     }
 
-    override fun onLayoutChange(view: View?, l: Int, t: Int, r: Int, b: Int, pl: Int, pt: Int, pr: Int, pb: Int) {
+    override fun onProgressChanged(view: SeekBar?, progress: Int, byUser: Boolean) {
       if (!isDisposed) {
-        observer.onNext(LayoutState(this.view, l, t, r, b))
+        observer.onNext(SeekState(this.view, progress, byUser))
       }
     }
+
+    override fun onStartTrackingTouch(view: SeekBar?) {}
+    override fun onStopTrackingTouch(view: SeekBar?) {}
   }
 }
