@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 abstract class AbstractDialogFragment<P: PresenterType> : DialogFragment() {
 
-  @Inject var presenter: P? = null
+  @Inject lateinit var presenter: P
 
   fun showProgress() {
     throw RuntimeException("you should implement show progress")
@@ -58,50 +58,47 @@ abstract class AbstractDialogFragment<P: PresenterType> : DialogFragment() {
 
   override fun onSaveInstanceState(outState: Bundle?) {
     super.onSaveInstanceState(outState)
-    presenter?.storeState(outState)
+    presenter.storeState(outState)
   }
 
   override fun onResume() {
     super.onResume()
-    presenter?.onResume()
+    presenter.onResume()
   }
 
   override fun onPause() {
     super.onPause()
-    presenter?.onPause()
+    presenter.onPause()
   }
 
   override fun onStart() {
     super.onStart()
-    presenter?.onStart()
+    presenter.onStart()
   }
 
   override fun onStop() {
     super.onStop()
-    presenter?.onStop()
+    presenter.onStop()
   }
 
   override fun onDestroy() {
     super.onDestroy()
-    presenter?.onDestroy()
+    presenter.onDestroy()
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    presenter?.requestPermissionsResult(requestCode, permissions, grantResults)
+    presenter.requestPermissionsResult(requestCode, permissions, grantResults)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    presenter?.activityResult(requestCode, resultCode, data)
+    presenter.activityResult(requestCode, resultCode, data)
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     if (item != null) {
-      val handle = presenter?.onOptionsItemSelected(item)
-      if (handle != null) {
-        return handle
-      }
+      return presenter.onOptionsItemSelected(item)
     }
     return super.onOptionsItemSelected(item)
   }
@@ -124,6 +121,6 @@ abstract class AbstractDialogFragment<P: PresenterType> : DialogFragment() {
   }
 
   override fun show(transaction: FragmentTransaction?, tag: String?): Int {
-    return  transaction?.add(this, tag)!!.commit()
+    return transaction?.add(this, tag)!!.commit()
   }
 }

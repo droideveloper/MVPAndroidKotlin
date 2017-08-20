@@ -21,5 +21,5 @@ import javax.inject.Inject
 
 abstract class AbstractIntentService<P: PresenterType>(named: String): IntentService(named) {
 
-  @Inject var presenter: P? = null
+  @Inject lateinit var presenter: P
 }

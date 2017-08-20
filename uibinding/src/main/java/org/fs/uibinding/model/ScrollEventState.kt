@@ -1,5 +1,5 @@
 /*
- * MVP Android Kotlin Copyright (C) 2017 Fatih, Brokoli Labs.
+ * UIBinding Android Kotlin Copyright (C) 2017 Fatih, Brokoli Labs.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.mvp.core
+package org.fs.uibinding.model
 
-import android.content.BroadcastReceiver
-import org.fs.mvp.common.PresenterType
-import javax.inject.Inject
-
-abstract class AbstractBroadcastReceiver<P: PresenterType>(): BroadcastReceiver() {
-
-  @Inject lateinit var presenter: P
-
-}
+class ScrollEventState(val firstVisibleItem: Int, val visibleItemCount: Int, val totalItemCount: Int)

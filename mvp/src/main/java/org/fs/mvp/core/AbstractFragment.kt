@@ -19,17 +19,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import org.fs.mvp.common.PresenterType
-import java.io.PrintWriter
-import java.io.StringWriter
 import javax.inject.Inject
 
 abstract class AbstractFragment<P: PresenterType>: Fragment() {
 
-  @Inject var presenter: P? = null
+  @Inject lateinit var presenter: P
 
   fun showProgress() {
     throw RuntimeException("you should implement show progress")
@@ -59,50 +56,47 @@ abstract class AbstractFragment<P: PresenterType>: Fragment() {
 
   override fun onSaveInstanceState(outState: Bundle?) {
     super.onSaveInstanceState(outState)
-    presenter?.storeState(outState)
+    presenter.storeState(outState)
   }
 
   override fun onResume() {
     super.onResume()
-    presenter?.onResume()
+    presenter.onResume()
   }
 
   override fun onPause() {
     super.onPause()
-    presenter?.onPause()
+    presenter.onPause()
   }
 
   override fun onStart() {
     super.onStart()
-    presenter?.onStart()
+    presenter.onStart()
   }
 
   override fun onStop() {
     super.onStop()
-    presenter?.onStop()
+    presenter.onStop()
   }
 
   override fun onDestroy() {
     super.onDestroy()
-    presenter?.onDestroy()
+    presenter.onDestroy()
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    presenter?.requestPermissionsResult(requestCode, permissions, grantResults)
+    presenter.requestPermissionsResult(requestCode, permissions, grantResults)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    presenter?.activityResult(requestCode, resultCode, data)
+    presenter.activityResult(requestCode, resultCode, data)
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     if (item != null) {
-      val handle = presenter?.onOptionsItemSelected(item)
-      if (handle != null) {
-        return handle
-      }
+      return presenter.onOptionsItemSelected(item)
     }
     return super.onOptionsItemSelected(item)
   }
@@ -114,24 +108,4 @@ abstract class AbstractFragment<P: PresenterType>: Fragment() {
   fun view(): View? = view
 
   fun finish() { throw RuntimeException("you should call on #dismiss()") }
-
-  protected abstract fun isLogEnabled() : Boolean
-  protected abstract fun getClassTag() : String
-
-  protected fun log(msg: String) {
-    log(Log.DEBUG, msg)
-  }
-
-  protected fun log(lv: Int, msg: String) {
-    if (isLogEnabled()) {
-      Log.println(lv, getClassTag(), msg)
-    }
-  }
-
-  protected fun log(error : Throwable) {
-    val str = StringWriter()
-    val ptr = PrintWriter(str)
-    error.printStackTrace(ptr)
-    log(Log.ERROR, str.toString())
-  }
 }
