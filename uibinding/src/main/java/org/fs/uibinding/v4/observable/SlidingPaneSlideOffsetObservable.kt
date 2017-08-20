@@ -13,39 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.uibinding.observable
+package org.fs.uibinding.v4.observable
 
-import android.widget.AbsListView
+import android.support.v4.widget.SlidingPaneLayout
+import android.view.View
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import org.fs.uibinding.model.AbsListViewScrollEventState
 import org.fs.uibinding.util.checkMainThread
 
-class AbsListViewScrollEventStateObservable(private val view: AbsListView): Observable<AbsListViewScrollEventState>() {
+class SlidingPaneSlideOffsetObservable(private val view: SlidingPaneLayout): Observable<Float>() {
 
-  override fun subscribeActual(observer: Observer<in AbsListViewScrollEventState>?) {
+  override fun subscribeActual(observer: Observer<in Float>?) {
     if (observer != null) {
       if (!observer.checkMainThread()) { return }
 
       val listener = Listener(view, observer)
       observer.onSubscribe(listener)
-      view.setOnScrollListener(listener)
+      view.setPanelSlideListener(listener)
     }
   }
 
-  class Listener(private val view: AbsListView, private val observer: Observer<in AbsListViewScrollEventState>): MainThreadDisposable(), AbsListView.OnScrollListener {
+  class Listener(private val view: SlidingPaneLayout, private val observer: Observer<in Float>): MainThreadDisposable(), SlidingPaneLayout.PanelSlideListener {
+
     override fun onDispose() {
-      view.setOnScrollListener(null)
+      view.setPanelSlideListener(null)
     }
 
-    override fun onScroll(absView: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+    override fun onPanelSlide(panel: View?, slideOffset: Float) {
       if (!isDisposed) {
-        observer.onNext(
-            AbsListViewScrollEventState(firstVisibleItem, visibleItemCount, totalItemCount))
+        observer.onNext(slideOffset)
       }
     }
 
-    override fun onScrollStateChanged(absView: AbsListView?, scrollState: Int) {}
+    override fun onPanelClosed(panel: View?) {}
+    override fun onPanelOpened(panel: View?) {}
   }
 }

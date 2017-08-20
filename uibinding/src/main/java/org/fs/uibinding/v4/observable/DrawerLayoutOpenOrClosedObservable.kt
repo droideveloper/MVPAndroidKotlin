@@ -13,39 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.uibinding.observable
+package org.fs.uibinding.v4.observable
 
-import android.widget.AbsListView
+import android.support.v4.widget.DrawerLayout
+import android.view.View
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import org.fs.uibinding.model.AbsListViewScrollEventState
 import org.fs.uibinding.util.checkMainThread
 
-class AbsListViewScrollEventStateObservable(private val view: AbsListView): Observable<AbsListViewScrollEventState>() {
+class DrawerLayoutOpenOrClosedObservable(private val view: DrawerLayout): Observable<Boolean>() {
 
-  override fun subscribeActual(observer: Observer<in AbsListViewScrollEventState>?) {
+  override fun subscribeActual(observer: Observer<in Boolean>?) {
     if (observer != null) {
       if (!observer.checkMainThread()) { return }
 
       val listener = Listener(view, observer)
       observer.onSubscribe(listener)
-      view.setOnScrollListener(listener)
+      view.addDrawerListener(listener)
     }
   }
 
-  class Listener(private val view: AbsListView, private val observer: Observer<in AbsListViewScrollEventState>): MainThreadDisposable(), AbsListView.OnScrollListener {
+  class Listener(private val view: DrawerLayout, private val observer: Observer<in Boolean>): MainThreadDisposable(), DrawerLayout.DrawerListener {
+
     override fun onDispose() {
-      view.setOnScrollListener(null)
+      view.removeDrawerListener(this)
     }
 
-    override fun onScroll(absView: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+    override fun onDrawerClosed(drawerView: View?) {
       if (!isDisposed) {
-        observer.onNext(
-            AbsListViewScrollEventState(firstVisibleItem, visibleItemCount, totalItemCount))
+        observer.onNext(false)
       }
     }
 
-    override fun onScrollStateChanged(absView: AbsListView?, scrollState: Int) {}
+    override fun onDrawerOpened(drawerView: View?) {
+      if (!isDisposed) {
+        observer.onNext(true)
+      }
+    }
+
+    override fun onDrawerSlide(drawerView: View?, slideOffset: Float) {}
+    override fun onDrawerStateChanged(newState: Int) {}
   }
 }

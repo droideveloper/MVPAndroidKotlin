@@ -15,4 +15,4 @@
  */
 package org.fs.uibinding.model
 
-class ScrollEventState(val firstVisibleItem: Int, val visibleItemCount: Int, val totalItemCount: Int)
+class AbsListViewScrollEventState(val firstVisibleItem: Int, val visibleItemCount: Int, val totalItemCount: Int)
