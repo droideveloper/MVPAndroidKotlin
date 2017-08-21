@@ -18,11 +18,7 @@ package org.fs.mvp.common
 import android.os.Handler
 import android.os.Looper
 
-class ThreadManager {
-
-  private constructor() {
-    throw RuntimeException("you can not have instance of this class")
-  }
+class ThreadManager private constructor() {
 
   companion object {
     private val uiHandler = Handler(Looper.myLooper())

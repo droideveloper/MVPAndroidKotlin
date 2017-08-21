@@ -19,7 +19,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import io.reactivex.subjects.PublishSubject
 
-class BusManager {
+class BusManager private constructor() {
 
   companion object {
     private val imp = BusManager()
