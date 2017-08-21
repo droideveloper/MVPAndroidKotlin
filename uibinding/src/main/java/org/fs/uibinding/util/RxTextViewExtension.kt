@@ -13,11 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.fs.uibinding.util
 
-import android.widget.SearchView
+import android.widget.TextView
 import io.reactivex.Observable
-import org.fs.uibinding.observable.SearchViewQueryTextChangedObservable
+import io.reactivex.functions.BiConsumer
+import org.fs.uibinding.common.ControlProperty
+import org.fs.uibinding.common.UIBindingObserver
+import org.fs.uibinding.observable.TextViewTextChangedObservable
 
-fun SearchView.queryChanges(predicate: (CharSequence) -> Boolean = { _ -> true }): Observable<CharSequence> = SearchViewQueryTextChangedObservable(this, predicate).takeUntil(detaches())
+fun TextView.textChanges(): Observable<CharSequence> = TextViewTextChangedObservable(this).takeUntil(detaches())
+
+fun TextView.text(): UIBindingObserver<TextView, CharSequence> = UIBindingObserver(this, BiConsumer { view, text -> view.text = text })
+
+fun TextView.textProperty(): ControlProperty<CharSequence> = ControlProperty(textChanges(), text())

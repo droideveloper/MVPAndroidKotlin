@@ -13,11 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.fs.uibinding.util
 
-import android.widget.SearchView
+import android.widget.SeekBar
 import io.reactivex.Observable
-import org.fs.uibinding.observable.SearchViewQueryTextChangedObservable
+import io.reactivex.functions.BiConsumer
+import org.fs.uibinding.common.ControlProperty
+import org.fs.uibinding.common.UIBindingObserver
+import org.fs.uibinding.model.SeekState
+import org.fs.uibinding.observable.SeekBarProgressChangedObservable
 
-fun SearchView.queryChanges(predicate: (CharSequence) -> Boolean = { _ -> true }): Observable<CharSequence> = SearchViewQueryTextChangedObservable(this, predicate).takeUntil(detaches())
+
+fun SeekBar.progresses(): Observable<SeekState> = SeekBarProgressChangedObservable(this).takeUntil(detaches())
+
+fun SeekBar.progress(): UIBindingObserver<SeekBar, Int> = UIBindingObserver(this, BiConsumer { view, progress -> view.progress = progress })
+
+fun SeekBar.progressProperty(): ControlProperty<Int> = ControlProperty(progresses().map { it.progress }, progress())
