@@ -21,7 +21,7 @@ import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 import org.fs.uibinding.util.checkMainThread
 
-class SearchViewQueryTextChangedObservable(private val view: SearchView, private val predicate: (String?) -> Boolean): Observable<CharSequence>() {
+class SearchViewQueryTextChangedObservable(private val view: SearchView, private val predicate: (CharSequence) -> Boolean): Observable<CharSequence>() {
 
   override fun subscribeActual(observer: Observer<in CharSequence>?) {
     if (observer != null) {
@@ -33,7 +33,7 @@ class SearchViewQueryTextChangedObservable(private val view: SearchView, private
     }
   }
 
-  class Listener(private val view: SearchView, private val observer: Observer<in CharSequence>, private val predicate: (String?) -> Boolean): MainThreadDisposable(), SearchView.OnQueryTextListener {
+  class Listener(private val view: SearchView, private val observer: Observer<in CharSequence>, private val predicate: (CharSequence) -> Boolean): MainThreadDisposable(), SearchView.OnQueryTextListener {
 
     override fun onDispose() {
       view.setOnQueryTextListener(null)
@@ -45,8 +45,8 @@ class SearchViewQueryTextChangedObservable(private val view: SearchView, private
       if (!isDisposed) {
         if (query != null) {
           observer.onNext(query)
+          return predicate(query)
         }
-        return predicate(query)
       }
       return false
     }

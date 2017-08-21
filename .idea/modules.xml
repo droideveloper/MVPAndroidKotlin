@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MVP_Android_Kotlin_Workspace.iml" filepath="$PROJECT_DIR$/MVP_Android_Kotlin_Workspace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MVP_Android_Kotlin.iml" filepath="$PROJECT_DIR$/MVP_Android_Kotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvp/mvp.iml" filepath="$PROJECT_DIR$/mvp/mvp.iml" />
       <module fileurl="file://$PROJECT_DIR$/uibinding/uibinding.iml" filepath="$PROJECT_DIR$/uibinding/uibinding.iml" />
     </modules>

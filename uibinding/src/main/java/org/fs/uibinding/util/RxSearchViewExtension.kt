@@ -1,5 +1,11 @@
+package org.fs.uibinding.util
+
+import android.widget.SearchView
+import io.reactivex.Observable
+import org.fs.uibinding.observable.SearchViewQueryTextChangedObservable
+
 /*
- * UIBinding Android Kotlin Copyright (C) 2017 Fatih, Brokoli Labs.
+ * MVP Android Kotlin Copyright (C) 2017 Fatih, Brokoli Labs.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +19,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.uibinding.util
 
-import android.widget.RadioGroup
-import io.reactivex.Observable
-import io.reactivex.functions.BiConsumer
-import org.fs.uibinding.common.UIBindingObserver
-import org.fs.uibinding.observable.RadioGroupCheckChangedObservable
-
-fun RadioGroup.checkChanges(): Observable<Int> = RadioGroupCheckChangedObservable(this).takeUntil(detaches())
-
-fun RadioGroup.checks(): UIBindingObserver<RadioGroup, Int> = UIBindingObserver(this, BiConsumer { view, id -> view.check(id) })
+fun SearchView.queryChanges(predicate: (CharSequence) -> Boolean = { _ -> true }): Observable<CharSequence> = SearchViewQueryTextChangedObservable(this, predicate).takeUntil(detaches())

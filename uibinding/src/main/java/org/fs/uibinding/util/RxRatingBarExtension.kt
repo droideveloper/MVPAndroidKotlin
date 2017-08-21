@@ -17,7 +17,11 @@ package org.fs.uibinding.util
 
 import android.widget.RatingBar
 import io.reactivex.Observable
+import io.reactivex.functions.BiConsumer
+import org.fs.uibinding.common.UIBindingObserver
 import org.fs.uibinding.model.RateState
 import org.fs.uibinding.observable.RatingBarRateChangedObservable
 
 fun RatingBar.rates(): Observable<RateState> = RatingBarRateChangedObservable(this).takeUntil(detaches())
+
+fun RatingBar.rate(): UIBindingObserver<RatingBar, Float> = UIBindingObserver(this, BiConsumer { view, rate ->  view.rating = rate })
