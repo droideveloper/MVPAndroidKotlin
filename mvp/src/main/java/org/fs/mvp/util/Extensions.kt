@@ -16,11 +16,14 @@
 
 package org.fs.mvp.util
 
+import android.os.Build
+import android.text.TextUtils
 import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.fs.mvp.common.ViewType
+import java.io.File
 import java.io.PrintWriter
 import java.io.StringWriter
 
@@ -56,3 +59,24 @@ fun <T: Any> T.log(level: Int, message: String) {
   }
 }
 
+// Objects
+fun <T: Any> T?.isNullOrEmpty(): Boolean {
+  if (this != null) {
+    if (this is String) {
+      return TextUtils.isEmpty(this)
+    }
+    if (this is Collection<*>) {
+      return this.isEmpty()
+    }
+    if (this is File) {
+      return !this.exists()
+    }
+  }
+  return true
+}
+fun <T: Any> T?.isNotNullOrEmpty(): Boolean = !isNullOrEmpty()
+
+fun isApiAvailable(requiredSdkVersion: Int): Boolean = Build.VERSION.SDK_INT >= requiredSdkVersion
+
+fun <T: Any> T?.checkNotNull(errorString: String = "$this is null") { if (isNullOrEmpty()) throw RuntimeException(errorString) }
+fun Boolean.throwIfConditionFails(errorString: String = "$this failed since it won't meet true") = { if (!this) throw RuntimeException(errorString) }
