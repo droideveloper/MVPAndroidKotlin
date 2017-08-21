@@ -18,7 +18,7 @@ package org.fs.uibinding.v4.util
 import android.support.v4.view.ViewPager
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
-import org.fs.uibinding.common.ControlPorperty
+import org.fs.uibinding.common.ControlProperty
 import org.fs.uibinding.common.UIBindingObserver
 import org.fs.uibinding.model.ViewPagerScroll
 import org.fs.uibinding.util.detaches
@@ -34,4 +34,4 @@ fun ViewPager.scrollStateChanges(): Observable<Int> = ViewPagerScrollStateObserv
 
 fun ViewPager.page(): UIBindingObserver<ViewPager, Int> = UIBindingObserver(this, BiConsumer { view, page -> view.setCurrentItem(page, true) })
 
-fun ViewPager.pageProperty(): ControlPorperty<Int> = ControlPorperty(pageChanges(), page())
+fun ViewPager.pageProperty(): ControlProperty<Int> = ControlProperty(pageChanges(), page())

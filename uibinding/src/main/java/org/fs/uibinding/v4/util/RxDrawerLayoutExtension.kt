@@ -18,7 +18,7 @@ package org.fs.uibinding.v4.util
 import android.support.v4.widget.DrawerLayout
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
-import org.fs.uibinding.common.ControlPorperty
+import org.fs.uibinding.common.ControlProperty
 import org.fs.uibinding.common.UIBindingObserver
 import org.fs.uibinding.util.detaches
 import org.fs.uibinding.v4.observable.DrawerLayoutOpenOrClosedObservable
@@ -39,4 +39,4 @@ fun DrawerLayout.openOrClose(gravity: Int): UIBindingObserver<DrawerLayout, Bool
   }
 })
 
-fun DrawerLayout.openOrCloseProperty(gravity: Int): ControlPorperty<Boolean> = ControlPorperty(opensOrCloses(), openOrClose(gravity))
+fun DrawerLayout.openOrCloseProperty(gravity: Int): ControlProperty<Boolean> = ControlProperty(opensOrCloses(), openOrClose(gravity))

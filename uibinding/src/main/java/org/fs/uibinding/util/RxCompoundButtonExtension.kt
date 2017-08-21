@@ -13,19 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.uibinding.design.util
+package org.fs.uibinding.util
 
-import android.support.design.widget.NavigationView
-import android.view.MenuItem
+import android.widget.CompoundButton
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.uibinding.common.ControlProperty
 import org.fs.uibinding.common.UIBindingObserver
-import org.fs.uibinding.design.observable.NavigationViewItemSelectedObservable
-import org.fs.uibinding.util.detaches
+import org.fs.uibinding.observable.CompoundButtonCheckedChangedObservable
 
-fun NavigationView.checked(): UIBindingObserver<NavigationView, Int> = UIBindingObserver(this, BiConsumer { view, id -> view.setCheckedItem(id) })
+fun CompoundButton.check(): UIBindingObserver<CompoundButton, Boolean> = UIBindingObserver(this, BiConsumer { view, checked ->  view.isChecked = checked })
 
-fun NavigationView.checkedChanges(predicate: (MenuItem) -> Boolean = { _ -> true }): Observable<MenuItem> = NavigationViewItemSelectedObservable(this, predicate).takeUntil(detaches())
+fun CompoundButton.checkChanges(): Observable<Boolean> = CompoundButtonCheckedChangedObservable(this).takeUntil(detaches())
 
-fun NavigationView.checkedPropert(predicate: (MenuItem) -> Boolean = { _ -> true }): ControlProperty<Int> = ControlProperty(checkedChanges(predicate).map { it.itemId }, checked())
+fun CompoundButton.checkProperty(): ControlProperty<Boolean> = ControlProperty(checkChanges(), check())

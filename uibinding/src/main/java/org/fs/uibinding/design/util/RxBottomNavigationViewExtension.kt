@@ -19,7 +19,7 @@ import android.support.design.widget.BottomNavigationView
 import android.view.MenuItem
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
-import org.fs.uibinding.common.ControlPorperty
+import org.fs.uibinding.common.ControlProperty
 import org.fs.uibinding.common.UIBindingObserver
 import org.fs.uibinding.design.observable.BottomNavigationViewItemSelectedObservable
 import org.fs.uibinding.util.detaches
@@ -28,4 +28,4 @@ fun BottomNavigationView.selected(): UIBindingObserver<BottomNavigationView, Int
 
 fun BottomNavigationView.selectedChanges(predicate: (MenuItem) -> Boolean = { _ -> true }): Observable<MenuItem> = BottomNavigationViewItemSelectedObservable(this, predicate).takeUntil(detaches())
 
-fun BottomNavigationView.selectedPropert(predicate: (MenuItem) -> Boolean = { _ -> true }): ControlPorperty<Int> = ControlPorperty(selectedChanges(predicate).map { it.itemId }, selected())
+fun BottomNavigationView.selectedPropert(predicate: (MenuItem) -> Boolean = { _ -> true }): ControlProperty<Int> = ControlProperty(selectedChanges(predicate).map { it.itemId }, selected())

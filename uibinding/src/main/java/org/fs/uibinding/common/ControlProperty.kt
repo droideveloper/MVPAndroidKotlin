@@ -23,7 +23,7 @@ import io.reactivex.internal.disposables.DisposableHelper
 import java.util.concurrent.atomic.AtomicReference
 
 
-class ControlPorperty<T>(source: Observable<T>, val sink: Observer<T>): Observable<T>(), Observer<T>, Disposable {
+class ControlProperty<T>(source: Observable<T>, val sink: Observer<T>): Observable<T>(), Observer<T>, Disposable {
 
   private val s = AtomicReference<Disposable>()
   private val source = source.subscribeOn(AndroidSchedulers.mainThread())
@@ -40,5 +40,5 @@ class ControlPorperty<T>(source: Observable<T>, val sink: Observer<T>): Observab
 
   fun changed(): ControlEvent<T> = ControlEvent(source.skip(1))
   fun asObservable(): Observable<T> = source
-  fun asControlProperty(): ControlPorperty<T> = this
+  fun asControlProperty(): ControlProperty<T> = this
 }

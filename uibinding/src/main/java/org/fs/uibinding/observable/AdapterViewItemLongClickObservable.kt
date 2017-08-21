@@ -49,7 +49,5 @@ class AdapterViewItemLongClickObservable(private val view: AdapterView<*>, priva
       }
       return false
     }
-
   }
-
 }

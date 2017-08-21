@@ -18,7 +18,7 @@ package org.fs.uibinding.v4.util
 import android.support.v4.widget.SwipeRefreshLayout
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
-import org.fs.uibinding.common.ControlPorperty
+import org.fs.uibinding.common.ControlProperty
 import org.fs.uibinding.common.UIBindingObserver
 import org.fs.uibinding.util.detaches
 import org.fs.uibinding.v4.observable.SwipeRefreshRefreshingObservable
@@ -27,4 +27,4 @@ fun SwipeRefreshLayout.refreshes(): Observable<Boolean> = SwipeRefreshRefreshing
 
 fun SwipeRefreshLayout.refresh(): UIBindingObserver<SwipeRefreshLayout, Boolean> = UIBindingObserver(this, BiConsumer { view, refreshing -> view.isRefreshing = refreshing })
 
-fun SwipeRefreshLayout.refreshProperty(): ControlPorperty<Boolean> = ControlPorperty(refreshes(), refresh())
+fun SwipeRefreshLayout.refreshProperty(): ControlProperty<Boolean> = ControlProperty(refreshes(), refresh())

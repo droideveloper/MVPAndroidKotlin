@@ -18,7 +18,7 @@ package org.fs.uibinding.v4.util
 import android.support.v4.widget.SlidingPaneLayout
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
-import org.fs.uibinding.common.ControlPorperty
+import org.fs.uibinding.common.ControlProperty
 import org.fs.uibinding.common.UIBindingObserver
 import org.fs.uibinding.util.detaches
 import org.fs.uibinding.v4.observable.SlidingPaneOpenOrClosedObservable
@@ -36,4 +36,4 @@ fun SlidingPaneLayout.openOrClose(): UIBindingObserver<SlidingPaneLayout, Boolea
   }
 })
 
-fun SlidingPaneLayout.openOrCloseProperty(): ControlPorperty<Boolean> = ControlPorperty(opensOrCloses(), openOrClose())
+fun SlidingPaneLayout.openOrCloseProperty(): ControlProperty<Boolean> = ControlProperty(opensOrCloses(), openOrClose())
