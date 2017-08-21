@@ -27,6 +27,8 @@ abstract class AbstractEntity constructor(): Parcelable {
   protected abstract fun readParcel(input: Parcel)
   protected abstract fun writeParcel(out: Parcel?, flags: Int)
 
+  override fun describeContents(): Int = 0
+
   override fun writeToParcel(dest: Parcel?, flags: Int) {
     writeParcel(dest, flags)
   }
