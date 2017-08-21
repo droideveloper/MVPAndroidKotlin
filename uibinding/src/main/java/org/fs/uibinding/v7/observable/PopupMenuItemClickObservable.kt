@@ -13,36 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.uibinding.observable
+package org.fs.uibinding.v7.observable
 
-import android.widget.PopupMenu
+import android.support.v7.widget.PopupMenu
+import android.view.MenuItem
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 import org.fs.uibinding.util.checkMainThread
 
-class PopupMenuDissmissObservable(private val view: PopupMenu): Observable<PopupMenu>() {
+class PopupMenuItemClickObservable(private val view: PopupMenu, private val predicate: (MenuItem) -> Boolean): Observable<MenuItem>() {
 
-  override fun subscribeActual(observer: Observer<in PopupMenu>?) {
+  override fun subscribeActual(observer: Observer<in MenuItem>?) {
     if (observer != null) {
       if (!observer.checkMainThread()) { return }
 
-      val listener = Listener(view, observer)
+      val listener = Listener(view, observer, predicate)
       observer.onSubscribe(listener)
-      view.setOnDismissListener(listener)
+      view.setOnMenuItemClickListener(listener)
     }
   }
 
-  class Listener(private val view: PopupMenu, private val observer: Observer<in PopupMenu>): MainThreadDisposable(), PopupMenu.OnDismissListener {
+  class Listener(private val view: PopupMenu, private val observer: Observer<in MenuItem>, private val predicate: (MenuItem) -> Boolean): MainThreadDisposable(), PopupMenu.OnMenuItemClickListener {
 
     override fun onDispose() {
-       view.setOnDismissListener(null)
+      view.setOnMenuItemClickListener(null)
     }
 
-    override fun onDismiss(view: PopupMenu?) {
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
       if (!isDisposed) {
-        observer.onNext(this.view)
+        if (item != null) {
+          observer.onNext(item)
+          return predicate(item)
+        }
       }
+      return false
     }
   }
 }
