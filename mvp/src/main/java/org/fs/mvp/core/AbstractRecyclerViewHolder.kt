@@ -24,7 +24,6 @@ abstract class AbstractRecyclerViewHolder<D>(protected val view: View): Recycler
 
   abstract fun onBindView(entity: D?)
 
-  fun view(): View = view
   fun attached() {}
   fun detached() {}
 }

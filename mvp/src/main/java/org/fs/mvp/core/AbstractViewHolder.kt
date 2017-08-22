@@ -17,11 +17,9 @@ package org.fs.mvp.core
 
 import android.view.View
 
-abstract class AbstractViewHolder<D: AbstractEntity>(protected val view: View) {
+abstract class AbstractViewHolder<D>(protected val view: View) {
 
   protected var entity: D? = null
-
-  fun view(): View = view
 
   fun applyTag() {
     view.tag = this
