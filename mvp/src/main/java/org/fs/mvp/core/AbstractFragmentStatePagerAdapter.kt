@@ -21,7 +21,7 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import org.fs.mvp.common.PropertyChangedListener
 import org.fs.mvp.util.ObservableList
 
-abstract class AbstractFragmentStatePagerAdapter<D>(protected val dataSet: ObservableList<D>, protected val fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager), PropertyChangedListener {
+abstract class AbstractFragmentStatePagerAdapter<D>(protected val dataSet: ObservableList<D>, fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager), PropertyChangedListener {
 
   fun register() {
     dataSet.register(this)
@@ -45,8 +45,9 @@ abstract class AbstractFragmentStatePagerAdapter<D>(protected val dataSet: Obser
 
   override fun getItem(position: Int): Fragment = onBindFragment(position, itemAt(position))
 
-  fun itemAt(position: Int): D = dataSet[position]
+  protected fun itemAt(position: Int): D = dataSet[position]
   override fun getCount(): Int = dataSet.size
+  protected fun viewType(position: Int) = 0
 
   protected abstract fun onBindFragment(position: Int, item: D): Fragment
 }

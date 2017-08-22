@@ -22,15 +22,7 @@ import android.widget.BaseAdapter
 import org.fs.mvp.common.PropertyChangedListener
 import org.fs.mvp.util.ObservableList
 
-abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>: BaseAdapter, PropertyChangedListener {
-
-  protected val dataSet: ObservableList<D>
-  protected val factory: LayoutInflater
-
-  constructor(dataSet: ObservableList<D>, factory: LayoutInflater) {
-    this.dataSet = dataSet
-    this.factory = factory
-  }
+abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>(protected val dataSet: ObservableList<D>, protected val factory: LayoutInflater) : BaseAdapter(), PropertyChangedListener {
 
   fun register() {
     dataSet.register(this)
@@ -44,7 +36,7 @@ abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>
   override fun getViewTypeCount(): Int = 1
   override fun getCount(): Int = dataSet.size
   override fun getItem(position: Int): Any = dataSet[position]
-  fun itemAt(position: Int): D = dataSet[position]
+  protected fun itemAt(position: Int): D = dataSet[position]
   override fun getItemId(position: Int): Long = position.toLong()
 
   override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -80,5 +72,9 @@ abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>
   }
 
   protected abstract fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH
-  protected abstract fun onBindViewHolder(viewHolder: VH, position: Int)
+
+  protected fun onBindViewHolder(viewHolder: VH, position: Int) {
+    val item = itemAt(position)
+    viewHolder.onBindView(item)
+  }
 }

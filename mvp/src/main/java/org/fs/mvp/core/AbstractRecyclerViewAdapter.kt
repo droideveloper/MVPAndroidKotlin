@@ -21,7 +21,7 @@ import android.view.ViewGroup
 import org.fs.mvp.common.PropertyChangedListener
 import org.fs.mvp.util.ObservableList
 
-abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>(protected val dataSet: ObservableList<D>): RecyclerView.Adapter<VH>(), PropertyChangedListener {
+abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>(protected val dataSet: ObservableList<D>, protected val factory: LayoutInflater): RecyclerView.Adapter<VH>(), PropertyChangedListener {
 
   override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
     super.onAttachedToRecyclerView(recyclerView)
@@ -76,10 +76,8 @@ abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>
     }
   }
 
-  fun itemAt(position: Int): D = dataSet[position]
-  override fun getItemId(position: Int): Long = Long.MAX_VALUE
+  protected fun itemAt(position: Int): D = dataSet[position]
+  override fun getItemId(position: Int): Long = position.toLong()
   override fun getItemViewType(position: Int): Int = 0
   override fun getItemCount(): Int = dataSet.size
-
-  protected fun factory(parent: ViewGroup?): LayoutInflater? = LayoutInflater.from(parent?.context)
 }
