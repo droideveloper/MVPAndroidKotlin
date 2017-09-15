@@ -21,7 +21,9 @@ import android.view.ViewGroup
 import org.fs.mvp.common.PropertyChangedListener
 import org.fs.mvp.util.ObservableList
 
-abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>(protected val dataSet: ObservableList<D>, protected val factory: LayoutInflater): RecyclerView.Adapter<VH>(), PropertyChangedListener {
+abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>(protected val dataSet: ObservableList<D>): RecyclerView.Adapter<VH>(), PropertyChangedListener {
+
+  private var factory: LayoutInflater? = null
 
   override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
     super.onAttachedToRecyclerView(recyclerView)
@@ -59,9 +61,7 @@ abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>
     }
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH  {
-    throw RuntimeException("implement this method in order to create new view holders")
-  }
+  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH = throw IllegalArgumentException("implement onCreateViewHolder so that you can have it")
 
   override fun onBindViewHolder(viewHolder: VH, position: Int) {
     val entity = itemAt(position)
@@ -80,4 +80,13 @@ abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>
   override fun getItemId(position: Int): Long = position.toLong()
   override fun getItemViewType(position: Int): Int = 0
   override fun getItemCount(): Int = dataSet.size
+
+  protected fun factory(parent: ViewGroup?): LayoutInflater? {
+    if (factory == null) {
+      if (parent != null) {
+        factory = LayoutInflater.from(parent.context)
+      }
+    }
+    return factory
+  }
 }

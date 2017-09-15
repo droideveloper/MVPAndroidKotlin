@@ -22,7 +22,9 @@ import android.widget.BaseAdapter
 import org.fs.mvp.common.PropertyChangedListener
 import org.fs.mvp.util.ObservableList
 
-abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>(protected val dataSet: ObservableList<D>, protected val factory: LayoutInflater) : BaseAdapter(), PropertyChangedListener {
+abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>(protected val dataSet: ObservableList<D>) : BaseAdapter(), PropertyChangedListener {
+
+  private var factory: LayoutInflater? = null
 
   fun register() {
     dataSet.register(this)
@@ -42,10 +44,10 @@ abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>
   override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
     if (convertView == null) {
       val viewType = getItemViewType(position)
-      val viewHolder = onCreateViewHolder(parent, viewType)
+      val viewHolder = createViewHolder(parent, viewType)
       viewHolder.applyTag()
       onBindViewHolder(viewHolder, position)
-      return viewHolder.view()
+      return viewHolder.view
     }
 
     val tag = convertView.tag
@@ -53,7 +55,7 @@ abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>
     if (viewHolder != null) {
       viewHolder.applyTag()
       onBindViewHolder(viewHolder, position)
-      return viewHolder.view()
+      return viewHolder.view
     } else {
       throw RuntimeException("you should at least have an item here")
     }
@@ -71,10 +73,19 @@ abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>
     notifyDataSetChanged()
   }
 
-  protected abstract fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH
+  protected abstract fun createViewHolder(parent: ViewGroup?, viewType: Int): VH
 
   protected fun onBindViewHolder(viewHolder: VH, position: Int) {
     val item = itemAt(position)
     viewHolder.onBindView(item)
+  }
+
+  protected fun factory(parent: ViewGroup?): LayoutInflater? {
+    if (factory == null) {
+      if (parent != null) {
+        factory = LayoutInflater.from(parent.context)
+      }
+    }
+    return factory
   }
 }
