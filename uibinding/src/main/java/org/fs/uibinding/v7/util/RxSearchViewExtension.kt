@@ -16,8 +16,22 @@
 package org.fs.uibinding.v7.util
 
 import android.support.v7.widget.SearchView
+import android.view.View
 import io.reactivex.Observable
+import io.reactivex.functions.BiConsumer
+import org.fs.uibinding.common.UIBindingObserver
 import org.fs.uibinding.util.detaches
 import org.fs.uibinding.v7.observable.SearchViewQueryTextChangedObservable
 
+private val fn: (view: View, stringRes: Int) -> CharSequence = { view, stringRes ->
+  val res = view.resources // load string res here
+  if (stringRes != 0) res.getString(stringRes) else "" // load text or return empty for safe failure
+}
+
 fun SearchView.queryChanges(predicate: (CharSequence) -> Boolean = {_ -> true}): Observable<CharSequence> = SearchViewQueryTextChangedObservable(this, predicate).takeUntil(detaches())
+
+fun SearchView.hintCharSequence(): UIBindingObserver<SearchView, CharSequence> = UIBindingObserver(this, BiConsumer { view, hintCharSequence -> view.queryHint = hintCharSequence })
+fun SearchView.hintStringRes(strConverter: (view: View, stringRes: Int) -> CharSequence = fn): UIBindingObserver<SearchView, Int> = UIBindingObserver(this, BiConsumer { view, stringRes -> view.queryHint = strConverter(view, stringRes) })
+
+fun SearchView.queryCharSequence(shouldSubmit: Boolean = false): UIBindingObserver<SearchView, CharSequence> = UIBindingObserver(this, BiConsumer { view, queryCharSequence -> view.setQuery(query, shouldSubmit) })
+fun SearchView.queryStringRes(strConverter: (view: View, stringRes: Int) -> CharSequence = fn, shouldSubmit: Boolean = false): UIBindingObserver<SearchView, Int> = UIBindingObserver(this, BiConsumer { view, stringRes -> view.setQuery(strConverter(view, stringRes), shouldSubmit) })

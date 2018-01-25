@@ -23,25 +23,25 @@ import io.reactivex.exceptions.Exceptions
 import io.reactivex.plugins.RxJavaPlugins
 import retrofit2.Response
 
-class ResultObservable<T>(val stream: Observable<Response<T>>): Observable<Result<T>>() {
+class ResultObservable<T>(private val stream: Observable<Response<T>>): Observable<Result<T>>() {
 
   override fun subscribeActual(observer: Observer<in Result<T>>?) {
     stream.subscribe(ResultObserver(observer))
   }
 
-  class ResultObserver<R>(val observer: Observer<in Result<R>>?): Observer<Response<R>> {
+  class ResultObserver<R>(private val observer: Observer<in Result<R>>?): Observer<Response<R>> {
 
     override fun onComplete() {
       observer?.onComplete()
     }
 
-    override fun onNext(t: Response<R>?){
+    override fun onNext(t: Response<R>){
       observer?.onNext(Result.response(t))
     }
 
-    override fun onError(e: Throwable?) {
+    override fun onError(e: Throwable) {
       try {
-        observer?.onNext(Result.error<R>(e))
+        observer?.onNext(Result.error(e))
       } catch (t: Throwable) {
         try {
           observer?.onError(t)
@@ -54,7 +54,7 @@ class ResultObservable<T>(val stream: Observable<Response<T>>): Observable<Resul
       observer?.onComplete()
     }
 
-    override fun onSubscribe(d: Disposable?) {
+    override fun onSubscribe(d: Disposable) {
       observer?.onSubscribe(d)
     }
   }

@@ -24,10 +24,15 @@ import retrofit2.Converter
 import java.io.OutputStreamWriter
 import java.nio.charset.Charset
 
-class GsonRequestBodyConverter<T>(val typeAdapter: TypeAdapter<T>): Converter<T, RequestBody> {
+class GsonRequestBodyConverter<T>(private val typeAdapter: TypeAdapter<T>): Converter<T, RequestBody> {
 
-  val mimeType: MediaType = MediaType.parse("application/json; charset=UTF-8")
-  val charset: Charset = Charset.forName("UTF-8")
+  companion object {
+    private const val MIME_TEXT = "application/json"
+    private const val CHARSET_TEXT = "UTF-8"
+  }
+
+  private val mimeType = MediaType.parse("$MIME_TEXT; charset=$CHARSET_TEXT")
+  private val charset = Charset.forName(CHARSET_TEXT)
 
   override fun convert(value: T): RequestBody {
     val buffer = Buffer()

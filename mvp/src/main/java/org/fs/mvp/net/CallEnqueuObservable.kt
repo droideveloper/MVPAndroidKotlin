@@ -25,7 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CallEnqueuObservable<T>(val call: Call<T>?): Observable<Response<T>>(){
+class CallEnqueuObservable<T>(private val call: Call<T>?): Observable<Response<T>>(){
 
   override fun subscribeActual(observer: Observer<in Response<T>>?) {
     val c = call?.clone()
@@ -38,13 +38,13 @@ class CallEnqueuObservable<T>(val call: Call<T>?): Observable<Response<T>>(){
   }
 
 
-  class CallCallback<R>(val call: Call<*>, val observer: Observer<in Response<R>>?, var terminated: Boolean = false): Disposable, Callback<R> {
+  class CallCallback<R>(private val call: Call<*>, private val observer: Observer<in Response<R>>?, private var terminated: Boolean = false): Disposable, Callback<R> {
 
     override fun isDisposed(): Boolean = call.isCanceled
     override fun dispose() = call.cancel()
 
-    override fun onFailure(call: Call<R>?, t: Throwable?) {
-      if (call?.isCanceled ?: false) return
+    override fun onFailure(call: Call<R>?, t: Throwable) {
+      if (call?.isCanceled == true) return
 
       try {
         observer?.onError(t)
@@ -54,19 +54,19 @@ class CallEnqueuObservable<T>(val call: Call<T>?): Observable<Response<T>>(){
       }
     }
 
-    override fun onResponse(call: Call<R>?, response: Response<R>?) {
-      if (call?.isCanceled ?: false) return
+    override fun onResponse(call: Call<R>?, response: Response<R>) {
+      if (call?.isCanceled == true) return
 
       try {
         observer?.onNext(response)
-        if (!(call?.isCanceled ?: false)) {
+        if (call?.isCanceled != true) {
           terminated = true
           observer?.onComplete()
         }
       } catch (t: Throwable) {
         if (terminated) {
           RxJavaPlugins.onError(t)
-        } else if (!(call?.isCanceled ?: false)) {
+        } else if (call?.isCanceled != true) {
           try {
             observer?.onError(t)
           } catch (inner: Throwable) {

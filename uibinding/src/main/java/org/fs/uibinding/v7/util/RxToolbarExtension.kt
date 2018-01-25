@@ -19,10 +19,19 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import io.reactivex.Observable
+import io.reactivex.functions.BiConsumer
+import org.fs.uibinding.common.UIBindingObserver
 import org.fs.uibinding.util.detaches
 import org.fs.uibinding.v7.observable.ToolbarMenuItemClickObservable
 import org.fs.uibinding.v7.observable.ToolbarNavigationClickObservable
 
 fun Toolbar.navigationClicks(): Observable<View> = ToolbarNavigationClickObservable(this).takeUntil(detaches())
-
 fun Toolbar.menuItemClicks(predicate: (MenuItem) -> Boolean = { _ -> true }): Observable<MenuItem> = ToolbarMenuItemClickObservable(this, predicate).takeUntil(detaches())
+// title setter
+fun Toolbar.titleCharSequence(): UIBindingObserver<Toolbar, CharSequence> = UIBindingObserver(this, BiConsumer { view, title -> view.title = title })
+fun Toolbar.titleStringRes(): UIBindingObserver<Toolbar, Int> = UIBindingObserver(this, BiConsumer { view, titleRes -> view.setTitle(titleRes) })
+// sub title setter
+fun Toolbar.subTitleCharSequence(): UIBindingObserver<Toolbar, CharSequence> = UIBindingObserver(this, BiConsumer { view, subTitle -> view.subtitle = subTitle })
+fun Toolbar.subtitleStringRes(): UIBindingObserver<Toolbar, Int> = UIBindingObserver(this, BiConsumer { view, subTitleRes -> view.setSubtitle(subTitleRes) })
+// logo setter
+fun Toolbar.logoDrawableRes(): UIBindingObserver<Toolbar, Int> = UIBindingObserver(this, BiConsumer { view, logoRes -> view.setLogo(logoRes) })

@@ -25,15 +25,15 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 
-class BodyObservable<T>(val stream: Observable<Response<T>>): Observable<T>() {
+class BodyObservable<T>(private val stream: Observable<Response<T>>): Observable<T>() {
 
-  override fun subscribeActual(observer: Observer<in T>?) {
+  override fun subscribeActual(observer: Observer<in T>) {
     stream.subscribe(BodyObserver(observer))
   }
 
-  class BodyObserver<R>(val observer: Observer<in R>?, var terminated: Boolean = false): Observer<Response<R>> {
+  class BodyObserver<R>(private val observer: Observer<in R>? ,private var terminated: Boolean = false): Observer<Response<R>> {
 
-    override fun onSubscribe(d: Disposable?) {
+    override fun onSubscribe(d: Disposable) {
       observer?.onSubscribe(d)
     }
 
@@ -43,9 +43,14 @@ class BodyObservable<T>(val stream: Observable<Response<T>>): Observable<T>() {
       }
     }
 
-    override fun onNext(response: Response<R>?) {
-      if (response?.isSuccessful ?: false) {
-        observer?.onNext(response?.body())
+    override fun onNext(response: Response<R>) {
+      if (response.isSuccessful) {
+        val data = response.body()
+        if (data != null) {
+          observer?.onNext(data)
+        } else {
+          observer?.onError(HttpException(response))
+        }
       } else {
         terminated = true
         val t = HttpException(response)
@@ -58,7 +63,7 @@ class BodyObservable<T>(val stream: Observable<Response<T>>): Observable<T>() {
       }
     }
 
-    override fun onError(e: Throwable?) {
+    override fun onError(e: Throwable) {
       if (!terminated) {
         observer?.onError(e)
       } else {
