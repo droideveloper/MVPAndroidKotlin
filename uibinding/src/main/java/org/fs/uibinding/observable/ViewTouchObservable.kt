@@ -40,7 +40,7 @@ class ViewTouchObservable(private val view: View, private val callback: (MotionE
       view.setOnTouchListener(null)
     }
 
-    override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+    override fun onTouch(view: View?, event: MotionEvent): Boolean {
       if (!isDisposed) {
         observer.onNext(event)
         try {

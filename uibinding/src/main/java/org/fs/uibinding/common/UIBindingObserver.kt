@@ -40,5 +40,5 @@ class UIBindingObserver<T, V>(private val view: T, private val binding: BiConsum
   }
 
   override fun onComplete() { /*no-opt*/ }
-  override fun onError(e: Throwable?) = throw RuntimeException(e)
+  override fun onError(e: Throwable) = throw RuntimeException(e)
 }

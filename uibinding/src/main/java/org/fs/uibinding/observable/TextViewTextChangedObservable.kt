@@ -44,7 +44,7 @@ class TextViewTextChangedObservable(private val view: TextView): Observable<Char
     override fun afterTextChanged(all: Editable?) {}
     override fun beforeTextChanged(ch: CharSequence?, start: Int, end: Int, count: Int) {}
 
-    override fun onTextChanged(text: CharSequence?, start: Int, end: Int, count: Int) {
+    override fun onTextChanged(text: CharSequence, start: Int, end: Int, count: Int) {
       if (!isDisposed) {
         observer.onNext(text)
       }

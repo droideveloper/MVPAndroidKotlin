@@ -23,15 +23,15 @@ import io.reactivex.internal.disposables.DisposableHelper
 import java.util.concurrent.atomic.AtomicReference
 
 
-class ControlProperty<T>(source: Observable<T>, val sink: Observer<T>): Observable<T>(), Observer<T>, Disposable {
+class ControlProperty<T>(source: Observable<T>, private val sink: Observer<T>): Observable<T>(), Observer<T>, Disposable {
 
   private val s = AtomicReference<Disposable>()
   private val source = source.subscribeOn(AndroidSchedulers.mainThread())
 
-  override fun subscribeActual(observer: Observer<in T>?) = source.subscribe(observer)
+  override fun subscribeActual(observer: Observer<in T>) = source.subscribe(observer)
 
-  override fun onSubscribe(d: Disposable?) { DisposableHelper.setOnce(s, d) }
-  override fun onError(e: Throwable?) = throw RuntimeException(e)
+  override fun onSubscribe(d: Disposable) { DisposableHelper.setOnce(s, d) }
+  override fun onError(e: Throwable) = throw RuntimeException(e)
   override fun onNext(value: T) = sink.onNext(value)
   override fun onComplete() = sink.onComplete()
 

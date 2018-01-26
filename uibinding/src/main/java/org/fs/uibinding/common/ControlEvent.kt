@@ -23,7 +23,7 @@ class ControlEvent<T>constructor(source: Observable<T>): Observable<T>() {
 
   private val events: Observable<T> = source.subscribeOn(AndroidSchedulers.mainThread())
 
-  override fun subscribeActual(observer: Observer<in T>?) = events.subscribe(observer)
+  override fun subscribeActual(observer: Observer<in T>) = events.subscribe(observer)
 
   fun asObservable(): Observable<T> = events
   fun asControlEvent(): ControlEvent<T> = this
