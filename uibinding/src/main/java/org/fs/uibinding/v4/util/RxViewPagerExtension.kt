@@ -32,6 +32,8 @@ fun ViewPager.scrolls(): Observable<ViewPagerScroll> = ViewPagerScrollEventObser
 
 fun ViewPager.scrollStateChanges(): Observable<Int> = ViewPagerScrollStateObservable(this).takeUntil(detaches())
 
-fun ViewPager.page(): UIBindingObserver<ViewPager, Int> = UIBindingObserver(this, BiConsumer { view, page -> view.setCurrentItem(page, true) })
+fun ViewPager.page(smoothScroll: Boolean = true): UIBindingObserver<ViewPager, Int> = UIBindingObserver(this, BiConsumer { view, page -> view.setCurrentItem(page, smoothScroll) })
+fun ViewPager.offscreenPageLimit(): UIBindingObserver<ViewPager, Int> = UIBindingObserver(this, BiConsumer { view, offscreenPageLimit -> view.offscreenPageLimit = offscreenPageLimit })
+
 
 fun ViewPager.pageProperty(): ControlProperty<Int> = ControlProperty(pageChanges(), page())
