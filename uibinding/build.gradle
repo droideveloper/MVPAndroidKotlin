@@ -26,12 +26,12 @@ android {
 }
 
 dependencies {
-  compile 'com.android.support:appcompat-v7:26.1.0'
-  compile 'com.android.support:recyclerview-v7:26.1.0'
-  compile 'com.android.support:design:26.1.0'
+  compile "com.android.support:appcompat-v7:$supportVersion"
+  compile "com.android.support:recyclerview-v7:$supportVersion"
+  compile "com.android.support:design:$supportVersion"
 
-  compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-  compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+  compile "io.reactivex.rxjava2:rxandroid:$reactiveAndroid"
+  compile "io.reactivex.rxjava2:rxjava:$reactiveJava"
 
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 }

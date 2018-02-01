@@ -21,12 +21,27 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.MenuItem
 import android.view.View
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.HasSupportFragmentInjector
 import org.fs.mvp.common.PresenterType
 import javax.inject.Inject
 
-abstract class AbstractFragment<P: PresenterType>: Fragment() {
+abstract class AbstractFragment<P: PresenterType>: Fragment(), HasSupportFragmentInjector {
 
+  @Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
   @Inject lateinit var presenter: P
+
+  override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    AndroidSupportInjection.inject(this)
+    super.onActivityCreated(savedInstanceState)
+
+    presenter.restoreState(savedInstanceState ?: arguments)
+    presenter.onCreate()
+  }
 
   fun showProgress() {
     throw RuntimeException("you should implement show progress")
@@ -40,7 +55,7 @@ abstract class AbstractFragment<P: PresenterType>: Fragment() {
     val view = view()
     if (view != null) {
       Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
-          .show()
+        .show()
     }
   }
 
@@ -48,9 +63,9 @@ abstract class AbstractFragment<P: PresenterType>: Fragment() {
     val view = view()
     if (view != null) {
       Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
-          .setAction(action) { v: View ->
-            callback?.onClick(v)
-          }.show()
+        .setAction(action) { v: View ->
+          callback?.onClick(v)
+        }.show()
     }
   }
 

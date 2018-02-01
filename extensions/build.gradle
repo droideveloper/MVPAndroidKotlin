@@ -23,6 +23,7 @@ android {
 
 dependencies {
   // this is for support backward compatibility
-  compile 'com.android.support:appcompat-v7:26.1.0'
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  compile "com.android.support:appcompat-v7:$supportVersion"
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+  compile project(":mvp")
 }

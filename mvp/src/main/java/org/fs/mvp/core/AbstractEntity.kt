@@ -18,13 +18,9 @@ package org.fs.mvp.core
 import android.os.Parcel
 import android.os.Parcelable
 
-abstract class AbstractEntity constructor(): Parcelable {
+abstract class AbstractEntity: Parcelable {
 
-  constructor(input: Parcel): this() {
-    readParcel(input)
-  }
-
-  protected abstract fun readParcel(input: Parcel)
+  protected abstract fun readParcel(input: Parcel?)
   protected abstract fun writeParcel(out: Parcel?, flags: Int)
 
   override fun describeContents(): Int = 0

@@ -16,11 +16,23 @@
 package org.fs.mvp.core
 
 import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasBroadcastReceiverInjector
 import org.fs.mvp.common.PresenterType
 import javax.inject.Inject
 
-abstract class AbstractBroadcastReceiver<P: PresenterType>(): BroadcastReceiver() {
+abstract class AbstractBroadcastReceiver<P: PresenterType>: BroadcastReceiver(), HasBroadcastReceiverInjector {
 
+  @Inject lateinit var broadcastInjector: DispatchingAndroidInjector<BroadcastReceiver>
   @Inject lateinit var presenter: P
 
+  override fun onReceive(context: Context?, intent: Intent?) {
+    AndroidInjection.inject(this, context)
+  }
+
+  override fun broadcastReceiverInjector(): AndroidInjector<BroadcastReceiver> = broadcastInjector
 }

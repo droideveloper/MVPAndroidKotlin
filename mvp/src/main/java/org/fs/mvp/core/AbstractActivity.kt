@@ -19,15 +19,31 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import org.fs.mvp.common.PresenterType
 import javax.inject.Inject
 
-abstract class AbstractActivity<P: PresenterType>: AppCompatActivity() {
+abstract class AbstractActivity<P: PresenterType>: AppCompatActivity(), HasSupportFragmentInjector {
 
+  @Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
   @Inject lateinit var presenter: P
+
+  override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    AndroidInjection.inject(this)
+    super.onCreate(savedInstanceState)
+
+    presenter.restoreState(savedInstanceState ?: intent.extras)
+    presenter.onCreate()
+  }
 
   fun showProgress() {
     throw RuntimeException("you should implement show progress")
@@ -41,7 +57,7 @@ abstract class AbstractActivity<P: PresenterType>: AppCompatActivity() {
     val view = view()
     if (view != null) {
       Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
-          .show()
+        .show()
     }
   }
 
@@ -49,9 +65,9 @@ abstract class AbstractActivity<P: PresenterType>: AppCompatActivity() {
     val view = view()
     if (view != null) {
       Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
-          .setAction(action) { v: View ->
-            callback?.onClick(v)
-          }.show()
+        .setAction(action) { v: View ->
+          callback?.onClick(v)
+        }.show()
     }
   }
 
