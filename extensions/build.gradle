@@ -3,12 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion "26.0.3"
+  compileSdkVersion 27
 
   defaultConfig {
-    minSdkVersion 14
-    targetSdkVersion 26
+    minSdkVersion 16
+    targetSdkVersion 27
     versionCode 1
     versionName "1.0"
   }
@@ -23,7 +22,7 @@ android {
 
 dependencies {
   // this is for support backward compatibility
-  compile "com.android.support:appcompat-v7:$supportVersion"
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-  compile project(":mvp")
+  implementation "com.android.support:appcompat-v7:$supportVersion"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+  implementation project(":mvp")
 }

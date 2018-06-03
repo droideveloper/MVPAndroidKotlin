@@ -1,5 +1,5 @@
 /*
- * Kotlin Extensions Android Copyright (C) 2018 Fatih, Brokoli Labs.
+ * Kotlin Extensions Android Copyright (C) 2018 Fatih.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
-import org.fs.mvp.core.AbstractEntity
+import org.fs.architecture.core.AbstractEntity
 
 @Entity
 open class User: AbstractEntity() {

@@ -3,14 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion "26.0.3"
+  compileSdkVersion 27
 
   defaultConfig {
-    minSdkVersion 14
-    targetSdkVersion 26
+    minSdkVersion 16
+    targetSdkVersion 27
     versionCode 1
-    versionName "1.0"
+    versionName "0.0.1"
 
   }
 
@@ -24,34 +23,32 @@ android {
 
 dependencies {
   // this is for support backward compatibility
-  compile "com.android.support:appcompat-v7:$supportVersion"
-  compile "com.android.support:recyclerview-v7:$supportVersion"
-  compile "com.android.support:preference-v7:$supportVersion"
-  compile "com.android.support:design:$supportVersion"
-  compile "com.android.support:cardview-v7:$supportVersion"
+  implementation "com.android.support:appcompat-v7:$supportVersion"
+  implementation "com.android.support:recyclerview-v7:$supportVersion"
+  implementation "com.android.support:preference-v7:$supportVersion"
+  implementation "com.android.support:design:$supportVersion"
+  implementation "com.android.support:cardview-v7:$supportVersion"
   // this is image downloading library
-  compile 'com.github.bumptech.glide:glide:3.7.0'
+  implementation 'com.github.bumptech.glide:glide:3.7.0'
   //this is json serialization library
-  compile 'com.google.code.gson:gson:2.8.1'
+  implementation 'com.google.code.gson:gson:2.8.1'
   // this is http restful client from Square, Retrofit.
-  compile 'com.squareup.retrofit2:retrofit:2.3.0'
+  implementation 'com.squareup.retrofit2:retrofit:2.3.0'
   //logging response and request for restApiCall
-  compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+  implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
   //RxJava and RxAndroid
-  compile "io.reactivex.rxjava2:rxandroid:$reactiveAndroid"
-  compile "io.reactivex.rxjava2:rxjava:$reactiveJava"
-  compile 'com.j256.ormlite:ormlite-android:4.48'
+  implementation "io.reactivex.rxjava2:rxandroid:$reactiveAndroid"
+  implementation "io.reactivex.rxjava2:rxjava:$reactiveJava"
 
-  compile "com.google.dagger:dagger:$daggerVersion"
-  compile "com.google.dagger:dagger-android-support:$daggerVersion"
+  implementation "com.google.dagger:dagger:$daggerVersion"
+  implementation "com.google.dagger:dagger-android:$daggerVersion"
+  implementation "com.google.dagger:dagger-android-support:$daggerVersion"
   kapt "com.google.dagger:dagger-compiler:$daggerVersion"
   kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-  compile "android.arch.persistence.room:rxjava2:$databaseVersion"
-  compile "android.arch.persistence.room:runtime:$databaseVersion"
+  implementation "android.arch.persistence.room:rxjava2:$databaseVersion"
+  implementation "android.arch.persistence.room:runtime:$databaseVersion"
   kapt "android.arch.persistence.room:compiler:$databaseVersion"
-  // compile 'com.google.dagger:dagger:2.9'
-  provided 'javax.annotation:jsr250-api:1.0'
-  // kapt 'com.google.dagger:dagger-compiler:2.9'
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 }

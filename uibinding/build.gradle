@@ -2,15 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion "26.0.3"
+  compileSdkVersion 27
 
   defaultConfig {
-    minSdkVersion 14
-    targetSdkVersion 26
+    minSdkVersion 16
+    targetSdkVersion 27
     versionCode 1
-    versionName "1.0"
-
+    versionName "0.0.1"
   }
 
   lintOptions {
@@ -26,12 +24,12 @@ android {
 }
 
 dependencies {
-  compile "com.android.support:appcompat-v7:$supportVersion"
-  compile "com.android.support:recyclerview-v7:$supportVersion"
-  compile "com.android.support:design:$supportVersion"
+  implementation "com.android.support:appcompat-v7:$supportVersion"
+  implementation "com.android.support:recyclerview-v7:$supportVersion"
+  implementation "com.android.support:design:$supportVersion"
 
-  compile "io.reactivex.rxjava2:rxandroid:$reactiveAndroid"
-  compile "io.reactivex.rxjava2:rxjava:$reactiveJava"
+  implementation "io.reactivex.rxjava2:rxandroid:$reactiveAndroid"
+  implementation "io.reactivex.rxjava2:rxjava:$reactiveJava"
 
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 }
