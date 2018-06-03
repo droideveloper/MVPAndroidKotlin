@@ -6,6 +6,7 @@ buildscript {
   ext.reactiveAndroid = '2.0.1'
   ext.reactiveJava    = '2.1.6'
   ext.androidGradleVersion = '3.1.2'
+  ext.dependenciesVersion = '1.2'
 
   repositories {
     jcenter()
@@ -14,7 +15,8 @@ buildscript {
   dependencies {
     classpath "com.android.tools.build:gradle:$androidGradleVersion"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-
+    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$dependenciesVersion"
+    classpath "com.github.dcendents:android-maven-plugin:$dependenciesVersion"
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }
