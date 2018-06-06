@@ -1,1 +1,1 @@
-include ':mvp', ':uibinding', ':extensions'
+include ':mvp', ':uibinding'

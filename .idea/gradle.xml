@@ -8,7 +8,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/extensions" />
             <option value="$PROJECT_DIR$/mvp" />
             <option value="$PROJECT_DIR$/uibinding" />
           </set>

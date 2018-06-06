@@ -1,12 +1,16 @@
 buildscript {
-  ext.kotlinVersion   = '1.2.40'
+  ext.kotlinVersion   = '1.2.41'
   ext.daggerVersion   = '2.14.1'
   ext.supportVersion  = '27.1.1'
   ext.databaseVersion = '1.1.0'
-  ext.reactiveAndroid = '2.0.1'
+  ext.reactiveAndroid = '2.0.2'
   ext.reactiveJava    = '2.1.6'
   ext.androidGradleVersion = '3.1.2'
   ext.dependenciesVersion = '1.2'
+  ext.glideVersion = '4.7.1'
+  ext.gsonVersion = '2.8.1'
+  ext.retrofitVersion = '2.4.0'
+  ext.okHttpInterceptorVersion = '3.6.0'
 
   repositories {
     jcenter()
