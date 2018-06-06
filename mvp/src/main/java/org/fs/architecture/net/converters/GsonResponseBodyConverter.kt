@@ -20,7 +20,7 @@ import com.google.gson.stream.JsonReader
 import okhttp3.ResponseBody
 import retrofit2.Converter
 
-class GsonResponseBodyConverter<T>(val typeAdapter: TypeAdapter<T>): Converter<ResponseBody, T> {
+class GsonResponseBodyConverter<T>(private val typeAdapter: TypeAdapter<T>): Converter<ResponseBody, T> {
 
   override fun convert(value: ResponseBody?): T {
     value.use { v ->

@@ -24,29 +24,28 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import java.lang.reflect.Type
 
-class GsonConverterFactory(val gson: Gson = Gson()): Converter.Factory() {
+class GsonConverterFactory(private val gson: Gson = Gson()): Converter.Factory() {
 
   companion object {
-    fun create(): GsonConverterFactory = GsonConverterFactory()
-    fun create(gson: Gson): GsonConverterFactory = GsonConverterFactory(gson)
+    @JvmStatic fun create(): GsonConverterFactory = GsonConverterFactory()
+    @JvmStatic fun create(gson: Gson): GsonConverterFactory = GsonConverterFactory(gson)
   }
 
   override fun responseBodyConverter(type: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?): Converter<ResponseBody, *> {
-    if (type != null) {
+    type?.let {
       val typeAdapter = typeAdapter(type)
       return GsonResponseBodyConverter(typeAdapter)
-    } else {
-      throw IllegalStateException("you don't know the type you are trying to serialize")
     }
+    throw IllegalArgumentException("We can not recognize type for (#responseBodyConverter) $type")
   }
 
   override fun requestBodyConverter(type: Type?, parameterAnnotations: Array<out Annotation>?, methodAnnotations: Array<out Annotation>?, retrofit: Retrofit?): Converter<*, RequestBody> {
-    if (type != null) {
+    type?.let {
       val typeAdapter = typeAdapter(type)
       return GsonRequestBodyConverter(typeAdapter)
-    } else {
-      throw IllegalStateException("you don't know the type you are trying to deserialize")
     }
+
+    throw IllegalArgumentException("We can not recognize type for (#requestBodyConverter) $type")
   }
 
   private fun typeAdapter(type: Type): TypeAdapter<*> {

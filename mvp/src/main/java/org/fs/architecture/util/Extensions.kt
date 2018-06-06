@@ -17,7 +17,11 @@
 package org.fs.architecture.util
 
 import android.os.Build
+import android.support.annotation.LayoutRes
 import android.text.TextUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -87,7 +91,13 @@ fun <T: Any> T?.isNullOrEmpty(): Boolean {
 }
 fun <T: Any> T?.isNotNullOrEmpty(): Boolean = !isNullOrEmpty()
 
+// api level check
 fun isApiAvailable(requiredSdkVersion: Int): Boolean = Build.VERSION.SDK_INT >= requiredSdkVersion
 
+// check not null thing
 fun <T: Any> T?.checkNotNull(errorString: String = "$this is null") { if (isNullOrEmpty()) throw RuntimeException(errorString) }
 fun Boolean.throwIfConditionFails(errorString: String = "$this failed since it won't meet true") = { if (!this) throw RuntimeException(errorString) }
+
+// layout inflater better access for usage and others
+fun ViewGroup.layoutInflaterFactory(): LayoutInflater = LayoutInflater.from(context)
+fun ViewGroup.inflate(@LayoutRes layoutId: Int, attached: Boolean = false): View = layoutInflaterFactory().inflate(layoutId, this, attached)

@@ -23,27 +23,24 @@ import retrofit2.CallAdapter
 import retrofit2.Response
 import java.lang.reflect.Type
 
-class RxJava2CallAdapter<R>(val type: Type, val scheduler: Scheduler?,
-    val async: Boolean, val result: Boolean, val body: Boolean,
-    val flowable: Boolean, val single: Boolean, val maybe: Boolean, val completable: Boolean): CallAdapter<R, Any> {
+class RxJava2CallAdapter<R>(private val type: Type, private val scheduler: Scheduler?,
+    val async: Boolean, private val result: Boolean, private val body: Boolean,
+    private val flowable: Boolean, private val single: Boolean,
+    private val maybe: Boolean, private val completable: Boolean): CallAdapter<R, Any> {
 
   override fun responseType(): Type = type
 
   override fun adapt(call: Call<R>?): Any {
-    val responseObservable: Observable<Response<R>>
-    if (async) {
-      responseObservable = CallEnqueuObservable(call)
+    val responseObservable: Observable<Response<R>> = if (async) {
+      CallEnqueuObservable(call)
     } else {
-      responseObservable = CallExecuteObservable(call)
+      CallExecuteObservable(call)
     }
 
-    var observable: Observable<*>
-    if (result) {
-      observable = ResultObservable(responseObservable)
-    } else if (body) {
-      observable = BodyObservable(responseObservable)
-    } else {
-      observable = responseObservable
+    var observable: Observable<*> = when {
+      result -> ResultObservable(responseObservable)
+      body -> BodyObservable(responseObservable)
+      else -> responseObservable
     }
 
     if (scheduler != null) {

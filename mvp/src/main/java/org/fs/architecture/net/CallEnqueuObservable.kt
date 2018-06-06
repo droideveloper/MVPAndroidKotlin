@@ -37,7 +37,6 @@ class CallEnqueuObservable<T>(private val call: Call<T>?): Observable<Response<T
     }
   }
 
-
   class CallCallback<R>(private val call: Call<*>, private val observer: Observer<in Response<R>>?, private var terminated: Boolean = false): Disposable, Callback<R> {
 
     override fun isDisposed(): Boolean = call.isCanceled

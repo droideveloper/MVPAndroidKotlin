@@ -27,8 +27,8 @@ import java.nio.charset.Charset
 class GsonRequestBodyConverter<T>(private val typeAdapter: TypeAdapter<T>): Converter<T, RequestBody> {
 
   companion object {
-    private const val MIME_TEXT = "application/json"
-    private const val CHARSET_TEXT = "UTF-8"
+    @JvmStatic private val MIME_TEXT = "application/json"
+    @JvmStatic private val CHARSET_TEXT = "UTF-8"
   }
 
   private val mimeType = MediaType.parse("$MIME_TEXT; charset=$CHARSET_TEXT")

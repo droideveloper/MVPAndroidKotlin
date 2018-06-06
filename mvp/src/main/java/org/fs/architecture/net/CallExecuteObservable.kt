@@ -24,7 +24,7 @@ import io.reactivex.plugins.RxJavaPlugins
 import retrofit2.Call
 import retrofit2.Response
 
-class CallExecuteObservable<T>(val call: Call<T>?): Observable<Response<T>>() {
+class CallExecuteObservable<T>(private val call: Call<T>?): Observable<Response<T>>() {
 
   override fun subscribeActual(observer: Observer<in Response<T>>?) {
     val c = call?.clone()
@@ -34,7 +34,7 @@ class CallExecuteObservable<T>(val call: Call<T>?): Observable<Response<T>>() {
 
       var terminated = false
       try {
-        var response = c.execute()
+        val response = c.execute()
         if (!c.isCanceled) {
           observer?.onNext(response)
         }
@@ -58,7 +58,7 @@ class CallExecuteObservable<T>(val call: Call<T>?): Observable<Response<T>>() {
     }
   }
 
-  class CallDisposable(val call: Call<*>): Disposable {
+  class CallDisposable(private val call: Call<*>): Disposable {
 
     override fun isDisposed(): Boolean = call.isCanceled
     override fun dispose() = call.cancel()

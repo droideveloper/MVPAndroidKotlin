@@ -25,9 +25,9 @@ import java.lang.reflect.Type
 class RxJava2CallAdaptorFactory(private val scheduler: Scheduler?, private val async: Boolean = true): CallAdapter.Factory() {
 
   companion object {
-    fun create(): RxJava2CallAdaptorFactory = RxJava2CallAdaptorFactory(null, false)
-    fun create(scheduler: Scheduler): RxJava2CallAdaptorFactory = RxJava2CallAdaptorFactory(scheduler, false)
-    fun async(): RxJava2CallAdaptorFactory = RxJava2CallAdaptorFactory(null, true)
+    @JvmStatic fun create(): RxJava2CallAdaptorFactory = RxJava2CallAdaptorFactory(null, false)
+    @JvmStatic fun create(scheduler: Scheduler): RxJava2CallAdaptorFactory = RxJava2CallAdaptorFactory(scheduler, false)
+    @JvmStatic fun async(): RxJava2CallAdaptorFactory = RxJava2CallAdaptorFactory(null, true)
   }
 
   override fun get(returnType: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?): CallAdapter<*, *> {
@@ -45,15 +45,11 @@ class RxJava2CallAdaptorFactory(private val scheduler: Scheduler?, private val a
     }
 
     if ((returnType !is ParameterizedType)) {
-      val name: String
-      if (flowable) {
-        name = "Flowable"
-      } else if (single) {
-        name = "Single"
-      } else if (maybe) {
-        name = "Maybe"
-      } else {
-        name = "Observable"
+      val name: String = when {
+        flowable -> "Flowable"
+        single -> "Single"
+        maybe -> "Maybe"
+        else -> "Observable"
       }
       throw IllegalStateException("$name return type must be parameterized as $name <Foo> or $name <? extends Foo>")
     }
@@ -64,20 +60,24 @@ class RxJava2CallAdaptorFactory(private val scheduler: Scheduler?, private val a
     var result = false
     var body = false
     val responseType: Type
-    if (rawObservableType == Response::class.java) {
-      if (observableType !is ParameterizedType) {
-        throw IllegalStateException("Response must be parameterize as Response<Foo> or Response<? extends Foo>")
+    when (rawObservableType) {
+      Response::class.java -> {
+        if (observableType !is ParameterizedType) {
+          throw IllegalStateException("Response must be parameterize as Response<Foo> or Response<? extends Foo>")
+        }
+        responseType = getParameterUpperBound(0, observableType)
       }
-      responseType = getParameterUpperBound(0, observableType)
-    } else if (rawObservableType == Result::class.java) {
-      if (observableType !is ParameterizedType) {
-        throw IllegalStateException("Response must be parameterize as Response<Foo> or Response<? extends Foo>")
+      Result::class.java -> {
+        if (observableType !is ParameterizedType) {
+          throw IllegalStateException("Response must be parameterize as Response<Foo> or Response<? extends Foo>")
+        }
+        responseType = getParameterUpperBound(0, observableType)
+        result = true
       }
-      responseType = getParameterUpperBound(0, observableType)
-      result = true
-    } else {
-      responseType = observableType
-      body = true
+      else -> {
+        responseType = observableType
+        body = true
+      }
     }
     return RxJava2CallAdapter<Any>(responseType, scheduler, async, result, body, flowable, single, maybe, false)
   }

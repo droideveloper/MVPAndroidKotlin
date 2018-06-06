@@ -17,7 +17,7 @@ package org.fs.architecture.net
 
 import retrofit2.Response
 
-class Result<T> private constructor(val response: Response<T>?, val error: Throwable?) {
+class Result<T> private constructor(private val response: Response<T>?, private val error: Throwable?) {
 
   companion object {
     fun <T> response(response: Response<T>?): Result<T> = Result(response, null)

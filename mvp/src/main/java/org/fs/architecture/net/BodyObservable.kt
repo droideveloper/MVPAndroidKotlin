@@ -31,7 +31,7 @@ class BodyObservable<T>(private val stream: Observable<Response<T>>): Observable
     stream.subscribe(BodyObserver(observer))
   }
 
-  class BodyObserver<R>(private val observer: Observer<in R>? ,private var terminated: Boolean = false): Observer<Response<R>> {
+  class BodyObserver<R>(private val observer: Observer<in R>?, private var terminated: Boolean = false): Observer<Response<R>> {
 
     override fun onSubscribe(d: Disposable) {
       observer?.onSubscribe(d)
