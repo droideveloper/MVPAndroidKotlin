@@ -25,22 +25,25 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.atomic.AtomicBoolean
 
-class RecyclerViewOnScrollObservable(private val view: RecyclerView): Observable<Boolean>() {
+class RecyclerViewOnScrollObservable(private val view: RecyclerView, private val visibleThreshold: Int): Observable<Boolean>() {
+
+  companion object {
+    @JvmStatic val DEFAULT_VISIBLE_THRESHOLD = 5
+  }
 
   override fun subscribeActual(observer: Observer<in Boolean>?) {
     observer?.let {
-      val listener = Listener(view, it)
+      val listener = Listener(view, it, visibleThreshold)
       it.onSubscribe(listener)
       view.addOnScrollListener(listener)
     }
   }
 
-  class Listener(val view: RecyclerView, val observer: Observer<in Boolean>): RecyclerView.OnScrollListener(), Disposable {
+  class Listener(private val view: RecyclerView, private val observer: Observer<in Boolean>, private val visibleThreshold: Int): RecyclerView.OnScrollListener(), Disposable {
 
     private var firstVisibleItem: Int? = null
     private var visibleItemCount:Int? = null
     private var totalItemCount:Int? = null
-    private var visibleThreshold: Int? = null
     private var previousTotal: Int? = null
     private var loading: Boolean? = null
 
@@ -57,7 +60,6 @@ class RecyclerViewOnScrollObservable(private val view: RecyclerView): Observable
       firstVisibleItem = 0
       visibleItemCount = 0
       totalItemCount = 0
-      visibleThreshold = 0
       previousTotal = 0
       loading = false
       target = 0
@@ -94,25 +96,7 @@ class RecyclerViewOnScrollObservable(private val view: RecyclerView): Observable
         }
       }
 
-      val c = totalItemCount ?: 0 / 3
-      if (target == 0) {
-        target = c
-        visibleItems = visibleItemCount
-      }
-      if ((firstVisibleItem ?: 0) >= (target ?: 0) && (totalItemCount ?: 0) > 0) {
-
-        if (target == c * 2) {
-          target = (totalItemCount ?: 0) - (visibleItems ?: 0)
-        } else {
-          target = (target ?: 0) + c
-          if (!isDisposed) {
-            observer.onNext(loading ?: false)
-          }
-        }
-      }
-
-      if ((loading == false) && (totalItemCount ?: 0) - (visibleItemCount ?: 0) <= (firstVisibleItem ?: 0) + (visibleThreshold ?: 0)) {
-        // End has been reached invoke the callback.
+      if ((loading == false) && (totalItemCount ?: 0) - (visibleItemCount ?: 0) <= (firstVisibleItem ?: 0) + visibleThreshold) {
         if (!isDisposed) {
           observer.onNext(false)
         }

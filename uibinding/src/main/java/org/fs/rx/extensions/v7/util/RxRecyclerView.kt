@@ -21,4 +21,4 @@ import io.reactivex.Observable
 import org.fs.rx.extensions.util.detaches
 import org.fs.rx.extensions.v7.observable.RecyclerViewOnScrollObservable
 
-fun RecyclerView.loadMore(): Observable<Boolean> =  RecyclerViewOnScrollObservable(this).takeUntil(detaches())
+fun RecyclerView.loadMore(visibleThreshold: Int = RecyclerViewOnScrollObservable.DEFAULT_VISIBLE_THRESHOLD): Observable<Boolean> =  RecyclerViewOnScrollObservable(this, visibleThreshold).takeUntil(detaches())
