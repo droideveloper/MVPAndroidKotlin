@@ -18,7 +18,6 @@ package org.fs.architecture.util
 
 import android.os.Build
 import android.text.TextUtils
-import android.util.Log
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -27,8 +26,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.fs.architecture.common.ViewType
 import java.io.File
-import java.io.PrintWriter
-import java.io.StringWriter
 
 // Rx
 fun <T: Observable<T>> T.async(): Observable<T> = this.compose {
@@ -72,22 +69,6 @@ val String.Companion.EMPTY get() = ""
 val String.Companion.WHITE_SPACE get() = " "
 val String.Companion.NEW_LINE get() = "\n"
 val String.Companion.INDENT get() = "\t"
-
-// Logger
-inline fun <reified T: Any> T.isLogEnabled(): Boolean = false
-inline fun <reified T: Any> T.getClassTag(): String = this.javaClass.simpleName
-inline fun <reified T: Any> T.log(message: String) = log(Log.DEBUG, message)
-inline fun <reified T: Any> T.log(error : Throwable) {
-  val str = StringWriter()
-  val ptr = PrintWriter(str)
-  error.printStackTrace(ptr)
-  log(Log.ERROR, str.toString())
-}
-inline fun <reified T: Any> T.log(level: Int, message: String) {
-  if (isLogEnabled()) {
-    Log.println(level, getClassTag(), message)
-  }
-}
 
 // Objects
 fun <T: Any> T?.isNullOrEmpty(): Boolean {
