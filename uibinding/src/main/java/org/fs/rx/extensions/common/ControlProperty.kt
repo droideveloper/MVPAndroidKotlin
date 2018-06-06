@@ -23,7 +23,7 @@ import io.reactivex.internal.disposables.DisposableHelper
 import java.util.concurrent.atomic.AtomicReference
 
 
-class ControlProperty<T>(source: Observable<T>, private val sink: Observer<T>): Observable<T>(), Observer<T>, Disposable {
+open class ControlProperty<T>(source: Observable<T>, private val sink: Observer<T>): Observable<T>(), Observer<T>, Disposable {
 
   private val s = AtomicReference<Disposable>()
   private val source = source.subscribeOn(AndroidSchedulers.mainThread())
@@ -31,14 +31,14 @@ class ControlProperty<T>(source: Observable<T>, private val sink: Observer<T>): 
   override fun subscribeActual(observer: Observer<in T>) = source.subscribe(observer)
 
   override fun onSubscribe(d: Disposable) { DisposableHelper.setOnce(s, d) }
-  override fun onError(e: Throwable) = throw RuntimeException(e)
+  override fun onError(e: Throwable) = e.printStackTrace()
   override fun onNext(value: T) = sink.onNext(value)
   override fun onComplete() = sink.onComplete()
 
   override fun isDisposed(): Boolean = s.get() == DisposableHelper.DISPOSED
   override fun dispose() { DisposableHelper.dispose(s) }
 
-  fun changed(): ControlEvent<T> = ControlEvent(source.skip(1))
-  fun asObservable(): Observable<T> = source
-  fun asControlProperty(): ControlProperty<T> = this
+  open fun changed(): ControlEvent<T> = ControlEvent(source.skip(1))
+  open fun asObservable(): Observable<T> = source
+  open fun asControlProperty(): ControlProperty<T> = this
 }

@@ -25,16 +25,16 @@ import org.fs.rx.extensions.util.checkMainThread
 class NestedScrollViewScrollEventObservable(private val view: NestedScrollView): Observable<NestedScrollViewScrollEvent>() {
 
   override fun subscribeActual(observer: Observer<in NestedScrollViewScrollEvent>?) {
-    if (observer != null) {
-      if (!observer.checkMainThread()) { return }
-
-      val listener = Listener(view, observer)
-      observer.onSubscribe(listener)
+    observer?.let {
+      if (!it.checkMainThread()) { return }
+      val listener = Listener(view, it)
+      it.onSubscribe(listener)
       view.setOnScrollChangeListener(listener)
     }
   }
 
   class Listener(private val view: NestedScrollView, private val observer: Observer<in NestedScrollViewScrollEvent>): MainThreadDisposable(), NestedScrollView.OnScrollChangeListener {
+
     override fun onDispose() {
       view.setOnScrollChangeListener(null as NestedScrollView.OnScrollChangeListener)
     }

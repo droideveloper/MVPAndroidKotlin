@@ -25,16 +25,16 @@ import org.fs.rx.extensions.util.checkMainThread
 class AbsListViewScrollEventStateObservable(private val view: AbsListView): Observable<AbsListViewScrollEventState>() {
 
   override fun subscribeActual(observer: Observer<in AbsListViewScrollEventState>?) {
-    if (observer != null) {
-      if (!observer.checkMainThread()) { return }
-
-      val listener = Listener(view, observer)
-      observer.onSubscribe(listener)
+    observer?.let {
+      if (!it.checkMainThread()) { return }
+      val listener = Listener(view, it)
+      it.onSubscribe(listener)
       view.setOnScrollListener(listener)
     }
   }
 
   class Listener(private val view: AbsListView, private val observer: Observer<in AbsListViewScrollEventState>): MainThreadDisposable(), AbsListView.OnScrollListener {
+
     override fun onDispose() {
       view.setOnScrollListener(null)
     }

@@ -25,11 +25,10 @@ import org.fs.rx.extensions.util.checkMainThread
 class ViewPagerScrollEventObservable(private val view: ViewPager): Observable<ViewPagerScroll>() {
 
   override fun subscribeActual(observer: Observer<in ViewPagerScroll>?) {
-    if (observer != null) {
-      if (!observer.checkMainThread()) { return }
-
-      val listener = Listener(view, observer)
-      observer.onSubscribe(listener)
+    observer?.let {
+      if (!it.checkMainThread()) { return }
+      val listener = Listener(view, it)
+      it.onSubscribe(listener)
       view.addOnPageChangeListener(listener)
     }
   }

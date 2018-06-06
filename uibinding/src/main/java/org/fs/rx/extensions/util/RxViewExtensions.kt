@@ -23,9 +23,9 @@ import org.fs.rx.extensions.model.LayoutState
 import org.fs.rx.extensions.model.ViewAttachState
 import org.fs.rx.extensions.observable.*
 
-fun View.clicks(): Observable<View> = ViewClickObservable(this)
-fun View.longClicks(predicate: () -> Boolean = { true }): Observable<View> = ViewLongClickObservable(this, predicate)
-fun View.touches(callback: (MotionEvent?) -> Boolean = { _ -> false }): Observable<MotionEvent> = ViewTouchObservable(this, callback)
+fun View.clicks(): Observable<View> = ViewClickObservable(this).takeUntil(detaches())
+fun View.layouts(): Observable<LayoutState> = ViewLayoutStateObservable(this).takeUntil(detaches())
+fun View.longClicks(predicate: () -> Boolean = { true }): Observable<View> = ViewLongClickObservable(this, predicate).takeUntil(detaches())
+fun View.touches(callback: (MotionEvent?) -> Boolean = { _ -> false }): Observable<MotionEvent> = ViewTouchObservable(this, callback).takeUntil(detaches())
 fun View.attaches(): Observable<ViewAttachState> = ViewAttachStateObservable(this).filter { it == ViewAttachState.ATTACHED }
 fun View.detaches(): Observable<ViewAttachState> = ViewAttachStateObservable(this).filter { it == ViewAttachState.DETACHED }
-fun View.layouts(): Observable<LayoutState> = ViewLayoutStateObservable(this)

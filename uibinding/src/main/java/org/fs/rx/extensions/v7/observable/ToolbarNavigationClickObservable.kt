@@ -25,11 +25,10 @@ import org.fs.rx.extensions.util.checkMainThread
 class ToolbarNavigationClickObservable(private val view: Toolbar): Observable<View>() {
 
   override fun subscribeActual(observer: Observer<in View>?) {
-    if (observer != null) {
-      if (!observer.checkMainThread()) { return }
-
-      val listener = Listener(view, observer)
-      observer.onSubscribe(listener)
+    observer?.let {
+      if (!it.checkMainThread()) { return }
+      val listener = Listener(view, it)
+      it.onSubscribe(listener)
       view.setNavigationOnClickListener(listener)
     }
   }

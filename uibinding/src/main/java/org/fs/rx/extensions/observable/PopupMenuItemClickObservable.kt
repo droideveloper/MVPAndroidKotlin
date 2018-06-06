@@ -25,11 +25,10 @@ import org.fs.rx.extensions.util.checkMainThread
 class PopupMenuItemClickObservable(private val view: PopupMenu, private val predicate: (MenuItem) -> Boolean): Observable<MenuItem>() {
 
   override fun subscribeActual(observer: Observer<in MenuItem>?) {
-    if (observer != null) {
-      if (!observer.checkMainThread()) { return }
-
-      val listener = Listener(view, observer, predicate)
-      observer.onSubscribe(listener)
+    observer?.let {
+      if (!it.checkMainThread()) { return }
+      val listener = Listener(view, it, predicate)
+      it.onSubscribe(listener)
       view.setOnMenuItemClickListener(listener)
     }
   }

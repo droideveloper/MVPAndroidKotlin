@@ -25,13 +25,12 @@ import org.fs.rx.extensions.util.checkMainThread
 class SeekBarProgressChangedObservable(private val view: SeekBar): Observable<SeekState>() {
 
   override fun subscribeActual(observer: Observer<in SeekState>?) {
-     if (observer != null) {
-       if (!observer.checkMainThread()) { return }
-
-       val listener = Listener(view, observer)
-       observer.onSubscribe(listener)
-       view.setOnSeekBarChangeListener(listener)
-     }
+    observer?.let {
+      if (!it.checkMainThread()) { return }
+      val listener = Listener(view, it)
+      it.onSubscribe(listener)
+      view.setOnSeekBarChangeListener(listener)
+    }
   }
 
   class Listener(private val view: SeekBar, private val observer: Observer<in SeekState>): MainThreadDisposable(), SeekBar.OnSeekBarChangeListener {

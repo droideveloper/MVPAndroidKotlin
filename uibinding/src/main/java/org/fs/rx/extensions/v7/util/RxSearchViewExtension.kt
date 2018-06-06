@@ -20,12 +20,12 @@ import android.view.View
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver
+import org.fs.rx.extensions.util.EMPTY
 import org.fs.rx.extensions.util.detaches
 import org.fs.rx.extensions.v7.observable.SearchViewQueryTextChangedObservable
 
 private val fn: (view: View, stringRes: Int) -> CharSequence = { view, stringRes ->
-  val res = view.resources // load string res here
-  if (stringRes != 0) res.getString(stringRes) else "" // load text or return empty for safe failure
+  if (stringRes != 0) view.resources.getString(stringRes) else String.EMPTY // load text or return empty for safe failure
 }
 
 fun SearchView.queryChanges(predicate: (CharSequence) -> Boolean = {_ -> true}): Observable<CharSequence> = SearchViewQueryTextChangedObservable(this, predicate).takeUntil(detaches())
@@ -33,5 +33,5 @@ fun SearchView.queryChanges(predicate: (CharSequence) -> Boolean = {_ -> true}):
 fun SearchView.hintCharSequence(): UIBindingObserver<SearchView, CharSequence> = UIBindingObserver(this, BiConsumer { view, hintCharSequence -> view.queryHint = hintCharSequence })
 fun SearchView.hintStringRes(strConverter: (view: View, stringRes: Int) -> CharSequence = fn): UIBindingObserver<SearchView, Int> = UIBindingObserver(this, BiConsumer { view, stringRes -> view.queryHint = strConverter(view, stringRes) })
 
-fun SearchView.queryCharSequence(shouldSubmit: Boolean = false): UIBindingObserver<SearchView, CharSequence> = UIBindingObserver(this, BiConsumer { view, queryCharSequence -> view.setQuery(query, shouldSubmit) })
+fun SearchView.queryCharSequence(shouldSubmit: Boolean = false): UIBindingObserver<SearchView, CharSequence> = UIBindingObserver(this, BiConsumer { view, query -> view.setQuery(query, shouldSubmit) })
 fun SearchView.queryStringRes(strConverter: (view: View, stringRes: Int) -> CharSequence = fn, shouldSubmit: Boolean = false): UIBindingObserver<SearchView, Int> = UIBindingObserver(this, BiConsumer { view, stringRes -> view.setQuery(strConverter(view, stringRes), shouldSubmit) })

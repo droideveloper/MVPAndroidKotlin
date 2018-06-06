@@ -26,11 +26,10 @@ import org.fs.rx.extensions.util.checkMainThread
 class TextViewTextChangedObservable(private val view: TextView): Observable<CharSequence>() {
 
   override fun subscribeActual(observer: Observer<in CharSequence>?) {
-    if (observer != null) {
-      if (!observer.checkMainThread()) { return }
-
-      val listener = Listener(view, observer)
-      observer.onSubscribe(listener)
+    observer?.let {
+      if (!it.checkMainThread()) { return }
+      val listener = Listener(view, it)
+      it.onSubscribe(listener)
       view.addTextChangedListener(listener)
     }
   }

@@ -20,7 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiConsumer
 import io.reactivex.observers.DisposableObserver
 
-class UIBindingObserver<T, V>(private val view: T, private val binding: BiConsumer<T, V>): DisposableObserver<V>() {
+open class UIBindingObserver<T, V>(private val view: T, private val binding: BiConsumer<T, V>): DisposableObserver<V>() {
 
   override fun onNext(value: V) {
     if (Looper.myLooper() != Looper.getMainLooper()) {
@@ -40,5 +40,5 @@ class UIBindingObserver<T, V>(private val view: T, private val binding: BiConsum
   }
 
   override fun onComplete() { /*no-opt*/ }
-  override fun onError(e: Throwable) = throw RuntimeException(e)
+  override fun onError(e: Throwable) = e.printStackTrace()
 }

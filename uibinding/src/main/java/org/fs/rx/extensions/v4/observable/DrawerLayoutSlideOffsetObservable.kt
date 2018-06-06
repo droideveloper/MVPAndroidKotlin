@@ -25,13 +25,10 @@ import org.fs.rx.extensions.util.checkMainThread
 class DrawerLayoutSlideOffsetObservable(private val view: DrawerLayout): Observable<Float>() {
 
   override fun subscribeActual(observer: Observer<in Float>?) {
-    if (observer != null) {
-      if (!observer.checkMainThread()) {
-        return
-      }
-
-      val listener = Listener(view, observer)
-      observer.onSubscribe(listener)
+    observer?.let {
+      if (!it.checkMainThread()) { return }
+      val listener = Listener(view, it)
+      it.onSubscribe(listener)
       view.addDrawerListener(listener)
     }
   }

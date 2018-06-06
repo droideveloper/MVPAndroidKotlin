@@ -19,12 +19,12 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class ControlEvent<T>constructor(source: Observable<T>): Observable<T>() {
+open class ControlEvent<T>constructor(source: Observable<T>): Observable<T>() {
 
-  private val events: Observable<T> = source.subscribeOn(AndroidSchedulers.mainThread())
+  protected val events: Observable<T> = source.subscribeOn(AndroidSchedulers.mainThread())
 
   override fun subscribeActual(observer: Observer<in T>) = events.subscribe(observer)
 
-  fun asObservable(): Observable<T> = events
-  fun asControlEvent(): ControlEvent<T> = this
+  open fun asObservable(): Observable<T> = events
+  open fun asControlEvent(): ControlEvent<T> = this
 }

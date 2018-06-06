@@ -19,11 +19,11 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.BehaviorSubject
 
-class Variable<T>(value: T): Disposable  {
+open class Variable<T>(value: T): Disposable  {
 
   private var disposed = false
 
-  var value: T = value
+  open var value: T = value
     set(value) {
       if (field != value) {
         field = value
@@ -33,7 +33,7 @@ class Variable<T>(value: T): Disposable  {
 
   private val subject = BehaviorSubject.createDefault(value)
 
-  fun asObservable(): Observable<T> = subject
+  open fun asObservable(): Observable<T> = subject
 
   override fun isDisposed(): Boolean = disposed
 
