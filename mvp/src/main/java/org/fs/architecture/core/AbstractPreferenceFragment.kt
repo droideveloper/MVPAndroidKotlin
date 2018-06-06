@@ -28,15 +28,15 @@ abstract class AbstractPreferenceFragment<P: PresenterType>: PreferenceFragmentC
 
   @Inject lateinit var presenter: P
 
-  fun showProgress() {
+  open fun showProgress() {
     throw RuntimeException("you should implement show progress")
   }
 
-  fun hideProgress() {
+  open fun hideProgress() {
     throw RuntimeException("you should implement hide progress")
   }
 
-  fun showError(msg: String) {
+  open fun showError(msg: String) {
     val view = view()
     if (view != null) {
       Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
@@ -44,7 +44,7 @@ abstract class AbstractPreferenceFragment<P: PresenterType>: PreferenceFragmentC
     }
   }
 
-  fun showError(msg: String, action: String, callback: View.OnClickListener?) {
+  open fun showError(msg: String, action: String, callback: View.OnClickListener?) {
     val view = view()
     if (view != null) {
       Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
@@ -101,11 +101,11 @@ abstract class AbstractPreferenceFragment<P: PresenterType>: PreferenceFragmentC
     return super.onOptionsItemSelected(item)
   }
 
-  fun isAvailable(): Boolean = isAdded && activity != null
+  open fun isAvailable(): Boolean = isAdded && activity != null
 
-  fun getStringRes(stringRes: Int): String? = getString(stringRes)
+  open fun getStringRes(stringRes: Int): String? = getString(stringRes)
 
-  fun view(): View? = view
+  open fun view(): View? = view
 
-  fun finish() { throw RuntimeException("you should call on #dismiss()") }
+  open fun finish() { throw RuntimeException("you should call on #dismiss()") }
 }

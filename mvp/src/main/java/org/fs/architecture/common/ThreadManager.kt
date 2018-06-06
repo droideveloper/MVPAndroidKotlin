@@ -21,12 +21,12 @@ import android.os.Looper
 class ThreadManager private constructor() {
 
   companion object {
-    private val uiHandler = Handler(Looper.myLooper())
-    private val DELAY_MS = 300L
+    @JvmStatic private val uiHandler = Handler(Looper.myLooper())
+    @JvmStatic private val DELAY_MS = 300L
 
-    fun runOnUiThread(task: Runnable) = uiHandler.post(task)
-    fun runOnUiThreadDelayed(task: Runnable, delay: Long = DELAY_MS) = uiHandler.postDelayed(task, delay)
-    fun clearAll() = uiHandler.removeCallbacksAndMessages(null)
-    fun clear(task: Runnable) = uiHandler.removeCallbacks(task)
+    @JvmStatic fun runOnUiThread(task: Runnable) = uiHandler.post(task)
+    @JvmStatic fun runOnUiThreadDelayed(task: Runnable, delay: Long = DELAY_MS) = uiHandler.postDelayed(task, delay)
+    @JvmStatic fun clearAll() = uiHandler.removeCallbacksAndMessages(null)
+    @JvmStatic fun clear(task: Runnable) = uiHandler.removeCallbacks(task)
   }
 }

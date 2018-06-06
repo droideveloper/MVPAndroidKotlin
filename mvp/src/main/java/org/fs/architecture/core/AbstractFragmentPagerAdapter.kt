@@ -23,11 +23,11 @@ import org.fs.architecture.util.ObservableList
 
 abstract class AbstractFragmentPagerAdapter<D>(protected val dataSet: ObservableList<D>, fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager), PropertyChangedListener {
 
-  fun register() {
+  open fun register() {
     dataSet.register(this)
   }
 
-  fun unregister() {
+  open fun unregister() {
     dataSet.unregister(this)
   }
 
@@ -47,7 +47,7 @@ abstract class AbstractFragmentPagerAdapter<D>(protected val dataSet: Observable
 
   protected fun itemAt(position: Int): D = dataSet[position]
   override fun getCount(): Int = dataSet.size
-  protected fun viewType(position: Int) = 0
+  protected fun viewType(position: Int): Int = 0
 
   protected abstract fun onBindFragment(position: Int, item: D): Fragment
 }

@@ -45,15 +45,15 @@ abstract class AbstractPreferenceActivity<P: PresenterType>: PreferenceActivity(
 
   override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
 
-  fun showProgress() {
+  open fun showProgress() {
     throw RuntimeException("you should implement show progress")
   }
 
-  fun hideProgress() {
+  open fun hideProgress() {
     throw RuntimeException("you should implement hide progress")
   }
 
-  fun showError(msg: String) {
+  open fun showError(msg: String) {
     val view = view()
     if (view != null) {
       Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
@@ -61,7 +61,7 @@ abstract class AbstractPreferenceActivity<P: PresenterType>: PreferenceActivity(
     }
   }
 
-  fun showError(msg: String, action: String, callback: View.OnClickListener?) {
+  open fun showError(msg: String, action: String, callback: View.OnClickListener?) {
     val view = view()
     if (view != null) {
       Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
@@ -71,13 +71,13 @@ abstract class AbstractPreferenceActivity<P: PresenterType>: PreferenceActivity(
     }
   }
 
-  fun isAvailable(): Boolean = !isFinishing
+  open fun isAvailable(): Boolean = !isFinishing
 
-  fun getContext(): Context = this
+  open fun getContext(): Context = this
 
-  fun getStringRes(stringRes: Int): String? = getString(stringRes)
+  open fun getStringRes(stringRes: Int): String? = getString(stringRes)
 
-  fun view(): View? = findViewById(android.R.id.content)
+  open fun view(): View? = findViewById(android.R.id.content)
 
   override fun onSaveInstanceState(outState: Bundle?) {
     super.onSaveInstanceState(outState)

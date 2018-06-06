@@ -22,12 +22,12 @@ import io.reactivex.subjects.PublishSubject
 class BusManager private constructor() {
 
   companion object {
-    private val imp = BusManager()
-    private val rxBus = PublishSubject.create<EventType>()
+    @JvmStatic private val imp = BusManager()
+    @JvmStatic private val rxBus = PublishSubject.create<EventType>()
 
-    fun <T: EventType> send(event: T) = imp.post(event)
-    fun add(observer: Consumer<EventType>): Disposable = imp.register(observer)
-    fun remove(disposable: Disposable) = imp.unregister(disposable)
+    @JvmStatic fun <T: EventType> send(event: T) = imp.post(event)
+    @JvmStatic fun add(observer: Consumer<EventType>): Disposable = imp.register(observer)
+    @JvmStatic fun remove(disposable: Disposable) = imp.unregister(disposable)
   }
 
   private fun <T: EventType> post(event: T) = rxBus.onNext(event)

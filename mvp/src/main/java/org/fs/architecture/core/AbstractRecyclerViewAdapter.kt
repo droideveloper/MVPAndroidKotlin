@@ -16,14 +16,11 @@
 package org.fs.architecture.core
 
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import org.fs.architecture.common.PropertyChangedListener
 import org.fs.architecture.util.ObservableList
 
 abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>(protected val dataSet: ObservableList<D>): RecyclerView.Adapter<VH>(), PropertyChangedListener {
-
-  private var factory: LayoutInflater? = null
 
   override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
     super.onAttachedToRecyclerView(recyclerView)
@@ -80,13 +77,4 @@ abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>
   override fun getItemId(position: Int): Long = position.toLong()
   override fun getItemViewType(position: Int): Int = 0
   override fun getItemCount(): Int = dataSet.size
-
-  protected fun factory(parent: ViewGroup?): LayoutInflater? {
-    if (factory == null) {
-      if (parent != null) {
-        factory = LayoutInflater.from(parent.context)
-      }
-    }
-    return factory
-  }
 }

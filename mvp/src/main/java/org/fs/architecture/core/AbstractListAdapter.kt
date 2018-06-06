@@ -15,7 +15,6 @@
  */
 package org.fs.architecture.core
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -24,13 +23,11 @@ import org.fs.architecture.util.ObservableList
 
 abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>(protected val dataSet: ObservableList<D>) : BaseAdapter(), PropertyChangedListener {
 
-  private var factory: LayoutInflater? = null
-
-  fun register() {
+  open fun register() {
     dataSet.register(this)
   }
 
-  fun unregister() {
+  open fun unregister() {
     dataSet.unregister(this)
   }
 
@@ -78,14 +75,5 @@ abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>
   protected fun onBindViewHolder(viewHolder: VH, position: Int) {
     val item = itemAt(position)
     viewHolder.onBindView(item)
-  }
-
-  protected fun factory(parent: ViewGroup?): LayoutInflater? {
-    if (factory == null) {
-      if (parent != null) {
-        factory = LayoutInflater.from(parent.context)
-      }
-    }
-    return factory
   }
 }
