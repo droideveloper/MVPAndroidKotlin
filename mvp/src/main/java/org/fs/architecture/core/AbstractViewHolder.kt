@@ -21,12 +21,12 @@ abstract class AbstractViewHolder<D>(val view: View) {
 
   protected var entity: D? = null
 
-  fun applyTag() {
+  open fun applyTag() {
     view.tag = this
   }
 
   abstract fun onBindView(entity: D?)
 
-  fun attached() {}
-  fun detached() {}
+  open fun attached() {}
+  open fun detached() {}
 }

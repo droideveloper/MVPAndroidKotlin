@@ -45,9 +45,9 @@ abstract class AbstractFragmentStatePagerAdapter<D>(protected val dataSet: Obser
 
   override fun getItem(position: Int): Fragment = onBindFragment(position, itemAt(position))
 
-  protected fun itemAt(position: Int): D = dataSet[position]
+  open fun itemAt(position: Int): D = dataSet[position]
   override fun getCount(): Int = dataSet.size
-  protected fun viewType(position: Int): Int = 0
+  open fun viewType(position: Int): Int = 0
 
   protected abstract fun onBindFragment(position: Int, item: D): Fragment
 }

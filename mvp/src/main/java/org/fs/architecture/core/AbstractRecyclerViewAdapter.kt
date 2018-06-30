@@ -73,7 +73,7 @@ abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>
     }
   }
 
-  protected fun itemAt(position: Int): D = dataSet[position]
+  open fun itemAt(position: Int): D = dataSet[position]
   override fun getItemId(position: Int): Long = position.toLong()
   override fun getItemViewType(position: Int): Int = 0
   override fun getItemCount(): Int = dataSet.size

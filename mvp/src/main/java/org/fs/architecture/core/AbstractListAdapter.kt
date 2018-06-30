@@ -35,7 +35,7 @@ abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>
   override fun getViewTypeCount(): Int = 1
   override fun getCount(): Int = dataSet.size
   override fun getItem(position: Int): Any = dataSet[position]
-  protected fun itemAt(position: Int): D = dataSet[position]
+  open fun itemAt(position: Int): D = dataSet[position]
   override fun getItemId(position: Int): Long = position.toLong()
 
   override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -72,7 +72,7 @@ abstract class AbstractListAdapter<D: AbstractEntity, VH: AbstractViewHolder<D>>
 
   protected abstract fun createViewHolder(parent: ViewGroup?, viewType: Int): VH
 
-  protected fun onBindViewHolder(viewHolder: VH, position: Int) {
+  open fun onBindViewHolder(viewHolder: VH, position: Int) {
     val item = itemAt(position)
     viewHolder.onBindView(item)
   }
