@@ -36,18 +36,18 @@ abstract class AbstractPreferenceFragment<P: PresenterType>: PreferenceFragmentC
     throw RuntimeException("you should implement hide progress")
   }
 
-  open fun showError(msg: String) {
+  open fun showError(error: String) {
     val view = view()
     if (view != null) {
-      Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
+      Snackbar.make(view, error, Snackbar.LENGTH_LONG)
           .show()
     }
   }
 
-  open fun showError(msg: String, action: String, callback: View.OnClickListener?) {
+  open fun showError(error: String, action: String, callback: View.OnClickListener?) {
     val view = view()
     if (view != null) {
-      Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
+      Snackbar.make(view, error, Snackbar.LENGTH_LONG)
           .setAction(action) { v: View ->
             callback?.onClick(v)
           }.show()
@@ -103,7 +103,7 @@ abstract class AbstractPreferenceFragment<P: PresenterType>: PreferenceFragmentC
 
   open fun isAvailable(): Boolean = isAdded && activity != null
 
-  open fun getStringRes(stringRes: Int): String? = getString(stringRes)
+  open fun getStringRes(stringRes: Int): String = getString(stringRes)
 
   open fun view(): View? = view
 
