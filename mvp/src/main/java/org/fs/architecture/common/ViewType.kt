@@ -25,11 +25,11 @@ interface ViewType {
   fun hideProgress()
   fun showError(error: String)
   fun showError(error: String, action: String, callback: View.OnClickListener?)
-  fun getStringResource(stringRes: Int): String
+  fun getStringRes(stringRes: Int): String
   fun startActivity(intent: Intent)
   fun startActivityForResult(intent: Intent, requestCode: Int)
   fun requestPermissions(permissions: Array<String>, requestCode: Int)
   fun finish()
   fun isAvailable(): Boolean
-  fun getContext(): Context
+  fun getContext(): Context?
 }

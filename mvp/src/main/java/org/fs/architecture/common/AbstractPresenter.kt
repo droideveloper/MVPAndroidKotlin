@@ -21,16 +21,16 @@ import android.view.MenuItem
 
 abstract class AbstractPresenter<V: ViewType>(protected val view: V) {
 
-  fun onResume() {}
-  fun onPause() {}
-  fun onStart() {}
-  fun onStop() {}
-  fun onCreate() {}
-  fun onDestroy() {}
-  fun onBackPressed() {}
-  fun restoreState(restore: Bundle?) {}
-  fun storeState(store: Bundle) {}
-  fun activityResult(requestCode: Int, resultCode: Int, data: Intent?) {}
-  fun requestPermissionsResult(requestCode: Int, permissions: Array<String>, grants: IntArray) {}
-  fun onOptionsItemSelected(item: MenuItem): Boolean = false
+  open fun onResume() {}
+  open fun onPause() {}
+  open fun onStart() {}
+  open fun onStop() {}
+  open fun onCreate() {}
+  open fun onDestroy() {}
+  open fun onBackPressed() {}
+  open fun restoreState(restore: Bundle?) {}
+  open fun storeState(store: Bundle?) {}
+  open fun activityResult(requestCode: Int, resultCode: Int, data: Intent?) {}
+  open fun requestPermissionsResult(requestCode: Int, permissions: Array<out String>, grants: IntArray) {}
+  open fun onOptionsItemSelected(item: MenuItem): Boolean = false
 }
