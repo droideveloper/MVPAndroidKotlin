@@ -24,13 +24,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class ViewTouchObservable(private val view: View, private val callback: (MotionEvent?) -> Boolean): Observable<MotionEvent>() {
 
-  override fun subscribeActual(observer: Observer<in MotionEvent>?) {
-    observer?.let {
-      if (!it.checkMainThread()) {
-        return
-      }
-      val listener = Listener(view, it, callback)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in MotionEvent>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer, callback)
+      observer.onSubscribe(listener)
       view.setOnTouchListener(listener)
     }
   }

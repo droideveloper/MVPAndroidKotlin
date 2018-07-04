@@ -20,10 +20,9 @@ import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
-import org.fs.rx.extensions.util.detaches
 import org.fs.rx.extensions.v4.observable.SwipeRefreshRefreshingObservable
 
-fun SwipeRefreshLayout.refreshes(): Observable<Boolean> = SwipeRefreshRefreshingObservable(this).takeUntil(detaches())
+fun SwipeRefreshLayout.refreshes(): Observable<Boolean> = SwipeRefreshRefreshingObservable(this)
 
 fun SwipeRefreshLayout.refresh(): UIBindingObserver<SwipeRefreshLayout, Boolean> = UIBindingObserver(this, BiConsumer { view, refreshing -> view.isRefreshing = refreshing })
 

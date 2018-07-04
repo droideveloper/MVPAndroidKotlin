@@ -25,12 +25,12 @@ import org.fs.rx.extensions.observable.AdapterViewItemClickObservable
 import org.fs.rx.extensions.observable.AdapterViewItemLongClickObservable
 import org.fs.rx.extensions.observable.AdapterViewItemSelectedObservable
 
-fun AdapterView<*>.itemSelected(): Observable<Int> = AdapterViewItemSelectedObservable(this).takeUntil(detaches())
+fun AdapterView<*>.itemSelected(): Observable<Int> = AdapterViewItemSelectedObservable(this)
 
 fun AdapterView<*>.select(): UIBindingObserver<AdapterView<*>, Int> = UIBindingObserver(this, BiConsumer { view, position ->  view.setSelection(position) })
 
 fun AdapterView<*>.selectProperty(): ControlProperty<Int> = ControlProperty(itemSelected(), select())
 
-fun AdapterView<*>.itemLongClicks(predicate: (View) -> Boolean = { _ -> true }): Observable<Int> = AdapterViewItemLongClickObservable(this, predicate).takeUntil(detaches())
+fun AdapterView<*>.itemLongClicks(predicate: (View) -> Boolean = { _ -> true }): Observable<Int> = AdapterViewItemLongClickObservable(this, predicate)
 
-fun AdapterView<*>.itemClicks(): Observable<Int> = AdapterViewItemClickObservable(this).takeUntil(detaches())
+fun AdapterView<*>.itemClicks(): Observable<Int> = AdapterViewItemClickObservable(this)

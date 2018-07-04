@@ -24,11 +24,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class NestedScrollViewScrollEventObservable(private val view: NestedScrollView): Observable<NestedScrollViewScrollEvent>() {
 
-  override fun subscribeActual(observer: Observer<in NestedScrollViewScrollEvent>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in NestedScrollViewScrollEvent>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer)
+      observer.onSubscribe(listener)
       view.setOnScrollChangeListener(listener)
     }
   }

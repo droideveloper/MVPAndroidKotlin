@@ -23,11 +23,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class ViewClickObservable(private val view: View): Observable<View>() {
 
-  override fun subscribeActual(observer: Observer<in View>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in View>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer)
+      observer.onSubscribe(listener)
       view.setOnClickListener(listener)
     }
   }

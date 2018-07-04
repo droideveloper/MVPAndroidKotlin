@@ -24,7 +24,7 @@ import org.fs.rx.extensions.model.SeekState
 import org.fs.rx.extensions.observable.SeekBarProgressChangedObservable
 
 
-fun SeekBar.progresses(): Observable<SeekState> = SeekBarProgressChangedObservable(this).takeUntil(detaches())
+fun SeekBar.progresses(): Observable<SeekState> = SeekBarProgressChangedObservable(this)
 
 fun SeekBar.progress(): UIBindingObserver<SeekBar, Int> = UIBindingObserver(this, BiConsumer { view, progress -> view.progress = progress })
 

@@ -16,6 +16,7 @@
 package org.fs.rx.extensions.v7.observable
 
 import android.support.v7.widget.SearchView
+import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -23,11 +24,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class SearchViewQueryTextChangedObservable(private val view: SearchView, private val predicate: (CharSequence) -> Boolean): Observable<CharSequence>() {
 
-  override fun subscribeActual(observer: Observer<in CharSequence>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it, predicate)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in CharSequence>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer, predicate)
+      observer.onSubscribe(listener)
       view.setOnQueryTextListener(listener)
     }
   }
@@ -42,6 +42,7 @@ class SearchViewQueryTextChangedObservable(private val view: SearchView, private
     override fun onQueryTextChange(newText: String?): Boolean {
       if (!isDisposed) {
         if (newText != null) {
+          Log.println(Log.ERROR, SearchViewQueryTextChangedObservable::class.java.simpleName, newText)
           observer.onNext(newText)
           return predicate(newText)
         }

@@ -24,11 +24,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class RatingBarRateChangedObservable(private val view: RatingBar): Observable<RateState>() {
 
-  override fun subscribeActual(observer: Observer<in RateState>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in RateState>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer)
+      observer.onSubscribe(listener)
       view.onRatingBarChangeListener = listener
     }
   }

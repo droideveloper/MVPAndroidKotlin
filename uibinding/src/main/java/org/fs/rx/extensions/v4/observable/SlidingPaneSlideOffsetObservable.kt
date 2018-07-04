@@ -24,11 +24,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class SlidingPaneSlideOffsetObservable(private val view: SlidingPaneLayout): Observable<Float>() {
 
-  override fun subscribeActual(observer: Observer<in Float>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in Float>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer)
+      observer.onSubscribe(listener)
       view.setPanelSlideListener(listener)
     }
   }

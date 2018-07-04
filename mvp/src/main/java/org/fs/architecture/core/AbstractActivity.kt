@@ -40,9 +40,6 @@ abstract class AbstractActivity<P: PresenterType>: AppCompatActivity(), HasSuppo
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
-
-    presenter.restoreState(savedInstanceState ?: intent.extras)
-    presenter.onCreate()
   }
 
   open fun showProgress() {

@@ -22,10 +22,9 @@ import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.design.observable.NavigationViewItemSelectedObservable
-import org.fs.rx.extensions.util.detaches
 
 fun NavigationView.checked(): UIBindingObserver<NavigationView, Int> = UIBindingObserver(this, BiConsumer { view, id -> view.setCheckedItem(id) })
 
-fun NavigationView.checkedChanges(predicate: (MenuItem) -> Boolean = { _ -> true }): Observable<MenuItem> = NavigationViewItemSelectedObservable(this, predicate).takeUntil(detaches())
+fun NavigationView.checkedChanges(predicate: (MenuItem) -> Boolean = { _ -> true }): Observable<MenuItem> = NavigationViewItemSelectedObservable(this, predicate)
 
 fun NavigationView.checkedProperty(predicate: (MenuItem) -> Boolean = { _ -> true }): ControlProperty<Int> = ControlProperty(checkedChanges(predicate).map { it.itemId }, checked())

@@ -8,7 +8,7 @@ android {
     minSdkVersion 16
     targetSdkVersion 27
     versionCode 1
-    versionName "0.0.2"
+    versionName "0.0.5"
   }
 
   lintOptions {
@@ -37,7 +37,7 @@ dependencies {
 ext {
   PUBLISH_GROUP_ID = 'org.fs.rx.extensions'
   PUBLISH_ARTIFACT_ID = 'uibinding'
-  PUBLISH_VERSION = '0.0.2'
+  PUBLISH_VERSION = '0.0.5'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

@@ -22,10 +22,9 @@ import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.design.observable.BottomNavigationViewItemSelectedObservable
-import org.fs.rx.extensions.util.detaches
 
 fun BottomNavigationView.selected(): UIBindingObserver<BottomNavigationView, Int> = UIBindingObserver(this, BiConsumer { view, id -> view.selectedItemId = id })
 
-fun BottomNavigationView.selectedChanges(predicate: (MenuItem) -> Boolean = { _ -> true }): Observable<MenuItem> = BottomNavigationViewItemSelectedObservable(this, predicate).takeUntil(detaches())
+fun BottomNavigationView.selectedChanges(predicate: (MenuItem) -> Boolean = { _ -> true }): Observable<MenuItem> = BottomNavigationViewItemSelectedObservable(this, predicate)
 
 fun BottomNavigationView.selectedProperty(predicate: (MenuItem) -> Boolean = { _ -> true }): ControlProperty<Int> = ControlProperty(selectedChanges(predicate).map { it.itemId }, selected())

@@ -21,16 +21,15 @@ import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.model.ViewPagerScroll
-import org.fs.rx.extensions.util.detaches
 import org.fs.rx.extensions.v4.observable.ViewPagerPageChangedObservable
 import org.fs.rx.extensions.v4.observable.ViewPagerScrollEventObservable
 import org.fs.rx.extensions.v4.observable.ViewPagerScrollStateObservable
 
-fun ViewPager.pageChanges(): Observable<Int> = ViewPagerPageChangedObservable(this).takeUntil(detaches())
+fun ViewPager.pageChanges(): Observable<Int> = ViewPagerPageChangedObservable(this)
 
-fun ViewPager.scrolls(): Observable<ViewPagerScroll> = ViewPagerScrollEventObservable(this).takeUntil(detaches())
+fun ViewPager.scrolls(): Observable<ViewPagerScroll> = ViewPagerScrollEventObservable(this)
 
-fun ViewPager.scrollStateChanges(): Observable<Int> = ViewPagerScrollStateObservable(this).takeUntil(detaches())
+fun ViewPager.scrollStateChanges(): Observable<Int> = ViewPagerScrollStateObservable(this)
 
 fun ViewPager.page(smoothScroll: Boolean = true): UIBindingObserver<ViewPager, Int> = UIBindingObserver(this, BiConsumer { view, page -> view.setCurrentItem(page, smoothScroll) })
 fun ViewPager.offscreenPageLimit(): UIBindingObserver<ViewPager, Int> = UIBindingObserver(this, BiConsumer { view, offscreenPageLimit -> view.offscreenPageLimit = offscreenPageLimit })

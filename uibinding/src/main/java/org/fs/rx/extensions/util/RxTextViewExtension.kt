@@ -22,7 +22,7 @@ import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.observable.TextViewTextChangedObservable
 
-fun TextView.textChanges(): Observable<CharSequence> = TextViewTextChangedObservable(this).takeUntil(detaches())
+fun TextView.textChanges(): Observable<CharSequence> = TextViewTextChangedObservable(this)
 
 fun TextView.text(): UIBindingObserver<TextView, CharSequence> = UIBindingObserver(this, BiConsumer { view, text -> view.text = text })
 

@@ -23,11 +23,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class SearchViewQueryTextChangedObservable(private val view: SearchView, private val predicate: (CharSequence) -> Boolean): Observable<CharSequence>() {
 
-  override fun subscribeActual(observer: Observer<in CharSequence>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it, predicate)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in CharSequence>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer, predicate)
+      observer.onSubscribe(listener)
       view.setOnQueryTextListener(listener)
     }
   }

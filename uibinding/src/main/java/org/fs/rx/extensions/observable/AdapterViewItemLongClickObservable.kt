@@ -24,11 +24,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class AdapterViewItemLongClickObservable(private val view: AdapterView<*>, private val predicate: (View) -> Boolean): Observable<Int>() {
 
-  override fun subscribeActual(observer: Observer<in Int>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it, predicate)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in Int>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer, predicate)
+      observer.onSubscribe(listener)
       view.onItemLongClickListener = listener
     }
   }

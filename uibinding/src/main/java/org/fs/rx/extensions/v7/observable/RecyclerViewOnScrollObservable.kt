@@ -23,6 +23,7 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import org.fs.rx.extensions.util.checkMainThread
 import java.util.concurrent.atomic.AtomicBoolean
 
 class RecyclerViewOnScrollObservable(private val view: RecyclerView, private val visibleThreshold: Int): Observable<Boolean>() {
@@ -31,10 +32,10 @@ class RecyclerViewOnScrollObservable(private val view: RecyclerView, private val
     @JvmStatic val DEFAULT_VISIBLE_THRESHOLD = 5
   }
 
-  override fun subscribeActual(observer: Observer<in Boolean>?) {
-    observer?.let {
-      val listener = Listener(view, it, visibleThreshold)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in Boolean>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer, visibleThreshold)
+      observer.onSubscribe(listener)
       view.addOnScrollListener(listener)
     }
   }

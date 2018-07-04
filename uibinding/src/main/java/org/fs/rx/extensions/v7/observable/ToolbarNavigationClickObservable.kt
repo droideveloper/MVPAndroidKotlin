@@ -16,6 +16,7 @@
 package org.fs.rx.extensions.v7.observable
 
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.View
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -24,11 +25,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class ToolbarNavigationClickObservable(private val view: Toolbar): Observable<View>() {
 
-  override fun subscribeActual(observer: Observer<in View>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in View>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer)
+      observer.onSubscribe(listener)
       view.setNavigationOnClickListener(listener)
     }
   }
@@ -41,6 +41,7 @@ class ToolbarNavigationClickObservable(private val view: Toolbar): Observable<Vi
 
     override fun onClick(view: View?) {
       if (!isDisposed) {
+        Log.println(Log.ERROR, ToolbarNavigationClickObservable::class.java.simpleName, "navigation click")
         observer.onNext(this.view)
       }
     }

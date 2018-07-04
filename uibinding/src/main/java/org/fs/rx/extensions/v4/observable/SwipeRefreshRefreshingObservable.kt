@@ -23,11 +23,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class SwipeRefreshRefreshingObservable(private val view: SwipeRefreshLayout): Observable<Boolean>() {
 
-  override fun subscribeActual(observer: Observer<in Boolean>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in Boolean>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer)
+      observer.onSubscribe(listener)
       view.setOnRefreshListener(listener)
     }
   }

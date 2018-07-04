@@ -24,6 +24,6 @@ import org.fs.rx.extensions.observable.CompoundButtonCheckedChangedObservable
 
 fun CompoundButton.check(): UIBindingObserver<CompoundButton, Boolean> = UIBindingObserver(this, BiConsumer { view, checked ->  view.isChecked = checked })
 
-fun CompoundButton.checkChanges(): Observable<Boolean> = CompoundButtonCheckedChangedObservable(this).takeUntil(detaches())
+fun CompoundButton.checkChanges(): Observable<Boolean> = CompoundButtonCheckedChangedObservable(this)
 
 fun CompoundButton.checkProperty(): ControlProperty<Boolean> = ControlProperty(checkChanges(), check())

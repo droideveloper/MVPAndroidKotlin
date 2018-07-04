@@ -18,6 +18,5 @@ package org.fs.rx.extensions.design.util
 import android.support.design.widget.AppBarLayout
 import io.reactivex.Observable
 import org.fs.rx.extensions.design.observable.AppBarLayoutOffsetChangedObservable
-import org.fs.rx.extensions.util.detaches
 
-fun AppBarLayout.offsetChanges(): Observable<Int> = AppBarLayoutOffsetChangedObservable(this).takeUntil(detaches())
+fun AppBarLayout.offsetChanges(): Observable<Int> = AppBarLayoutOffsetChangedObservable(this)

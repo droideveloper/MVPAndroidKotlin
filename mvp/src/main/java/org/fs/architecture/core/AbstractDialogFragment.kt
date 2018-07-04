@@ -41,9 +41,6 @@ abstract class AbstractDialogFragment<P: PresenterType> : DialogFragment(), HasS
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
     super.onActivityCreated(savedInstanceState)
-
-    presenter.restoreState(savedInstanceState ?: arguments)
-    presenter.onCreate()
   }
 
   open fun showProgress() {

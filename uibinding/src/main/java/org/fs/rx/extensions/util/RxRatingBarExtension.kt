@@ -22,6 +22,6 @@ import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.model.RateState
 import org.fs.rx.extensions.observable.RatingBarRateChangedObservable
 
-fun RatingBar.rates(): Observable<RateState> = RatingBarRateChangedObservable(this).takeUntil(detaches())
+fun RatingBar.rates(): Observable<RateState> = RatingBarRateChangedObservable(this)
 
 fun RatingBar.rate(): UIBindingObserver<RatingBar, Float> = UIBindingObserver(this, BiConsumer { view, rate ->  view.rating = rate })

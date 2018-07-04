@@ -21,6 +21,6 @@ import org.fs.rx.extensions.model.AbsListViewScrollEventState
 import org.fs.rx.extensions.observable.AbsListViewScrollEventStateObservable
 import org.fs.rx.extensions.observable.AbsListViewScrollStateObservable
 
-fun AbsListView.scrollEvents(): Observable<AbsListViewScrollEventState> = AbsListViewScrollEventStateObservable(this).takeUntil(detaches())
+fun AbsListView.scrollEvents(): Observable<AbsListViewScrollEventState> = AbsListViewScrollEventStateObservable(this)
 
-fun AbsListView.scrollStateChanges(): Observable<Int> = AbsListViewScrollStateObservable(this).takeUntil(detaches())
+fun AbsListView.scrollStateChanges(): Observable<Int> = AbsListViewScrollStateObservable(this)

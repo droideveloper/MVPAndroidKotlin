@@ -20,13 +20,12 @@ import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
-import org.fs.rx.extensions.util.detaches
 import org.fs.rx.extensions.v4.observable.SlidingPaneOpenOrClosedObservable
 import org.fs.rx.extensions.v4.observable.SlidingPaneSlideOffsetObservable
 
-fun SlidingPaneLayout.opensOrCloses(): Observable<Boolean> = SlidingPaneOpenOrClosedObservable(this).takeUntil(detaches())
+fun SlidingPaneLayout.opensOrCloses(): Observable<Boolean> = SlidingPaneOpenOrClosedObservable(this)
 
-fun SlidingPaneLayout.offsetChanges(): Observable<Float> = SlidingPaneSlideOffsetObservable(this).takeUntil(detaches())
+fun SlidingPaneLayout.offsetChanges(): Observable<Float> = SlidingPaneSlideOffsetObservable(this)
 
 fun SlidingPaneLayout.openOrClose(): UIBindingObserver<SlidingPaneLayout, Boolean> = UIBindingObserver(this, BiConsumer { view, _ ->
   if (isOpen)  {

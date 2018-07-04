@@ -16,6 +16,7 @@
 package org.fs.rx.extensions.v7.observable
 
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.MenuItem
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -24,11 +25,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class ToolbarMenuItemClickObservable(private val view: Toolbar, private val predicate: (MenuItem) -> Boolean): Observable<MenuItem>() {
 
-  override fun subscribeActual(observer: Observer<in MenuItem>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it, predicate)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in MenuItem>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer, predicate)
+      observer.onSubscribe(listener)
       view.setOnMenuItemClickListener(listener)
     }
   }
@@ -42,6 +42,7 @@ class ToolbarMenuItemClickObservable(private val view: Toolbar, private val pred
     override fun onMenuItemClick(item: MenuItem?): Boolean {
       if (!isDisposed) {
         if (item != null) {
+          Log.println(Log.ERROR, ToolbarMenuItemClickObservable::class.java.simpleName, item.title.toString())
           observer.onNext(item)
           return predicate(item)
         }

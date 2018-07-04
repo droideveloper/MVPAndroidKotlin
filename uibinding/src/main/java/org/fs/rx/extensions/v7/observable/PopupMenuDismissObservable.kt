@@ -23,11 +23,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class PopupMenuDismissObservable(private val view: PopupMenu): Observable<PopupMenu>() {
 
-  override fun subscribeActual(observer: Observer<in PopupMenu>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in PopupMenu>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer)
+      observer.onSubscribe(listener)
       view.setOnDismissListener(listener)
     }
   }

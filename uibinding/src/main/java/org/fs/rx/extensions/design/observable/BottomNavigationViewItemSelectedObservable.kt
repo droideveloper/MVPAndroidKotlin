@@ -24,11 +24,10 @@ import org.fs.rx.extensions.util.checkMainThread
 
 class BottomNavigationViewItemSelectedObservable(private val view: BottomNavigationView, private val predicate: (MenuItem) -> Boolean): Observable<MenuItem>() {
 
-  override fun subscribeActual(observer: Observer<in MenuItem>?) {
-    observer?.let {
-      if (!it.checkMainThread()) { return }
-      val listener = Listener(view, it, predicate)
-      it.onSubscribe(listener)
+  override fun subscribeActual(observer: Observer<in MenuItem>) {
+    if (observer.checkMainThread()) {
+      val listener = Listener(view, observer, predicate)
+      observer.onSubscribe(listener)
       view.setOnNavigationItemSelectedListener(listener)
     }
   }

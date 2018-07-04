@@ -19,11 +19,10 @@ package org.fs.rx.extensions.util
 import android.os.Looper
 import android.util.Log
 import io.reactivex.Observer
-import org.fs.rx.extensions.common.UIBindingObserver
 
-fun <T> Observer<T>.checkMainThread(): Boolean = (Looper.myLooper() != Looper.getMainLooper()).also {
+fun <T> Observer<T>.checkMainThread(): Boolean = (Looper.myLooper() == Looper.getMainLooper()).also {
   if (it) {
-    Log.e(UIBindingObserver::class.java.simpleName, "current thread is not ui thread, ensure it is on UI thread")
+    Log.e("uibinding lib", "current thread is not ui thread, ensure it is on UI thread")
   }
 }
 

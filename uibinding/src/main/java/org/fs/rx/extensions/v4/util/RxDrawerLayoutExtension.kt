@@ -20,16 +20,15 @@ import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
-import org.fs.rx.extensions.util.detaches
 import org.fs.rx.extensions.v4.observable.DrawerLayoutOpenOrClosedObservable
 import org.fs.rx.extensions.v4.observable.DrawerLayoutSlideOffsetObservable
 import org.fs.rx.extensions.v4.observable.DrawerLayoutStateChangedObservable
 
-fun DrawerLayout.opensOrCloses(): Observable<Boolean> = DrawerLayoutOpenOrClosedObservable(this).takeUntil(detaches())
+fun DrawerLayout.opensOrCloses(): Observable<Boolean> = DrawerLayoutOpenOrClosedObservable(this)
 
-fun DrawerLayout.slideOfsetChanges(): Observable<Float> = DrawerLayoutSlideOffsetObservable(this).takeUntil(detaches())
+fun DrawerLayout.slideOfsetChanges(): Observable<Float> = DrawerLayoutSlideOffsetObservable(this)
 
-fun DrawerLayout.stateChanges(): Observable<Int> = DrawerLayoutStateChangedObservable(this).takeUntil(detaches())
+fun DrawerLayout.stateChanges(): Observable<Int> = DrawerLayoutStateChangedObservable(this)
 
 fun DrawerLayout.openOrClose(gravity: Int): UIBindingObserver<DrawerLayout, Boolean> = UIBindingObserver(this, BiConsumer { view, open ->
   if (view.isDrawerOpen(gravity)) {

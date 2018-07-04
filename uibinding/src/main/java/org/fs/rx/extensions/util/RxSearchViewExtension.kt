@@ -23,6 +23,6 @@ import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.observable.SearchViewQueryTextChangedObservable
 
-fun SearchView.queryChanges(predicate: (CharSequence) -> Boolean = { _ -> true }): Observable<CharSequence> = SearchViewQueryTextChangedObservable(this, predicate).takeUntil(detaches())
+fun SearchView.queryChanges(predicate: (CharSequence) -> Boolean = { _ -> true }): Observable<CharSequence> = SearchViewQueryTextChangedObservable(this, predicate)
 fun SearchView.query(): UIBindingObserver<SearchView, CharSequence> = UIBindingObserver(this, BiConsumer { view, query -> view.setQuery(query, false) })
 fun SearchView.queryProperty(): ControlProperty<CharSequence> = ControlProperty(queryChanges(), query())

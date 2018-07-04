@@ -21,14 +21,13 @@ import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.util.EMPTY
-import org.fs.rx.extensions.util.detaches
 import org.fs.rx.extensions.v7.observable.SearchViewQueryTextChangedObservable
 
 private val fn: (view: View, stringRes: Int) -> CharSequence = { view, stringRes ->
   if (stringRes != 0) view.resources.getString(stringRes) else String.EMPTY // load text or return empty for safe failure
 }
 
-fun SearchView.queryChanges(predicate: (CharSequence) -> Boolean = {_ -> true}): Observable<CharSequence> = SearchViewQueryTextChangedObservable(this, predicate).takeUntil(detaches())
+fun SearchView.queryChanges(predicate: (CharSequence) -> Boolean = {_ -> true}): Observable<CharSequence> = SearchViewQueryTextChangedObservable(this, predicate)
 
 fun SearchView.hintCharSequence(): UIBindingObserver<SearchView, CharSequence> = UIBindingObserver(this, BiConsumer { view, hintCharSequence -> view.queryHint = hintCharSequence })
 fun SearchView.hintStringRes(strConverter: (view: View, stringRes: Int) -> CharSequence = fn): UIBindingObserver<SearchView, Int> = UIBindingObserver(this, BiConsumer { view, stringRes -> view.queryHint = strConverter(view, stringRes) })

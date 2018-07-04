@@ -21,12 +21,11 @@ import android.view.View
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver
-import org.fs.rx.extensions.util.detaches
 import org.fs.rx.extensions.v7.observable.ToolbarMenuItemClickObservable
 import org.fs.rx.extensions.v7.observable.ToolbarNavigationClickObservable
 
-fun Toolbar.navigationClicks(): Observable<View> = ToolbarNavigationClickObservable(this).takeUntil(detaches())
-fun Toolbar.menuItemClicks(predicate: (MenuItem) -> Boolean = { _ -> true }): Observable<MenuItem> = ToolbarMenuItemClickObservable(this, predicate).takeUntil(detaches())
+fun Toolbar.navigationClicks(): Observable<View> = ToolbarNavigationClickObservable(this)
+fun Toolbar.menuItemClicks(predicate: (MenuItem) -> Boolean = { _ -> true }): Observable<MenuItem> = ToolbarMenuItemClickObservable(this, predicate)
 // title setter
 fun Toolbar.titleCharSequence(): UIBindingObserver<Toolbar, CharSequence> = UIBindingObserver(this, BiConsumer { view, title -> view.title = title })
 fun Toolbar.titleStringRes(): UIBindingObserver<Toolbar, Int> = UIBindingObserver(this, BiConsumer { view, titleRes -> view.setTitle(titleRes) })

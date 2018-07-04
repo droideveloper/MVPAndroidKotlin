@@ -38,9 +38,6 @@ abstract class AbstractFragment<P: PresenterType>: Fragment(), HasSupportFragmen
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
     super.onActivityCreated(savedInstanceState)
-
-    presenter.restoreState(savedInstanceState ?: arguments)
-    presenter.onCreate()
   }
 
   open fun showProgress() {

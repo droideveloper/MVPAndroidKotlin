@@ -38,9 +38,6 @@ abstract class AbstractPreferenceActivity<P: PresenterType>: PreferenceActivity(
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
-
-    presenter.restoreState(savedInstanceState ?: intent.extras)
-    presenter.onCreate()
   }
 
   override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector

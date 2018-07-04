@@ -21,6 +21,6 @@ import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.observable.RadioGroupCheckChangedObservable
 
-fun RadioGroup.checkChanges(): Observable<Int> = RadioGroupCheckChangedObservable(this).takeUntil(detaches())
+fun RadioGroup.checkChanges(): Observable<Int> = RadioGroupCheckChangedObservable(this)
 
 fun RadioGroup.checks(): UIBindingObserver<RadioGroup, Int> = UIBindingObserver(this, BiConsumer { view, id -> view.check(id) })

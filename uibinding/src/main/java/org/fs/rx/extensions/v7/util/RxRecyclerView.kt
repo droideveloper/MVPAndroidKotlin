@@ -18,7 +18,6 @@ package org.fs.rx.extensions.v7.util
 
 import android.support.v7.widget.RecyclerView
 import io.reactivex.Observable
-import org.fs.rx.extensions.util.detaches
 import org.fs.rx.extensions.v7.observable.RecyclerViewOnScrollObservable
 
-fun RecyclerView.loadMore(visibleThreshold: Int = RecyclerViewOnScrollObservable.DEFAULT_VISIBLE_THRESHOLD): Observable<Boolean> =  RecyclerViewOnScrollObservable(this, visibleThreshold).takeUntil(detaches())
+fun RecyclerView.loadMore(visibleThreshold: Int = RecyclerViewOnScrollObservable.DEFAULT_VISIBLE_THRESHOLD): Observable<Boolean> =  RecyclerViewOnScrollObservable(this, visibleThreshold)
