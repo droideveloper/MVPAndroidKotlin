@@ -21,6 +21,7 @@ import android.widget.TextView
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import org.fs.rx.extensions.util.checkMainThread
 
 class TextViewTextChangedObservable(private val view: TextView): Observable<CharSequence>() {
@@ -44,7 +45,11 @@ class TextViewTextChangedObservable(private val view: TextView): Observable<Char
 
     override fun onTextChanged(text: CharSequence, start: Int, end: Int, count: Int) {
       if (!isDisposed) {
-        observer.onNext(text)
+        // this text will be only allowed on the ui component part
+        AndroidSchedulers.mainThread()
+          .scheduleDirect {
+            observer.onNext(text)
+          }
       }
     }
   }
