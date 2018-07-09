@@ -21,7 +21,7 @@ import android.util.Log
 import io.reactivex.Observer
 
 fun <T> Observer<T>.checkMainThread(): Boolean = (Looper.myLooper() == Looper.getMainLooper()).also {
-  if (it) {
+  if (!it) {
     Log.e("uibinding lib", "current thread is not ui thread, ensure it is on UI thread")
   }
 }

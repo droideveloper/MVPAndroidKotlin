@@ -16,7 +16,6 @@
 package org.fs.rx.extensions.v7.observable
 
 import android.support.v7.widget.SearchView
-import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -42,7 +41,6 @@ class SearchViewQueryTextChangedObservable(private val view: SearchView, private
     override fun onQueryTextChange(newText: String?): Boolean {
       if (!isDisposed) {
         if (newText != null) {
-          Log.println(Log.ERROR, SearchViewQueryTextChangedObservable::class.java.simpleName, newText)
           observer.onNext(newText)
           return predicate(newText)
         }

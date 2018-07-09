@@ -16,7 +16,6 @@
 package org.fs.rx.extensions.v7.observable
 
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.MenuItem
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -42,7 +41,6 @@ class ToolbarMenuItemClickObservable(private val view: Toolbar, private val pred
     override fun onMenuItemClick(item: MenuItem?): Boolean {
       if (!isDisposed) {
         if (item != null) {
-          Log.println(Log.ERROR, ToolbarMenuItemClickObservable::class.java.simpleName, item.title.toString())
           observer.onNext(item)
           return predicate(item)
         }
