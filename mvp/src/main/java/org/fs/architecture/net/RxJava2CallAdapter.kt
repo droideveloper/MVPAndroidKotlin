@@ -39,7 +39,7 @@ class RxJava2CallAdapter<R>(private val type: Type, private val scheduler: Sched
 
     var observable: Observable<*> = when {
       result -> ResultObservable(responseObservable)
-      body -> BodyObservable(responseObservable)
+      body -> BodyObservable(responseObservable, type)
       else -> responseObservable
     }
 

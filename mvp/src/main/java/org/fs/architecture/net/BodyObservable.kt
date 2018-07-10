@@ -15,23 +15,31 @@
  */
 package org.fs.architecture.net
 
+import com.google.gson.GsonBuilder
+import com.google.gson.TypeAdapter
+import com.google.gson.reflect.TypeToken
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import io.reactivex.exceptions.CompositeException
 import io.reactivex.exceptions.Exceptions
 import io.reactivex.plugins.RxJavaPlugins
+import org.fs.architecture.net.converters.GsonResponseBodyConverter
 import retrofit2.HttpException
 import retrofit2.Response
+import java.lang.reflect.Type
 
 
-class BodyObservable<T>(private val stream: Observable<Response<T>>): Observable<T>() {
+class BodyObservable<T>(private val stream: Observable<Response<T>>, private val type: Type): Observable<T>() {
 
   override fun subscribeActual(observer: Observer<in T>) {
-    stream.subscribe(BodyObserver(observer))
+    stream.subscribe(BodyObserver(observer, type))
   }
 
-  class BodyObserver<R>(private val observer: Observer<in R>?, private var terminated: Boolean = false): Observer<Response<R>> {
+  class BodyObserver<R>(private val observer: Observer<in R>?, private val type: Type,  private var terminated: Boolean = false): Observer<Response<R>> {
+
+    private val gson = GsonBuilder().create()
+    private val typeAdapter: TypeAdapter<*> = gson.getAdapter(TypeToken.get(type))
 
     override fun onSubscribe(d: Disposable) {
       observer?.onSubscribe(d)
@@ -52,13 +60,19 @@ class BodyObservable<T>(private val stream: Observable<Response<T>>): Observable
           observer?.onError(HttpException(response))
         }
       } else {
-        terminated = true
-        val t = HttpException(response)
-        try {
-          observer?.onError(t)
-        } catch (inner: Throwable) {
-          Exceptions.throwIfFatal(inner)
-          RxJavaPlugins.onError(CompositeException(t, inner))
+        val converter = GsonResponseBodyConverter(typeAdapter)
+        val errorResponse = converter.convert(response.errorBody()) as R?
+        if (errorResponse != null) {
+          observer?.onNext(errorResponse)
+        } else {
+          terminated = true
+          val t = HttpException(response)
+          try {
+            observer?.onError(t)
+          } catch (inner: Throwable) {
+            Exceptions.throwIfFatal(inner)
+            RxJavaPlugins.onError(CompositeException(t, inner))
+          }
         }
       }
     }
@@ -72,5 +86,6 @@ class BodyObservable<T>(private val stream: Observable<Response<T>>): Observable
         RxJavaPlugins.onError(t)
       }
     }
+
   }
 }
