@@ -23,35 +23,35 @@ android {
 
 dependencies {
   // this is for support backward compatibility
-  implementation "com.android.support:appcompat-v7:$supportVersion"
-  implementation "com.android.support:recyclerview-v7:$supportVersion"
-  implementation "com.android.support:preference-v7:$supportVersion"
-  implementation "com.android.support:design:$supportVersion"
-  implementation "com.android.support:cardview-v7:$supportVersion"
+  implementation "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+  implementation "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
+  implementation "com.android.support:preference-v7:$SUPPORT_VERSION"
+  implementation "com.android.support:design:$SUPPORT_VERSION"
+  implementation "com.android.support:cardview-v7:$SUPPORT_VERSION"
   // this is image downloading library
-  implementation "com.github.bumptech.glide:glide:$glideVersion"
-  kapt "com.github.bumptech.glide:compiler:$glideVersion"
+  implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"
+  kapt "com.github.bumptech.glide:compiler:$GLIDE_VERSION"
   //this is json serialization library
-  implementation "com.google.code.gson:gson:$gsonVersion"
+  implementation "com.google.code.gson:gson:$GSON_VERSION"
   // this is http restful client from Square, Retrofit.
-  implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+  implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
   //logging response and request for restApiCall
-  implementation "com.squareup.okhttp3:logging-interceptor:$okHttpInterceptorVersion"
+  implementation "com.squareup.okhttp3:logging-interceptor:$OK_HTTP_VERSION"
   //RxJava and RxAndroid
-  implementation "io.reactivex.rxjava2:rxandroid:$reactiveAndroid"
-  implementation "io.reactivex.rxjava2:rxjava:$reactiveJava"
+  implementation "io.reactivex.rxjava2:rxandroid:$REACTIVE_ANDROID"
+  implementation "io.reactivex.rxjava2:rxjava:$REACTIVE_JAVA"
 
-  implementation "com.google.dagger:dagger:$daggerVersion"
-  implementation "com.google.dagger:dagger-android:$supportDaggerVersion"
-  implementation "com.google.dagger:dagger-android-support:$supportDaggerVersion"
-  kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-  kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+  implementation "com.google.dagger:dagger:$DAGGER_VERSION"
+  implementation "com.google.dagger:dagger-android:$SUPPORT_DAGGER_VERSION"
+  implementation "com.google.dagger:dagger-android-support:$SUPPORT_DAGGER_VERSION"
+  kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+  kapt "com.google.dagger:dagger-android-processor:$DAGGER_VERSION"
 
-  implementation "android.arch.persistence.room:rxjava2:$databaseVersion"
-  implementation "android.arch.persistence.room:runtime:$databaseVersion"
-  kapt "android.arch.persistence.room:compiler:$databaseVersion"
+  implementation "android.arch.persistence.room:rxjava2:$DATABASE_VERSION"
+  implementation "android.arch.persistence.room:runtime:$DATABASE_VERSION"
+  kapt "android.arch.persistence.room:compiler:$DATABASE_VERSION"
 
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
 }
 
 ext {

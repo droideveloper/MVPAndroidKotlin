@@ -24,14 +24,14 @@ android {
 }
 
 dependencies {
-  implementation "com.android.support:appcompat-v7:$supportVersion"
-  implementation "com.android.support:recyclerview-v7:$supportVersion"
-  implementation "com.android.support:design:$supportVersion"
+  implementation "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+  implementation "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
+  implementation "com.android.support:design:$SUPPORT_VERSION"
 
-  implementation "io.reactivex.rxjava2:rxandroid:$reactiveAndroid"
-  implementation "io.reactivex.rxjava2:rxjava:$reactiveJava"
+  implementation "io.reactivex.rxjava2:rxandroid:$REACTIVE_ANDROID"
+  implementation "io.reactivex.rxjava2:rxjava:$REACTIVE_JAVA"
 
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
 }
 
 ext {

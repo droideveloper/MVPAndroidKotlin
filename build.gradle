@@ -1,27 +1,27 @@
 buildscript {
-  ext.kotlinVersion   = '1.2.51'
-  ext.daggerVersion   = '2.14.1'
-  ext.supportDaggerVersion = '2.16'
-  ext.supportVersion  = '27.1.1'
-  ext.databaseVersion = '1.1.1'
-  ext.reactiveAndroid = '2.0.2'
-  ext.reactiveJava    = '2.1.9'
-  ext.androidGradleVersion = '3.1.2'
-  ext.dependenciesVersion = '1.2'
-  ext.glideVersion = '4.7.1'
-  ext.gsonVersion = '2.8.1'
-  ext.retrofitVersion = '2.4.0'
-  ext.okHttpInterceptorVersion = '3.6.0'
+  ext.KOTLIN_VERSION   = '1.2.51'
+  ext.DAGGER_VERSION   = '2.14.1'
+  ext.SUPPORT_DAGGER_VERSION = '2.16'
+  ext.SUPPORT_VERSION  = '27.1.1'
+  ext.DATABASE_VERSION = '1.1.1'
+  ext.REACTIVE_ANDROID = '2.0.2'
+  ext.REACTIVE_JAVA    = '2.1.9'
+  ext.ANDROID_GRADLE_VERSION = '3.1.2'
+  ext.DEPENDENCIES_VERSION = '1.2'
+  ext.GLIDE_VERSION = '4.7.1'
+  ext.GSON_VERSION = '2.8.1'
+  ext.RETROFIT_VERSION = '2.4.0'
+  ext.OK_HTTP_VERSION = '3.6.0'
 
   repositories {
     jcenter()
     google()
   }
   dependencies {
-    classpath "com.android.tools.build:gradle:$androidGradleVersion"
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$dependenciesVersion"
-    classpath "com.github.dcendents:android-maven-plugin:$dependenciesVersion"
+    classpath "com.android.tools.build:gradle:$ANDROID_GRADLE_VERSION"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
+    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$DEPENDENCIES_VERSION"
+    classpath "com.github.dcendents:android-maven-plugin:$DEPENDENCIES_VERSION"
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }
