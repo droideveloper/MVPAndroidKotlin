@@ -20,14 +20,9 @@ import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver
 
 fun TextInputLayout.counterEnabled(): UIBindingObserver<TextInputLayout, Boolean> = UIBindingObserver(this, BiConsumer { view, enabled -> view.isCounterEnabled = enabled })
-
 fun TextInputLayout.counterMax(): UIBindingObserver<TextInputLayout, Int> = UIBindingObserver(this, BiConsumer { view, counter -> view.counterMaxLength = counter })
-
 fun TextInputLayout.hintEnabled(): UIBindingObserver<TextInputLayout, Boolean> = UIBindingObserver(this, BiConsumer { view, enabled -> view.isHintEnabled = enabled })
-
 fun TextInputLayout.errorEnabled(): UIBindingObserver<TextInputLayout, Boolean> = UIBindingObserver(this, BiConsumer { view, enabled -> view.isErrorEnabled = enabled })
-
 fun TextInputLayout.hint(): UIBindingObserver<TextInputLayout, CharSequence> = UIBindingObserver(this, BiConsumer { view, hint -> view.hint = hint })
-
 fun TextInputLayout.error(): UIBindingObserver<TextInputLayout, CharSequence> = UIBindingObserver(this, BiConsumer { view, error -> view.error = error })
 
