@@ -35,6 +35,9 @@ class TabLayoutTabSelectedObservable(private val view: TabLayout): Observable<Ta
     }
   }
 
+  /**
+   * Listener only allowed for TabLayout.OnTabSelectedListener implementation for observing selected tab
+   */
   class Listener(private val view: TabLayout, private val observer: Observer<in TabLayout.Tab>): MainThreadDisposable(), TabLayout.OnTabSelectedListener {
 
     override fun onDispose() {
