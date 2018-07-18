@@ -21,6 +21,10 @@ import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 import org.fs.rx.extensions.util.checkMainThread
 
+/**
+ * Will observe only tab layout item selection in the manner
+ * that will allow user the new selected tab will be showed in observer
+ */
 class TabLayoutTabSelectedObservable(private val view: TabLayout): Observable<TabLayout.Tab>() {
 
   override fun subscribeActual(observer: Observer<in TabLayout.Tab>) {
