@@ -1,5 +1,5 @@
 /*
- * UIBinding Android Kotlin Copyright (C) 2018 Fatih.
+ * Playz Android Kotlin Copyright (C) 2018 Fatih.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,16 +23,17 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import org.fs.rx.extensions.model.RecyclerViewScrollEvent
 import org.fs.rx.extensions.util.checkMainThread
 import java.util.concurrent.atomic.AtomicBoolean
 
-class RecyclerViewOnScrollObservable(private val view: RecyclerView, private val visibleThreshold: Int): Observable<Boolean>() {
+class RecyclerVieReverseScrollObservable(private val view: RecyclerView, private val visibleThreshold: Int): Observable<RecyclerViewScrollEvent>() {
 
   companion object {
     @JvmStatic val DEFAULT_VISIBLE_THRESHOLD = 5
   }
 
-  override fun subscribeActual(observer: Observer<in Boolean>) {
+  override fun subscribeActual(observer: Observer<in RecyclerViewScrollEvent>) {
     if (observer.checkMainThread()) {
       val listener = Listener(view, observer, visibleThreshold)
       observer.onSubscribe(listener)
@@ -40,7 +41,7 @@ class RecyclerViewOnScrollObservable(private val view: RecyclerView, private val
     }
   }
 
-  class Listener(private val view: RecyclerView, private val observer: Observer<in Boolean>, private val visibleThreshold: Int): RecyclerView.OnScrollListener(), Disposable {
+  class Listener(private val view: RecyclerView, private val observer: Observer<in RecyclerViewScrollEvent>, private val visibleThreshold: Int): RecyclerView.OnScrollListener(), Disposable {
 
     private var firstVisibleItem: Int? = null
     private var visibleItemCount:Int? = null
@@ -84,7 +85,6 @@ class RecyclerViewOnScrollObservable(private val view: RecyclerView, private val
     private val layoutManager: RecyclerView.LayoutManager = view.layoutManager
 
     override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-      if (dy <= 0) return
 
       visibleItemCount = view.childCount
       totalItemCount = layoutManager.itemCount
@@ -97,9 +97,16 @@ class RecyclerViewOnScrollObservable(private val view: RecyclerView, private val
         }
       }
 
-      if ((loading == false) && (totalItemCount ?: 0) - (visibleItemCount ?: 0) <= (firstVisibleItem ?: 0) + visibleThreshold) {
-        if (!isDisposed) {
-          observer.onNext(true)
+      if (!isDisposed) {
+        observer.onNext(
+            RecyclerViewScrollEvent(false, (totalItemCount ?: 0) - lastVisibleItemPosition()))
+      }
+
+      val enoughVisibleItemsForMore = (visibleItemCount ?: 0) < (totalItemCount ?: 0)
+
+      if ((loading == false) && (firstVisibleItem ?: 0) -  visibleThreshold <= 0) {
+        if (!isDisposed && enoughVisibleItemsForMore) {
+          observer.onNext(RecyclerViewScrollEvent(true,  -1))
         }
         loading = true
       }
@@ -109,6 +116,15 @@ class RecyclerViewOnScrollObservable(private val view: RecyclerView, private val
       is LinearLayoutManager -> layoutManager.findFirstVisibleItemPosition()
       is StaggeredGridLayoutManager -> {
         val array = layoutManager.findFirstVisibleItemPositions(null)
+        if (array.isEmpty()) 0 else array.first()
+      }
+      else -> 0
+    }
+
+    private fun lastVisibleItemPosition(): Int = when (layoutManager) {
+      is LinearLayoutManager -> layoutManager.findLastVisibleItemPosition()
+      is StaggeredGridLayoutManager -> {
+        val array = layoutManager.findLastVisibleItemPositions(null)
         if (array.isEmpty()) 0 else array.first()
       }
       else -> 0

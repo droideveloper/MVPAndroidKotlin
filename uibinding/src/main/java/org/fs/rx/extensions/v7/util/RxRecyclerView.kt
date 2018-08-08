@@ -18,6 +18,9 @@ package org.fs.rx.extensions.v7.util
 
 import android.support.v7.widget.RecyclerView
 import io.reactivex.Observable
+import org.fs.rx.extensions.model.RecyclerViewScrollEvent
+import org.fs.rx.extensions.v7.observable.RecyclerVieReverseScrollObservable
 import org.fs.rx.extensions.v7.observable.RecyclerViewOnScrollObservable
 
 fun RecyclerView.loadMore(visibleThreshold: Int = RecyclerViewOnScrollObservable.DEFAULT_VISIBLE_THRESHOLD): Observable<Boolean> =  RecyclerViewOnScrollObservable(this, visibleThreshold)
+fun RecyclerView.reverseLoadMore(visibleThreshold: Int = RecyclerVieReverseScrollObservable.DEFAULT_VISIBLE_THRESHOLD): Observable<RecyclerViewScrollEvent> = RecyclerVieReverseScrollObservable(this, visibleThreshold)
