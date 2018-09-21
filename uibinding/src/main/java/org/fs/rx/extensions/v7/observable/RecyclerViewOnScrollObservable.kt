@@ -81,13 +81,13 @@ class RecyclerViewOnScrollObservable(private val view: RecyclerView, private val
       view.removeOnScrollListener(this)
     }
 
-    private val layoutManager: RecyclerView.LayoutManager = view.layoutManager
+    private val layoutManager: RecyclerView.LayoutManager? = view.layoutManager
 
-    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
       if (dy <= 0) return
 
       visibleItemCount = view.childCount
-      totalItemCount = layoutManager.itemCount
+      totalItemCount = layoutManager?.itemCount
       firstVisibleItem = firstVisibleItemPosition()
 
       if (loading == true) {

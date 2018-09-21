@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion 27
+  compileSdkVersion 28
 
   defaultConfig {
     minSdkVersion 16
-    targetSdkVersion 27
+    targetSdkVersion 28
     versionCode 1
-    versionName "0.0.11"
+    versionName "0.0.12"
   }
 
   lintOptions {
@@ -37,7 +37,7 @@ dependencies {
 ext {
   PUBLISH_GROUP_ID = 'org.fs.rx.extensions'
   PUBLISH_ARTIFACT_ID = 'uibinding'
-  PUBLISH_VERSION = '0.0.11'
+  PUBLISH_VERSION = '0.0.12'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

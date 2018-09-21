@@ -27,7 +27,7 @@ import org.fs.rx.extensions.model.RecyclerViewScrollEvent
 import org.fs.rx.extensions.util.checkMainThread
 import java.util.concurrent.atomic.AtomicBoolean
 
-class RecyclerVieReverseScrollObservable(private val view: RecyclerView, private val visibleThreshold: Int): Observable<RecyclerViewScrollEvent>() {
+class RecyclerViewReverseScrollObservable(private val view: RecyclerView, private val visibleThreshold: Int): Observable<RecyclerViewScrollEvent>() {
 
   companion object {
     @JvmStatic val DEFAULT_VISIBLE_THRESHOLD = 5
@@ -82,12 +82,12 @@ class RecyclerVieReverseScrollObservable(private val view: RecyclerView, private
       view.removeOnScrollListener(this)
     }
 
-    private val layoutManager: RecyclerView.LayoutManager = view.layoutManager
+    private val layoutManager: RecyclerView.LayoutManager? = view.layoutManager
 
-    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
       visibleItemCount = view.childCount
-      totalItemCount = layoutManager.itemCount
+      totalItemCount = layoutManager?.itemCount
       firstVisibleItem = firstVisibleItemPosition()
 
       if (loading == true) {
