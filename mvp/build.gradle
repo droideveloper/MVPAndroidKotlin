@@ -9,7 +9,7 @@ android {
     minSdkVersion 16
     targetSdkVersion 28
     versionCode 1
-    versionName "0.0.17"
+    versionName "0.0.19"
   }
 
   buildTypes {
@@ -34,6 +34,7 @@ dependencies {
   implementation "com.google.code.gson:gson:$GSON_VERSION"
   // this is http restful client from Square, Retrofit.
   implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+  implementation "com.squareup.okio:okio:$OK_HTTP_OKIO_VERSION"
   //logging response and request for restApiCall
   implementation "com.squareup.okhttp3:logging-interceptor:$OK_HTTP_VERSION"
   //RxJava and RxAndroid
@@ -56,7 +57,7 @@ dependencies {
 ext {
   PUBLISH_GROUP_ID = 'org.fs.architecture'
   PUBLISH_ARTIFACT_ID = 'mvp'
-  PUBLISH_VERSION = '0.0.17'
+  PUBLISH_VERSION = '0.0.19'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
