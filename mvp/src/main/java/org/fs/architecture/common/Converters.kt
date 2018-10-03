@@ -1,5 +1,5 @@
 /*
- * TPS SDK Android Copyright (C) 2018 Fatih.
+ * MVP Android Kotlin Copyright (C) 2018 Fatih.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,5 +15,29 @@
  */
 package org.fs.architecture.common
 
-class Converters {
+import android.arch.persistence.room.TypeConverter
+import java.util.*
+
+
+sealed class Converters {
+
+  companion object {
+
+    @JvmStatic @TypeConverter fun convertToString(charSequence: CharSequence?): String? = when(charSequence) {
+      null -> null
+      else -> charSequence.toString()
+    }
+
+    @JvmStatic @TypeConverter fun converToCharSequence(string: String?): CharSequence? = string
+
+    @JvmStatic @TypeConverter fun convertToDate(timeStamp: Long?): Date? = when(timeStamp){
+      null -> null
+      else -> Date(timeStamp)
+    }
+
+    @JvmStatic @TypeConverter fun convertToLong(date: Date?): Long? = when(date) {
+      null -> null
+      else -> date.time
+    }
+  }
 }

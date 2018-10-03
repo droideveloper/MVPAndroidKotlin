@@ -20,10 +20,6 @@ import android.view.View
 
 abstract class AbstractRecyclerViewHolder<D>(protected val view: View): RecyclerView.ViewHolder(view) {
 
-  protected var entity: D? = null
-
-  abstract fun onBindView(entity: D?)
-
-  open fun attached() {}
-  open fun detached() {}
+  abstract fun bind(entity: D)
+  abstract fun unbind()
 }
