@@ -32,14 +32,16 @@ abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>
     dataSet.unregister(this)
   }
 
-  override fun onViewAttachedToWindow(viewHolder: VH) {
-    super.onViewAttachedToWindow(viewHolder)
-    viewHolder.attached()
+  override fun onViewRecycled(viewHolder: VH) {
+    viewHolder.unbind()
+    super.onViewRecycled(viewHolder)
   }
 
-  override fun onViewDetachedFromWindow(viewHolder: VH) {
-    super.onViewDetachedFromWindow(viewHolder)
-    viewHolder.detached()
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH = throw IllegalArgumentException("implement onCreateViewHolder so that you can have it")
+
+  override fun onBindViewHolder(viewHolder: VH, position: Int) {
+    val entity = itemAt(position)
+    viewHolder.bind(entity)
   }
 
   override fun notifyItemsRemoved(index: Int, size: Int) {
@@ -56,13 +58,6 @@ abstract class AbstractRecyclerViewAdapter<D, VH: AbstractRecyclerViewHolder<D>>
     } else {
       notifyItemRangeInserted(index, size)
     }
-  }
-
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH = throw IllegalArgumentException("implement onCreateViewHolder so that you can have it")
-
-  override fun onBindViewHolder(viewHolder: VH, position: Int) {
-    val entity = itemAt(position)
-    viewHolder.onBindView(entity)
   }
 
   override fun notifyItemsChanged(index: Int, size: Int) {
