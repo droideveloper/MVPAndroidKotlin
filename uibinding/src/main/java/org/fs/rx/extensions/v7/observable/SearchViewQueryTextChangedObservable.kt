@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.v7.observable
 
-import android.support.v7.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

@@ -8,7 +8,7 @@ android {
     minSdkVersion 16
     targetSdkVersion 28
     versionCode 1
-    versionName "0.0.14"
+    versionName "0.0.15"
   }
 
   lintOptions {
@@ -24,9 +24,7 @@ android {
 }
 
 dependencies {
-  implementation "com.android.support:appcompat-v7:$SUPPORT_VERSION"
-  implementation "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
-  implementation "com.android.support:design:$SUPPORT_VERSION"
+  implementation "com.google.android.material:material:$MATERIAL_VERSION"
 
   implementation "io.reactivex.rxjava2:rxandroid:$REACTIVE_ANDROID"
   implementation "io.reactivex.rxjava2:rxjava:$REACTIVE_JAVA"
@@ -37,7 +35,7 @@ dependencies {
 ext {
   PUBLISH_GROUP_ID = 'org.fs.rx.extensions'
   PUBLISH_ARTIFACT_ID = 'uibinding'
-  PUBLISH_VERSION = '0.0.14'
+  PUBLISH_VERSION = '0.0.15'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
