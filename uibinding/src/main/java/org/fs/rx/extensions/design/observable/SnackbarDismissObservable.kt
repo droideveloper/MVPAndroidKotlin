@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.design.observable
 
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

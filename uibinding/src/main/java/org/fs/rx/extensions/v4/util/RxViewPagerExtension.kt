@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.v4.util
 
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty

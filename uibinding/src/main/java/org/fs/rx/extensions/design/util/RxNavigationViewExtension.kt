@@ -15,8 +15,8 @@
  */
 package org.fs.rx.extensions.design.util
 
-import android.support.design.widget.NavigationView
 import android.view.MenuItem
+import com.google.android.material.navigation.NavigationView
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty

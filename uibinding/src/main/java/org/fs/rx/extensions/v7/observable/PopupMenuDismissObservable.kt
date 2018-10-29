@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.v7.observable
 
-import android.support.v7.widget.PopupMenu
+import androidx.appcompat.widget.PopupMenu
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
