@@ -15,8 +15,8 @@
  */
 package org.fs.rx.extensions.design.observable
 
+import android.support.design.widget.NavigationView
 import android.view.MenuItem
-import com.google.android.material.navigation.NavigationView
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

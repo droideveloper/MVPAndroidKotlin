@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.v4.observable
 
-import androidx.core.widget.NestedScrollView
+import android.support.v4.widget.NestedScrollView
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.design.util
 
-import com.google.android.material.tabs.TabLayout
+import android.support.design.widget.TabLayout
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver

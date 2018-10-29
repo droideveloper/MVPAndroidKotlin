@@ -15,8 +15,8 @@
  */
 package org.fs.rx.extensions.v4.observable
 
+import android.support.v4.widget.DrawerLayout
 import android.view.View
-import androidx.drawerlayout.widget.DrawerLayout
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

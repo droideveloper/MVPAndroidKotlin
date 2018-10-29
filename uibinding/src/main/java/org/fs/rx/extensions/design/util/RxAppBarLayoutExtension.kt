@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.design.util
 
-import com.google.android.material.appbar.AppBarLayout
+import android.support.design.widget.AppBarLayout
 import io.reactivex.Observable
 import org.fs.rx.extensions.design.observable.AppBarLayoutOffsetChangedObservable
 
