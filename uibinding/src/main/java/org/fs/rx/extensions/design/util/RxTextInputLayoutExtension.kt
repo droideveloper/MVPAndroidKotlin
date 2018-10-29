@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.design.util
 
-import com.google.android.material.textfield.TextInputLayout
+import android.support.design.widget.TextInputLayout
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver
 

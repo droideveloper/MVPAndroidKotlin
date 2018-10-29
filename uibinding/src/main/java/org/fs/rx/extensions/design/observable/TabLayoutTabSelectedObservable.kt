@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.design.observable
 
-import com.google.android.material.tabs.TabLayout
+import android.support.design.widget.TabLayout
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

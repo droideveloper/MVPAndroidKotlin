@@ -16,7 +16,7 @@
 
 package org.fs.rx.extensions.v7.util
 
-import androidx.recyclerview.widget.RecyclerView
+import android.support.v7.widget.RecyclerView
 import io.reactivex.Observable
 import org.fs.rx.extensions.model.RecyclerViewScrollEvent
 import org.fs.rx.extensions.v7.observable.RecyclerViewReverseScrollObservable

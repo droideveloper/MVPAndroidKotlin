@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.v4.observable
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import android.support.v4.widget.SwipeRefreshLayout
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable

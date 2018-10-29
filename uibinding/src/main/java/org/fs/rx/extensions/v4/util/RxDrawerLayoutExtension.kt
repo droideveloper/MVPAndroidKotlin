@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.v4.util
 
-import androidx.drawerlayout.widget.DrawerLayout
+import android.support.v4.widget.DrawerLayout
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty
