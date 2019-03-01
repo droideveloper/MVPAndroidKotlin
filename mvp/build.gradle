@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlinx-serialization'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -9,7 +11,11 @@ android {
     minSdkVersion 16
     targetSdkVersion 28
     versionCode 1
-    versionName "0.0.24"
+    versionName "1.0.0"
+  }
+
+  lintOptions {
+    abortOnError false
   }
 
   buildTypes {
@@ -18,6 +24,15 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+androidExtensions {
+  experimental = true
 }
 
 dependencies {
@@ -32,11 +47,13 @@ dependencies {
   kapt "com.github.bumptech.glide:compiler:$GLIDE_VERSION"
   //this is json serialization library
   implementation "com.google.code.gson:gson:$GSON_VERSION"
+  implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$SERILIZATION_RETROFIT_VERSION"
   // this is http restful client from Square, Retrofit.
   implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
   implementation "com.squareup.okio:okio:$OK_HTTP_OKIO_VERSION"
   //logging response and request for restApiCall
   implementation "com.squareup.okhttp3:logging-interceptor:$OK_HTTP_VERSION"
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$SERILIZATION_VERSION"
   //RxJava and RxAndroid
   implementation "io.reactivex.rxjava2:rxandroid:$REACTIVE_ANDROID"
   implementation "io.reactivex.rxjava2:rxjava:$REACTIVE_JAVA"
@@ -57,7 +74,7 @@ dependencies {
 ext {
   PUBLISH_GROUP_ID = 'org.fs.architecture'
   PUBLISH_ARTIFACT_ID = 'mvp'
-  PUBLISH_VERSION = '0.0.24'
+  PUBLISH_VERSION = '1.0.0'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
