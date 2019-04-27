@@ -11,7 +11,7 @@ android {
     minSdkVersion 16
     targetSdkVersion 28
     versionCode 1
-    versionName "1.0.0"
+    versionName "1.0.1"
   }
 
   lintOptions {
@@ -74,7 +74,7 @@ dependencies {
 ext {
   PUBLISH_GROUP_ID = 'org.fs.architecture'
   PUBLISH_ARTIFACT_ID = 'mvp'
-  PUBLISH_VERSION = '1.0.0'
+  PUBLISH_VERSION = '1.0.1'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
