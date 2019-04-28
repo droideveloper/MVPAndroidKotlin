@@ -11,7 +11,7 @@ android {
     minSdkVersion 16
     targetSdkVersion 28
     versionCode 1
-    versionName "1.0.1"
+    versionName "1.0.2"
   }
 
   lintOptions {
@@ -68,13 +68,13 @@ dependencies {
   implementation "android.arch.persistence.room:runtime:$DATABASE_VERSION"
   kapt "android.arch.persistence.room:compiler:$DATABASE_VERSION"
 
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION"
 }
 
 ext {
   PUBLISH_GROUP_ID = 'org.fs.architecture'
   PUBLISH_ARTIFACT_ID = 'mvp'
-  PUBLISH_VERSION = '1.0.1'
+  PUBLISH_VERSION = '1.0.2'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
