@@ -15,4 +15,4 @@
  */
 package org.fs.rx.extensions.model
 
-class AbsListViewScrollEventState(val firstVisibleItem: Int, val visibleItemCount: Int, val totalItemCount: Int)
+data class AbsListViewScrollEventState(val firstVisibleItem: Int, val visibleItemCount: Int, val totalItemCount: Int)

@@ -17,4 +17,4 @@ package org.fs.rx.extensions.model
 
 import android.view.View
 
-class LayoutState(val view: View, val left: Int, val top: Int, val right: Int, val bottom: Int)
+data class LayoutState(val view: View, val left: Int, val top: Int, val right: Int, val bottom: Int)

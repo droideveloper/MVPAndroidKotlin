@@ -17,4 +17,4 @@ package org.fs.rx.extensions.model
 
 import android.widget.SeekBar
 
-class SeekState(val view: SeekBar, val progress: Int, val byUser: Boolean)
+data class SeekState(val view: SeekBar, val progress: Int, val byUser: Boolean)

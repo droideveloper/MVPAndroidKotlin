@@ -16,9 +16,9 @@
 package org.fs.rx.extensions.v7.observable
 
 import android.os.Looper
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 import io.reactivex.Observable
 import io.reactivex.Observer

@@ -15,4 +15,4 @@
  */
 package org.fs.rx.extensions.model
 
-class ViewPagerScroll(val position: Int, val positionOffset: Float, val positionOffsetPixels: Int)
+data class ViewPagerScroll(val position: Int, val positionOffset: Float, val positionOffsetPixels: Int)

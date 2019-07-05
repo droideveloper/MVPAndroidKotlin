@@ -15,13 +15,14 @@
  */
 package org.fs.rx.extensions.design.util
 
-import android.support.design.widget.TabLayout
+import com.google.android.material.tabs.TabLayout
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.design.observable.TabLayoutTabSelectedObservable
 
 fun TabLayout.selects(): Observable<TabLayout.Tab> = TabLayoutTabSelectedObservable(this)
+fun TabLayout.reselects(): Observable<TabLayout.Tab> = TabLayoutTabSelectedObservable(this, true)
 fun TabLayout.select(): UIBindingObserver<TabLayout, Int> = UIBindingObserver(this, BiConsumer { view, index ->
   (0..view.tabCount).filter { it == index }
     .map { view.getTabAt(it) }

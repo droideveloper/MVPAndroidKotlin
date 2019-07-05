@@ -17,4 +17,4 @@ package org.fs.rx.extensions.model
 
 import android.widget.RatingBar
 
-class RateState(private val view: RatingBar, val rate: Float, val byUser: Boolean)
+data class RateState(private val view: RatingBar, val rate: Float, val byUser: Boolean)

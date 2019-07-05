@@ -15,7 +15,7 @@
  */
 package org.fs.rx.extensions.design.observable
 
-import android.support.design.widget.TabLayout
+import com.google.android.material.tabs.TabLayout
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
@@ -25,11 +25,11 @@ import org.fs.rx.extensions.util.checkMainThread
  * Will observe only tab layout item selection in the manner
  * that will allow user the new selected tab will be showed in observer
  */
-class TabLayoutTabSelectedObservable(private val view: TabLayout): Observable<TabLayout.Tab>() {
+class TabLayoutTabSelectedObservable(private val view: TabLayout, private val reselectAllowed: Boolean = false): Observable<TabLayout.Tab>() {
 
   override fun subscribeActual(observer: Observer<in TabLayout.Tab>) {
     if (observer.checkMainThread()) {
-      val listener = Listener(view, observer)
+      val listener = Listener(view, observer, reselectAllowed)
       observer.onSubscribe(listener)
       view.addOnTabSelectedListener(listener)
     }
@@ -38,13 +38,17 @@ class TabLayoutTabSelectedObservable(private val view: TabLayout): Observable<Ta
   /**
    * Listener only allowed for TabLayout.OnTabSelectedListener implementation for observing selected tab
    */
-  class Listener(private val view: TabLayout, private val observer: Observer<in TabLayout.Tab>): MainThreadDisposable(), TabLayout.OnTabSelectedListener {
+  class Listener(private val view: TabLayout, private val observer: Observer<in TabLayout.Tab>, private val reselectAllowed: Boolean): MainThreadDisposable(), TabLayout.OnTabSelectedListener {
 
     override fun onDispose() {
       view.removeOnTabSelectedListener(this)
     }
 
-    override fun onTabReselected(tab: TabLayout.Tab) {} // no opt
+    override fun onTabReselected(tab: TabLayout.Tab) {
+      if (!isDisposed && reselectAllowed) {
+        observer.onNext(tab)
+      }
+    }
 
     override fun onTabUnselected(tab: TabLayout.Tab) {} // no opt
 

@@ -15,9 +15,9 @@
  */
 package org.fs.rx.extensions.v7.util
 
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.Toolbar
 import io.reactivex.Observable
 import io.reactivex.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver

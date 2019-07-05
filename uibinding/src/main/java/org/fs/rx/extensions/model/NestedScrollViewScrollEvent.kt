@@ -15,4 +15,4 @@
  */
 package org.fs.rx.extensions.model
 
-class NestedScrollViewScrollEvent(val scrollX: Int, val scrollY: Int, val pscrollX: Int, val pscrollY: Int)
+data class NestedScrollViewScrollEvent(val scrollX: Int, val scrollY: Int, val pscrollX: Int, val pscrollY: Int)
