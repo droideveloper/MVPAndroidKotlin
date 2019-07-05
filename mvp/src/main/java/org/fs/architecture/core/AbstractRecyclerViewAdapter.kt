@@ -15,8 +15,8 @@
  */
 package org.fs.architecture.core
 
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import org.fs.architecture.common.PropertyChangedListener
 import org.fs.architecture.util.ObservableList
 
