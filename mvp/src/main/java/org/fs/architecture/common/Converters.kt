@@ -15,7 +15,7 @@
  */
 package org.fs.architecture.common
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import java.util.*
 
 
