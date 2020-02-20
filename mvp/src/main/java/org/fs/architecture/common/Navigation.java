@@ -13,24 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.architecture.common
+package org.fs.architecture.common;
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.MenuItem
+public interface Navigation<T> {
 
-interface PresenterType {
-
-  fun onResume()
-  fun onPause()
-  fun onStart()
-  fun onStop()
-  fun onCreate()
-  fun onDestroy()
-  fun onBackPressed()
-  fun restoreState(restore: Bundle?)
-  fun storeState(store: Bundle?)
-  fun activityResult(requestCode: Int, resultCode: Int, data: Intent?)
-  fun requestPermissionsResult(requestCode: Int, permissions: Array<out String>, grants: IntArray)
-  fun onOptionsItemSelected(item: MenuItem): Boolean
+  void onSelectCategory(T category);
 }

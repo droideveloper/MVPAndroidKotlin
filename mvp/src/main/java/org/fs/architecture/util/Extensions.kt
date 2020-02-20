@@ -19,34 +19,31 @@ package org.fs.architecture.util
 import android.os.Build
 import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import io.reactivex.Flowable
-import io.reactivex.Maybe
-import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import org.fs.architecture.common.ViewType
+import io.reactivex.rxjava3.android.AndroidSchedulers
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
+import org.fs.architecture.common.View as IView
 
 // Rx
-fun <T: Observable<T>> T.async(): Observable<T> = this.compose {
-  it.subscribeOn(Schedulers.io())
+fun <T: Observable<T>> T.async(): Observable<T> = subscribeOn(Schedulers.io())
   .observeOn(AndroidSchedulers.mainThread())
-}
 
-fun <T: Observable<T>> T.async(view: ViewType): Observable<T> = async()
+fun <T: Observable<T>> T.async(view: IView): Observable<T> = async()
   .doOnSubscribe { if (view.isAvailable()) view.showProgress() }
   .doFinally { if (view.isAvailable()) view.hideProgress() }
 
-fun <T: Maybe<T>> T.async(): Maybe<T> = this.compose {
-  it.subscribeOn(Schedulers.io())
+fun <T: Maybe<T>> T.async(): Maybe<T> = subscribeOn(Schedulers.io())
   .observeOn(AndroidSchedulers.mainThread())
-}
 
-fun <T: Maybe<T>> T.async(view: ViewType): Maybe<T> = async()
+fun <T: Maybe<T>> T.async(view: IView): Maybe<T> = async()
   .doOnSubscribe { if (view.isAvailable()) view.showProgress() }
   .doFinally { if (view.isAvailable()) view.hideProgress() }
 
@@ -55,18 +52,21 @@ fun <T: Single<T>> T.async(): Single<T> = this.compose {
   .observeOn(AndroidSchedulers.mainThread())
 }
 
-fun <T: Single<T>> T.async(view: ViewType): Single<T> = async()
+fun <T: Single<T>> T.async(view: IView): Single<T> = async()
   .doOnSubscribe { if (view.isAvailable()) view.showProgress() }
   .doFinally { if (view.isAvailable()) view.hideProgress() }
 
-fun <T: Flowable<T>> T.async(): Flowable<T> = this.compose {
-  it.subscribeOn(Schedulers.io())
+fun <T: Flowable<T>> T.async(): Flowable<T> = subscribeOn(Schedulers.io())
   .observeOn(AndroidSchedulers.mainThread())
-}
 
-fun <T: Flowable<T>> T.async(view: ViewType): Flowable<T> = async()
+
+fun <T: Flowable<T>> T.async(view: IView): Flowable<T> = async()
   .doOnSubscribe { if (view.isAvailable()) view.showProgress() }
   .doFinally { if (view.isAvailable()) view.hideProgress() }
+
+operator fun CompositeDisposable.plusAssign(d: Disposable) {
+  add(d)
+}
 
 // String
 val String.Companion.EMPTY get() = ""
@@ -100,4 +100,4 @@ fun Boolean.throwIfConditionFails(errorString: String = "$this failed since it w
 
 // layout inflater better access for usage and others
 fun ViewGroup.layoutInflaterFactory(): LayoutInflater = LayoutInflater.from(context)
-fun ViewGroup.inflate(@LayoutRes layoutId: Int, attached: Boolean = false): View = layoutInflaterFactory().inflate(layoutId, this, attached)
+fun ViewGroup.inflate(@LayoutRes layoutId: Int, attached: Boolean = false): android.view.View = layoutInflaterFactory().inflate(layoutId, this, attached)

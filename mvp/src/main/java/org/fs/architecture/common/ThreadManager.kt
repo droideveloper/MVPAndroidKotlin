@@ -21,12 +21,28 @@ import android.os.Looper
 class ThreadManager private constructor() {
 
   companion object {
-    @JvmStatic private val uiHandler = Handler(Looper.myLooper())
-    @JvmStatic private val DELAY_MS = 300L
 
-    @JvmStatic fun runOnUiThread(task: Runnable) = uiHandler.post(task)
-    @JvmStatic fun runOnUiThreadDelayed(task: Runnable, delay: Long = DELAY_MS) = uiHandler.postDelayed(task, delay)
-    @JvmStatic fun clearAll() = uiHandler.removeCallbacksAndMessages(null)
-    @JvmStatic fun clear(task: Runnable) = uiHandler.removeCallbacks(task)
+    private var instance: ThreadManager? = null
+
+    @JvmStatic fun shared(): ThreadManager = instance ?: synchronized(this) {
+      instance ?: ThreadManager().also { instance = it }
+    }
+
+    private const val DELAY_MS = 300L
+
+    @JvmStatic fun runOnUiThread(task: Runnable) = shared().post(task)
+    @JvmStatic fun runOnUiThreadDelayed(task: Runnable, delay: Long = DELAY_MS) = shared().postDelayed(task, delay)
+    @JvmStatic fun clearAll() = shared().removeAll()
+    @JvmStatic fun clear(task: Runnable) = shared().remove(task)
   }
+
+  private val handler by lazy { Handler(Looper.getMainLooper()) }
+
+  fun post(task: Runnable) = handler.post(task)
+
+  fun postDelayed(task: Runnable, delay: Long = DELAY_MS) = handler.postDelayed(task, delay)
+
+  fun removeAll() = handler.removeCallbacksAndMessages(null)
+
+  fun remove(task: Runnable) = handler.removeCallbacks(task)
 }

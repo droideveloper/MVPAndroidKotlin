@@ -22,10 +22,10 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasBroadcastReceiverInjector
-import org.fs.architecture.common.PresenterType
+import org.fs.architecture.common.Presenter
 import javax.inject.Inject
 
-abstract class AbstractBroadcastReceiver<P: PresenterType>: BroadcastReceiver(), HasBroadcastReceiverInjector {
+abstract class AbstractBroadcastReceiver<P: Presenter>: BroadcastReceiver(), HasBroadcastReceiverInjector {
 
   @Inject lateinit var broadcastInjector: DispatchingAndroidInjector<BroadcastReceiver>
   @Inject lateinit var presenter: P

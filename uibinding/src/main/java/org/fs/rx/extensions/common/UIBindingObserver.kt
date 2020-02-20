@@ -16,9 +16,10 @@
 package org.fs.rx.extensions.common
 
 import android.os.Looper
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiConsumer
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.rxjava3.android.AndroidSchedulers
+import io.reactivex.rxjava3.functions.BiConsumer
+import io.reactivex.rxjava3.observers.DisposableObserver
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
 
 open class UIBindingObserver<T, V>(private val view: T, private val binding: BiConsumer<T, V>): DisposableObserver<V>() {
 
@@ -40,5 +41,5 @@ open class UIBindingObserver<T, V>(private val view: T, private val binding: BiC
   }
 
   override fun onComplete() { /*no-opt*/ }
-  override fun onError(e: Throwable) = e.printStackTrace()
+  override fun onError(e: Throwable) = RxJavaPlugins.onError(e)
 }

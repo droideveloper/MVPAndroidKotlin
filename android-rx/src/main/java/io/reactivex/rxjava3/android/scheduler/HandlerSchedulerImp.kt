@@ -1,5 +1,5 @@
 /*
- * MVP Android Kotlin Copyright (C) 2017 Fatih.
+ *  Copyright (C) 2020 Fatih, MVI Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.architecture.common;
 
-public interface NavigationType<T> {
+package io.reactivex.rxjava3.android.scheduler
 
-  void onSelectCategory(T category);
-}
+import android.os.Handler
+
+class HandlerSchedulerImp(handler: Handler): HandlerScheduler(handler)

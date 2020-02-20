@@ -18,26 +18,25 @@ package org.fs.architecture.common
 import androidx.room.TypeConverter
 import java.util.*
 
-
 sealed class Converters {
 
   companion object {
 
-    @JvmStatic @TypeConverter fun convertToString(charSequence: CharSequence?): String? = when(charSequence) {
-      null -> null
-      else -> charSequence.toString()
+    @JvmStatic @TypeConverter fun convertToString(charSequence: CharSequence?): String? = when {
+      charSequence != null -> charSequence.toString()
+      else -> null
     }
 
     @JvmStatic @TypeConverter fun converToCharSequence(string: String?): CharSequence? = string
 
-    @JvmStatic @TypeConverter fun convertToDate(timeStamp: Long?): Date? = when(timeStamp){
-      null -> null
-      else -> Date(timeStamp)
+    @JvmStatic @TypeConverter fun convertToDate(timeStamp: Long?): Date? = when {
+      timeStamp != null -> Date(timeStamp)
+      else -> null
     }
 
-    @JvmStatic @TypeConverter fun convertToLong(date: Date?): Long? = when(date) {
-      null -> null
-      else -> date.time
+    @JvmStatic @TypeConverter fun convertToLong(date: Date?): Long? = when {
+      date != null -> date.time
+      else -> null
     }
   }
 }

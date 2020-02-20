@@ -21,10 +21,10 @@ import android.view.MenuItem
 import android.view.View
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.snackbar.Snackbar
-import org.fs.architecture.common.PresenterType
+import org.fs.architecture.common.Presenter
 import javax.inject.Inject
 
-abstract class AbstractPreferenceFragment<P: PresenterType>: PreferenceFragmentCompat() {
+abstract class AbstractPreferenceFragment<P: Presenter>: PreferenceFragmentCompat() {
 
   @Inject lateinit var presenter: P
 
@@ -94,12 +94,7 @@ abstract class AbstractPreferenceFragment<P: PresenterType>: PreferenceFragmentC
     presenter.activityResult(requestCode, resultCode, data)
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (item != null) {
-      return presenter.onOptionsItemSelected(item)
-    }
-    return super.onOptionsItemSelected(item)
-  }
+  override fun onOptionsItemSelected(item: MenuItem): Boolean  = presenter.onOptionsItemSelected(item)
 
   open fun isAvailable(): Boolean = isAdded && activity != null
 

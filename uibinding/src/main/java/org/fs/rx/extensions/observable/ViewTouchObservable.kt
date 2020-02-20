@@ -17,9 +17,9 @@ package org.fs.rx.extensions.observable
 
 import android.view.MotionEvent
 import android.view.View
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.android.disposable.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
 import org.fs.rx.extensions.util.checkMainThread
 
 class ViewTouchObservable(private val view: View, private val callback: (MotionEvent?) -> Boolean): Observable<MotionEvent>() {

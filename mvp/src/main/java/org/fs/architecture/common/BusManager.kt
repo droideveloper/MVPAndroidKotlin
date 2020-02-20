@@ -15,26 +15,26 @@
  */
 package org.fs.architecture.common
 
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
-import io.reactivex.subjects.PublishSubject
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.functions.Consumer
+import io.reactivex.rxjava3.subjects.PublishSubject
 
 class BusManager private constructor() {
 
   companion object {
-    @JvmStatic private val imp = BusManager()
-    @JvmStatic private val rxBus = PublishSubject.create<EventType>()
 
-    @JvmStatic fun <T: EventType> send(event: T) = imp.post(event)
-    @JvmStatic fun add(observer: Consumer<EventType>): Disposable = imp.register(observer)
-    @JvmStatic fun remove(disposable: Disposable) = imp.unregister(disposable)
-  }
+    private var instance: BusManager? = null
 
-  private fun <T: EventType> post(event: T) = rxBus.onNext(event)
-  private fun register(observer: Consumer<EventType>): Disposable = rxBus.subscribe(observer)
-  private fun unregister(disposable: Disposable) {
-    if (!disposable.isDisposed) {
-      disposable.dispose()
+    @JvmStatic fun shared(): BusManager = instance ?: synchronized(this) {
+      instance ?: BusManager().also { instance = it }
     }
+
+    @JvmStatic fun <T: Event> send(event: T) = shared().post(event)
+    @JvmStatic fun add(observer: Consumer<Event>): Disposable = shared().register(observer)
   }
+
+  private val rx by lazy { PublishSubject.create<Event>() }
+
+  private fun <T: Event> post(event: T) = rx.onNext(event)
+  private fun register(observer: Consumer<Event>): Disposable = rx.subscribe(observer)
 }

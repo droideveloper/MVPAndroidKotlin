@@ -15,21 +15,6 @@
  */
 package org.fs.architecture.common
 
-import android.content.Context
-import android.content.Intent
-import android.view.View
+import org.fs.architecture.core.AbstractEntity
 
-interface ViewType {
-
-  fun showProgress()
-  fun hideProgress()
-  fun showError(error: String)
-  fun showError(error: String, action: String, callback: View.OnClickListener?)
-  fun getStringRes(stringRes: Int): String
-  fun startActivity(intent: Intent)
-  fun startActivityForResult(intent: Intent, requestCode: Int)
-  fun requestPermissions(permissions: Array<String>, requestCode: Int)
-  fun finish()
-  fun isAvailable(): Boolean
-  fun getContext(): Context?
-}
+abstract class TabletNavigation<T: AbstractEntity>: Navigation<T>

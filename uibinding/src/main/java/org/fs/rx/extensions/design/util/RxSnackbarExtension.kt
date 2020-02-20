@@ -16,7 +16,7 @@
 package org.fs.rx.extensions.design.util
 
 import com.google.android.material.snackbar.Snackbar
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import org.fs.rx.extensions.design.observable.SnackbarDismissObservable
 
 fun Snackbar.dismisses(): Observable<Int> = SnackbarDismissObservable(this)

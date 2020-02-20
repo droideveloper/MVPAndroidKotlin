@@ -10,7 +10,7 @@ android {
     minSdkVersion 16
     targetSdkVersion 29
     versionCode 1
-    versionName "2.0.0"
+    versionName "3.0.0"
   }
 
   lintOptions {
@@ -28,6 +28,10 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
+
+  kotlinOptions {
+    jvmTarget = "1.8"
+  }
 }
 
 androidExtensions {
@@ -36,47 +40,47 @@ androidExtensions {
 
 dependencies {
   // this is for androidx compatibility
-  implementation "androidx.appcompat:appcompat:$ANDROID_X_VERSION"
-  implementation "androidx.recyclerview:recyclerview:$ANDROID_X_VERSION"
-  implementation "androidx.preference:preference:$ANDROID_X_VERSION"
-  implementation "com.google.android.material:material:${ANDROID_X_VERSION}-rc01"
-  implementation "androidx.cardview:cardview:$ANDROID_X_VERSION"
-  implementation "androidx.viewpager:viewpager:$ANDROID_X_VERSION"
-
+  implementation "androidx.appcompat:appcompat:$AND_X_VER"
+  implementation "androidx.recyclerview:recyclerview:$AND_X_VER"
+  implementation "androidx.preference:preference:$AND_X_VER"
+  implementation "com.google.android.material:material:$AND_X_VER"
+  implementation "androidx.cardview:cardview:$AND_UI_X_VER"
+  implementation "androidx.viewpager:viewpager:$AND_UI_X_VER"
 
   // this is image downloading library
-  implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"
-  kapt "com.github.bumptech.glide:compiler:$GLIDE_VERSION"
+  implementation "com.github.bumptech.glide:glide:$GLIDE_VER"
+  // kapt "com.github.bumptech.glide:compiler:$GLIDE_VER"
   //this is json serialization library
-  implementation "com.squareup.moshi:moshi-kotlin:$MOSHI_VERSION"
+  implementation "com.squareup.moshi:moshi-kotlin:$MOSHI_VER"
   // this is http restful client from Square, Retrofit.
-  implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
-  implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
-  implementation "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION"
-  implementation "com.squareup.okio:okio:$OK_HTTP_OKIO_VERSION"
+  implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VER"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VER"
+  implementation "com.squareup.retrofit2:converter-moshi:$RETROFIT_VER"
+  implementation "com.squareup.okio:okio:$OK_HTTP_OKIO_VER"
   //logging response and request for restApiCall
-  implementation "com.squareup.okhttp3:logging-interceptor:$OK_HTTP_VERSION"
+  implementation "com.squareup.okhttp3:logging-interceptor:$OK_HTTP_VER"
+
   //RxJava and RxAndroid
-  implementation "io.reactivex.rxjava2:rxandroid:$REACTIVE_ANDROID"
-  implementation "io.reactivex.rxjava2:rxjava:$REACTIVE_JAVA"
+  implementation "io.reactivex.rxjava3:rxjava:$RX_JAVA3_VER"
+  implementation project(":android-rx")
 
-  implementation "com.google.dagger:dagger:$DAGGER_VERSION"
-  implementation "com.google.dagger:dagger-android:$DAGGER_VERSION"
-  implementation "com.google.dagger:dagger-android-support:$DAGGER_VERSION"
-  kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
-  kapt "com.google.dagger:dagger-android-processor:$DAGGER_VERSION"
+  implementation "com.google.dagger:dagger:$DAGGER_VER"
+  implementation "com.google.dagger:dagger-android:$DAGGER_VER"
+  implementation "com.google.dagger:dagger-android-support:$DAGGER_VER"
+  // kapt "com.google.dagger:dagger-compiler:$DAGGER_VER"
+  // kapt "com.google.dagger:dagger-android-processor:$DAGGER_VER"
 
-  implementation "androidx.room:room-runtime:$DATABASE_VERSION"
-  implementation "androidx.room:room-rxjava2:$DATABASE_VERSION"
-  kapt "androidx.room:room-compiler:$DATABASE_VERSION"
+  implementation "androidx.room:room-runtime:$ROOM_VER"
+  implementation "androidx.room:room-rxjava2:$ROOM_VER"
+  // kapt "androidx.room:room-compiler:$DATABASE_VERSION"
 
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VER"
 }
 
 ext {
   PUBLISH_GROUP_ID = 'org.fs.architecture'
   PUBLISH_ARTIFACT_ID = 'mvp'
-  PUBLISH_VERSION = '2.0.0'
+  PUBLISH_VERSION = '3.0.0'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

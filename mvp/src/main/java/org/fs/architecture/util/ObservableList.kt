@@ -41,9 +41,9 @@ open class ObservableList<T>: ArrayList<T>() {
     if (success) {
       val index = indexOf(element)
       if (listeners.isNotEmpty()) {
-        listeners.forEach({ listener ->
+        listeners.forEach { listener ->
           listener.notifyItemsInserted(index, 1)
-        })
+        }
       }
     }
     return success;

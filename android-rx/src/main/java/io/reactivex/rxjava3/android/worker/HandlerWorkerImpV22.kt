@@ -1,5 +1,5 @@
 /*
- * MVP Android Kotlin Copyright (C) 2017 Fatih.
+ *  Copyright (C) 2020 Fatih, MVI Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.architecture.common
 
-interface EventType
+package io.reactivex.rxjava3.android.worker
+
+import android.annotation.TargetApi
+import android.os.Build
+import android.os.Handler
+import android.os.Message
+
+@TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
+class HandlerWorkerImpV22(handler: Handler): HandlerWorker(handler) {
+
+  override fun obtainMessage(handler: Handler, run: Runnable): Message = super.obtainMessage(handler, run).apply {
+    isAsynchronous = true
+  }
+}

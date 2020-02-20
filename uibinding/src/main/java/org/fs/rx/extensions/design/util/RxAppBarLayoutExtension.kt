@@ -16,7 +16,7 @@
 package org.fs.rx.extensions.design.util
 
 import com.google.android.material.appbar.AppBarLayout
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import org.fs.rx.extensions.design.observable.AppBarLayoutOffsetChangedObservable
 
 fun AppBarLayout.offsetChanges(): Observable<Int> = AppBarLayoutOffsetChangedObservable(this)

@@ -16,10 +16,10 @@
 package org.fs.architecture.core
 
 import android.app.IntentService
-import org.fs.architecture.common.PresenterType
+import org.fs.architecture.common.Presenter
 import javax.inject.Inject
 
-abstract class AbstractIntentService<P: PresenterType>(named: String): IntentService(named) {
+abstract class AbstractIntentService<P: Presenter>(named: String): IntentService(named) {
 
   @Inject lateinit var presenter: P
 }

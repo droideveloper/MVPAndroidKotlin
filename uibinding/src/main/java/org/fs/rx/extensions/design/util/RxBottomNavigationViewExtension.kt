@@ -17,8 +17,8 @@ package org.fs.rx.extensions.design.util
 
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import io.reactivex.Observable
-import io.reactivex.functions.BiConsumer
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.design.observable.BottomNavigationViewItemSelectedObservable
