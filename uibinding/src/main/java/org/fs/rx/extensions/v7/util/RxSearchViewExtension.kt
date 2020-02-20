@@ -17,8 +17,8 @@ package org.fs.rx.extensions.v7.util
 
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import io.reactivex.Observable
-import io.reactivex.functions.BiConsumer
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.util.EMPTY
 import org.fs.rx.extensions.v7.observable.SearchViewQueryTextChangedObservable

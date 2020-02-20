@@ -17,8 +17,8 @@ package org.fs.rx.extensions.util
 
 import android.view.View
 import android.widget.AdapterView
-import io.reactivex.Observable
-import io.reactivex.functions.BiConsumer
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.observable.AdapterViewItemClickObservable

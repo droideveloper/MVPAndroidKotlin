@@ -18,7 +18,7 @@ package org.fs.rx.extensions.util
 
 import android.os.Looper
 import android.util.Log
-import io.reactivex.Observer
+import io.reactivex.rxjava3.core.Observer
 
 fun <T> Observer<T>.checkMainThread(): Boolean = (Looper.myLooper() == Looper.getMainLooper()).also {
   if (!it) {

@@ -15,11 +15,11 @@
  */
 package org.fs.rx.extensions.common
 
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 
-open class Variable<T>(value: T): Disposable  {
+open class Variable<T>(value: T): Disposable {
 
   private var disposed = false
 

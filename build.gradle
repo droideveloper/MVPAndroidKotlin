@@ -1,20 +1,28 @@
 buildscript {
   ext {
-    KOTLIN_VERSION = '1.3.41'
-    DAGGER_VERSION = '2.17'
-    MATERIAL_VERSION = "1.0.0"
-    ANDROID_X_VERSION = "1.0.0"
-    SUPPORT_VERSION = '28.0.0'
-    REACTIVE_ANDROID = '2.1.1'
-    DATABASE_VERSION = "2.1.0"
-    REACTIVE_JAVA = '2.2.2'
-    ANDROID_GRADLE_VERSION = '3.4.0'
-    DEPENDENCIES_VERSION = '1.2'
-    GLIDE_VERSION = '4.9.0'
-    MOSHI_VERSION = "1.8.0"
-    RETROFIT_VERSION = '2.4.0'
-    OK_HTTP_VERSION = '3.11.0'
-    OK_HTTP_OKIO_VERSION = '2.1.0'
+    KOTLIN_VER = "1.3.61"
+    GRADLE_VER = "3.5.3"
+    AND_X_VER = "1.1.0"
+
+    AND_CORE_VER = "1.2.0"
+
+    MATER_VER = "1.1.0"
+    AND_UI_X_VER = "1.0.0"
+
+    DAGGER_VER = '2.17'
+
+    RX_JAVA3_VER = "3.0.0-RC8"
+
+    ROOM_VER = "2.2.3"
+
+
+    DEPENDENCY_VER = '1.2'
+    GLIDE_VER = '4.9.0'
+
+    MOSHI_VER = "1.8.0"
+    RETROFIT_VER = '2.4.0'
+    OK_HTTP_VER = '3.11.0'
+    OK_HTTP_OKIO_VER = '2.1.0'
   }
 
   repositories {
@@ -23,10 +31,10 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:$ANDROID_GRADLE_VERSION"
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
-    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$DEPENDENCIES_VERSION"
-    classpath "com.github.dcendents:android-maven-plugin:$DEPENDENCIES_VERSION"
+    classpath "com.android.tools.build:gradle:$GRADLE_VER"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VER"
+    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$DEPENDENCY_VER"
+    classpath "com.github.dcendents:android-maven-plugin:$DEPENDENCY_VER"
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }

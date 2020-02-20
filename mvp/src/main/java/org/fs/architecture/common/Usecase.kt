@@ -1,5 +1,5 @@
 /*
- * MVP Android Kotlin Copyright (C) 2017 Fatih.
+ *  Copyright (C) 2020 Fatih, MVP Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.fs.architecture.common
 
-import org.fs.architecture.core.AbstractEntity
+import io.reactivex.rxjava3.core.Observable
 
-abstract class HandsetNavigationType<T: AbstractEntity>
+interface Usecase<T> {
+  fun execute(): Observable<T>
+}

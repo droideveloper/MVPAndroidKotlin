@@ -16,9 +16,9 @@
 package org.fs.rx.extensions.v7.observable
 
 import androidx.appcompat.widget.PopupMenu
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.android.disposable.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
 import org.fs.rx.extensions.util.checkMainThread
 
 class PopupMenuDismissObservable(private val view: PopupMenu): Observable<PopupMenu>() {

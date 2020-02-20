@@ -17,9 +17,9 @@ package org.fs.rx.extensions.v4.observable
 
 import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.android.disposable.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
 import org.fs.rx.extensions.util.checkMainThread
 
 class DrawerLayoutSlideOffsetObservable(private val view: DrawerLayout): Observable<Float>() {

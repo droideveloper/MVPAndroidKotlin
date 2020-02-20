@@ -19,7 +19,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 
-abstract class AbstractPresenter<V: ViewType>(val view: V) {
+abstract class AbstractPresenter<V: View>(val view: V) {
 
   open fun onResume() {}
   open fun onPause() {}

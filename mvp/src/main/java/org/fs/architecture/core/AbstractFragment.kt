@@ -25,10 +25,10 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
-import org.fs.architecture.common.PresenterType
+import org.fs.architecture.common.Presenter
 import javax.inject.Inject
 
-abstract class AbstractFragment<P: PresenterType>: Fragment(), HasSupportFragmentInjector {
+abstract class AbstractFragment<P: Presenter>: Fragment(), HasSupportFragmentInjector {
 
   @Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
   @Inject lateinit var presenter: P
@@ -106,12 +106,7 @@ abstract class AbstractFragment<P: PresenterType>: Fragment(), HasSupportFragmen
     presenter.activityResult(requestCode, resultCode, data)
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (item != null) {
-      return presenter.onOptionsItemSelected(item)
-    }
-    return super.onOptionsItemSelected(item)
-  }
+  override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onOptionsItemSelected(item)
 
   open fun isAvailable(): Boolean = isAdded && activity != null
 

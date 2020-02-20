@@ -27,10 +27,10 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import org.fs.architecture.common.PresenterType
+import org.fs.architecture.common.Presenter
 import javax.inject.Inject
 
-abstract class AbstractActivity<P: PresenterType>: AppCompatActivity(), HasSupportFragmentInjector {
+abstract class AbstractActivity<P: Presenter>: AppCompatActivity(), HasSupportFragmentInjector {
 
   @Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
   @Inject lateinit var presenter: P
@@ -76,7 +76,7 @@ abstract class AbstractActivity<P: PresenterType>: AppCompatActivity(), HasSuppo
 
   open fun view(): View? = findViewById(android.R.id.content)
 
-  override fun onSaveInstanceState(outState: Bundle?) {
+  override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     presenter.storeState(outState)
   }
@@ -120,10 +120,5 @@ abstract class AbstractActivity<P: PresenterType>: AppCompatActivity(), HasSuppo
     presenter.onBackPressed()
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (item != null) {
-      return presenter.onOptionsItemSelected(item)
-    }
-    return super.onOptionsItemSelected(item)
-  }
+  override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onOptionsItemSelected(item)
 }

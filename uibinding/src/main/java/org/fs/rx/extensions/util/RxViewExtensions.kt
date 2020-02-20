@@ -18,7 +18,7 @@ package org.fs.rx.extensions.util
 
 import android.view.MotionEvent
 import android.view.View
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import org.fs.rx.extensions.model.LayoutState
 import org.fs.rx.extensions.model.ViewAttachState
 import org.fs.rx.extensions.observable.*

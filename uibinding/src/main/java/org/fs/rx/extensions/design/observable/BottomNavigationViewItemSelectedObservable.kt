@@ -17,9 +17,9 @@ package org.fs.rx.extensions.design.observable
 
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.android.disposable.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
 import org.fs.rx.extensions.util.checkMainThread
 
 class BottomNavigationViewItemSelectedObservable(private val view: BottomNavigationView, private val predicate: (MenuItem) -> Boolean): Observable<MenuItem>() {

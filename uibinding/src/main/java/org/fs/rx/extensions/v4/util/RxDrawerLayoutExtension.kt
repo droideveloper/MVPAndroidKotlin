@@ -16,8 +16,8 @@
 package org.fs.rx.extensions.v4.util
 
 import androidx.drawerlayout.widget.DrawerLayout
-import io.reactivex.Observable
-import io.reactivex.functions.BiConsumer
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.functions.BiConsumer
 import org.fs.rx.extensions.common.ControlProperty
 import org.fs.rx.extensions.common.UIBindingObserver
 import org.fs.rx.extensions.v4.observable.DrawerLayoutOpenOrClosedObservable
@@ -30,7 +30,7 @@ fun DrawerLayout.slideOfsetChanges(): Observable<Float> = DrawerLayoutSlideOffse
 
 fun DrawerLayout.stateChanges(): Observable<Int> = DrawerLayoutStateChangedObservable(this)
 
-fun DrawerLayout.openOrClose(gravity: Int): UIBindingObserver<DrawerLayout, Boolean> = UIBindingObserver(this, BiConsumer { view, open ->
+fun DrawerLayout.openOrClose(gravity: Int): UIBindingObserver<DrawerLayout, Boolean> = UIBindingObserver(this, BiConsumer { view, _ ->
   if (view.isDrawerOpen(gravity)) {
     view.closeDrawer(gravity)
   } else {

@@ -22,7 +22,10 @@ import androidx.fragment.app.FragmentPagerAdapter
 import org.fs.architecture.common.PropertyChangedListener
 import org.fs.architecture.util.ObservableList
 
-abstract class AbstractFragmentPagerAdapter<D>(protected val dataSet: ObservableList<D>, fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager), PropertyChangedListener {
+abstract class AbstractFragmentPagerAdapter<D>(
+  protected val dataSet: ObservableList<D>,
+  fragmentManager: FragmentManager,
+  state: Int = BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT): FragmentPagerAdapter(fragmentManager, state), PropertyChangedListener {
 
   open fun register() {
     dataSet.register(this)

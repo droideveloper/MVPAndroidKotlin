@@ -29,10 +29,10 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
-import org.fs.architecture.common.PresenterType
+import org.fs.architecture.common.Presenter
 import javax.inject.Inject
 
-abstract class AbstractDialogFragment<P: PresenterType> : DialogFragment(), HasSupportFragmentInjector {
+abstract class AbstractDialogFragment<P: Presenter> : DialogFragment(), HasSupportFragmentInjector {
 
   @Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
   @Inject lateinit var presenter: P
@@ -110,12 +110,7 @@ abstract class AbstractDialogFragment<P: PresenterType> : DialogFragment(), HasS
     presenter.activityResult(requestCode, resultCode, data)
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (item != null) {
-      return presenter.onOptionsItemSelected(item)
-    }
-    return super.onOptionsItemSelected(item)
-  }
+  override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onOptionsItemSelected(item)
 
   open fun isAvailable(): Boolean = isAdded && activity != null
 
@@ -129,12 +124,13 @@ abstract class AbstractDialogFragment<P: PresenterType> : DialogFragment(), HasS
     super.dismiss()
   }
 
-  override fun show(manager: FragmentManager?, tag: String?) {
-    val transaction = manager?.beginTransaction()
+  override fun show(manager: FragmentManager, tag: String?) {
+    val transaction = manager.beginTransaction()
     show(transaction, tag)
   }
 
-  override fun show(transaction: FragmentTransaction?, tag: String?): Int {
-    return transaction?.add(this, tag)!!.commit()
+  override fun show(transaction: FragmentTransaction, tag: String?): Int {
+    return transaction.add(this, tag)
+      .commit()
   }
 }

@@ -15,13 +15,14 @@
  */
 package org.fs.rx.extensions.common
 
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.internal.disposables.DisposableHelper
-import java.util.concurrent.atomic.AtomicReference
 
+import io.reactivex.rxjava3.android.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.internal.disposables.DisposableHelper
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
+import java.util.concurrent.atomic.AtomicReference
 
 open class ControlProperty<T>(source: Observable<T>, private val sink: Observer<T>): Observable<T>(), Observer<T>, Disposable {
 
@@ -31,7 +32,7 @@ open class ControlProperty<T>(source: Observable<T>, private val sink: Observer<
   override fun subscribeActual(observer: Observer<in T>) = source.subscribe(observer)
 
   override fun onSubscribe(d: Disposable) { DisposableHelper.setOnce(s, d) }
-  override fun onError(e: Throwable) = e.printStackTrace()
+  override fun onError(e: Throwable) = RxJavaPlugins.onError(e)
   override fun onNext(value: T) = sink.onNext(value)
   override fun onComplete() = sink.onComplete()
 

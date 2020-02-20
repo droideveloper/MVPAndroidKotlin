@@ -16,7 +16,7 @@
 package org.fs.rx.extensions.design.util
 
 import com.google.android.material.textfield.TextInputLayout
-import io.reactivex.functions.BiConsumer
+import io.reactivex.rxjava3.functions.BiConsumer
 import org.fs.rx.extensions.common.UIBindingObserver
 
 fun TextInputLayout.counterEnabled(): UIBindingObserver<TextInputLayout, Boolean> = UIBindingObserver(this, BiConsumer { view, enabled -> view.isCounterEnabled = enabled })

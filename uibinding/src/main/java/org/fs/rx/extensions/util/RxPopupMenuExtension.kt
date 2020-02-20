@@ -17,7 +17,7 @@ package org.fs.rx.extensions.util
 
 import android.view.MenuItem
 import android.widget.PopupMenu
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import org.fs.rx.extensions.observable.PopupMenuDismissObservable
 import org.fs.rx.extensions.observable.PopupMenuItemClickObservable
 

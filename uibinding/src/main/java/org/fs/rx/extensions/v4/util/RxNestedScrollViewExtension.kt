@@ -16,7 +16,7 @@
 package org.fs.rx.extensions.v4.util
 
 import androidx.core.widget.NestedScrollView
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import org.fs.rx.extensions.model.NestedScrollViewScrollEvent
 import org.fs.rx.extensions.v4.observable.NestedScrollViewScrollEventObservable
 

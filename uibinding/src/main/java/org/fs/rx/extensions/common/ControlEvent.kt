@@ -15,9 +15,9 @@
  */
 package org.fs.rx.extensions.common
 
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.android.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
 
 open class ControlEvent<T>constructor(source: Observable<T>): Observable<T>() {
 

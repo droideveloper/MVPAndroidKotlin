@@ -1,5 +1,5 @@
 /*
- * MVP Android Kotlin Copyright (C) 2017 Fatih.
+ *  Copyright (C) 2020 Fatih, MVI Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,8 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.architecture.common
 
-import org.fs.architecture.core.AbstractEntity
+package io.reactivex.rxjava3.android
 
-abstract class TabletNavigationType<T: AbstractEntity>
+import android.os.Looper
+import java.lang.IllegalStateException
+
+inline fun <reified T> T.verifyMainThread(): Boolean = Looper.myLooper() == Looper.getMainLooper()
+
+inline fun <reified T> T.verifyMainThreadOrThrow(error: String) = when {
+  verifyMainThread() -> Unit
+  else -> throw IllegalStateException(error)
+}

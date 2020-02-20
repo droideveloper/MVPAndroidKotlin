@@ -1,5 +1,5 @@
 /*
- * MVP Android Kotlin Copyright (C) 2017 Fatih.
+ *  Copyright (C) 2020 Fatih, MVI Android Kotlin.
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.fs.architecture.common;
 
-import io.reactivex.Observable;
+package io.reactivex.rxjava3.android
 
-public interface UsecaseType<T> {
-  Observable<T> async();
+import android.os.Handler
+import android.os.Looper
+import io.reactivex.rxjava3.android.scheduler.HandlerSchedulerCompat
+import io.reactivex.rxjava3.core.Scheduler
+
+sealed class AndroidSchedulers {
+
+  companion object {
+
+    private var instance: Scheduler? = null
+
+    @JvmStatic fun mainThread(): Scheduler = instance ?: synchronized(this) {
+      instance ?: HandlerSchedulerCompat.newInstance(Handler(Looper.getMainLooper())).also {
+        instance = it
+      }
+    }
+  }
 }

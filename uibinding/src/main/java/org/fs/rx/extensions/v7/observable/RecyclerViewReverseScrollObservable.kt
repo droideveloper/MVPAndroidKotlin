@@ -19,11 +19,11 @@ import android.os.Looper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import io.reactivex.rxjava3.android.AndroidSchedulers
 
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
 import org.fs.rx.extensions.model.RecyclerViewScrollEvent
 import org.fs.rx.extensions.util.checkMainThread
 import java.util.concurrent.atomic.AtomicBoolean
@@ -42,7 +42,8 @@ class RecyclerViewReverseScrollObservable(private val view: RecyclerView, privat
     }
   }
 
-  class Listener(private val view: RecyclerView, private val observer: Observer<in RecyclerViewScrollEvent>, private val visibleThreshold: Int): RecyclerView.OnScrollListener(), Disposable {
+  class Listener(private val view: RecyclerView, private val observer: Observer<in RecyclerViewScrollEvent>, private val visibleThreshold: Int): RecyclerView.OnScrollListener(),
+    Disposable {
 
     private var firstVisibleItem: Int? = null
     private var visibleItemCount:Int? = null

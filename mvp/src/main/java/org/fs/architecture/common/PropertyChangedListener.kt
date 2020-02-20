@@ -16,7 +16,6 @@
 package org.fs.architecture.common
 
 interface PropertyChangedListener {
-
   fun notifyItemsRemoved(index: Int, size: Int)
   fun notifyItemsInserted(index: Int, size: Int)
   fun notifyItemsChanged(index: Int, size: Int)

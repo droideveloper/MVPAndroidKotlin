@@ -16,7 +16,7 @@
 package org.fs.rx.extensions.util
 
 import android.widget.AbsListView
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import org.fs.rx.extensions.model.AbsListViewScrollEventState
 import org.fs.rx.extensions.observable.AbsListViewScrollEventStateObservable
 import org.fs.rx.extensions.observable.AbsListViewScrollStateObservable

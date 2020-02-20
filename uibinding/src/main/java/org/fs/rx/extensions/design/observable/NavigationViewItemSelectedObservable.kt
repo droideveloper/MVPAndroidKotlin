@@ -17,9 +17,9 @@ package org.fs.rx.extensions.design.observable
 
 import android.view.MenuItem
 import com.google.android.material.navigation.NavigationView
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.MainThreadDisposable
+import io.reactivex.rxjava3.android.disposable.MainThreadDisposable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observer
 import org.fs.rx.extensions.util.checkMainThread
 
 class NavigationViewItemSelectedObservable(private val view: NavigationView, private val predicate: (MenuItem) -> Boolean): Observable<MenuItem>() {
